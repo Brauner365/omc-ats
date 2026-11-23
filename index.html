@@ -32,8 +32,8 @@ input,select,textarea{font-family:inherit;font-size:14px}
 .vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(3,5,10,.55))}
 @media (prefers-reduced-motion:reduce){.sweep,.lcard{animation:none!important}.photo{animation:none!important}.photo.p1{opacity:1}}
 .cobrand{display:flex;align-items:center;gap:22px;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid #e8edf2}
-.cb-syn{height:46px;width:auto;display:block}
-.cb-co{height:40px;width:auto;display:block}
+.cb-syn{height:66px;width:auto;display:block}
+.cb-co{height:36px;width:auto;display:block}
 .cb-x{width:1px;height:38px;background:#d9dee5}
 .lcard{animation:none!important}.photo{animation:none!important}.photo.p1{opacity:1}}
 .lk-syn{height:52px;width:auto;display:block}
@@ -138,13 +138,117 @@ main{flex:1;min-width:0}
 .prog{flex:1;height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;max-width:220px}.prog i{display:block;height:100%;background:var(--green)}
 
 /* kanban */
-.kb{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;align-items:flex-start}
-.col{flex:0 0 250px;background:#e8edf4;border-radius:14px;padding:10px;min-height:200px}
+.pTools{display:flex;gap:10px;margin-bottom:14px;align-items:center;flex-wrap:wrap}
+.pTools select,.pTools input{height:38px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 12px;font-size:13.5px;font-weight:500;color:var(--ink)}
+.pTools input{width:240px}.pTools .hint{font-size:12.5px;color:var(--mut)}
+.kb{display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;align-items:stretch;padding-bottom:6px;scroll-behavior:auto}
+.kb::-webkit-scrollbar{height:10px}.kb::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:9px}
+.col{flex:1 1 0;min-width:164px;background:#eaeef4;border-radius:14px;display:flex;flex-direction:column;min-height:0;transition:flex-basis .2s,background .15s}
+.colB{flex:1;overflow-y:auto;padding:2px 8px 10px;min-height:60px}
+.colB::-webkit-scrollbar{width:6px}.colB::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:9px}
+.col.mini{flex:0 0 52px;min-width:52px;cursor:pointer;align-items:center}
+.col.mini .colH{writing-mode:vertical-rl;transform:rotate(180deg);padding:14px 0;gap:10px;flex:1;justify-content:flex-end}
+.col.mini .colH span{margin:0}
+.col.mini .colB{display:none}
+.col.mini:hover{background:#dfe5ee}
+.col.over,.col.mini.over{background:color-mix(in srgb,var(--acc) 12%,#eaeef4);outline:2px dashed var(--acc);outline-offset:-3px}
+.colEmpty{font-size:12px;color:#94a3b8;text-align:center;padding:18px 6px;border:1.5px dashed #d3dae4;border-radius:10px;margin-top:2px}
 .col.over{outline:2px dashed var(--acc);outline-offset:-4px}
-.colH{display:flex;align-items:center;gap:8px;padding:6px 6px 10px;font-weight:700;font-size:13px}
-.colH i{width:8px;height:8px;border-radius:50%}
+.colH{display:flex;align-items:center;gap:8px;padding:12px 14px 10px;font-weight:700;font-size:13px;white-space:nowrap}
+.colH .x{margin-left:auto;border:0;background:none;color:#94a3b8;font-size:14px;padding:0 2px}
+.colH i{width:8px;height:8px;border-radius:50%;flex:none}
 .colH span{margin-left:auto;background:#fff;border-radius:99px;padding:1px 8px;font-size:12px;color:var(--mut)}
-.kc{background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:8px;border:1px solid var(--line);cursor:grab;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kc{position:relative;background:#fff;border-radius:10px;padding:10px 11px 9px;margin-bottom:7px;border:1px solid var(--line);cursor:grab;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:box-shadow .15s,transform .15s}
+.kc:hover{box-shadow:0 4px 14px rgba(15,23,42,.10);border-color:#cfd8e3}
+.kc.drag{opacity:.35}
+.kc.stale{box-shadow:inset 3px 0 0 #f59e0b,0 1px 2px rgba(15,23,42,.04)}
+.kc .kt{display:flex;align-items:flex-start;gap:6px;padding-right:2px}
+.kc:hover .kt b{padding-right:24px}
+.kc .kt b{flex:1;min-width:0;font-size:13.5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kc small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kmv{position:absolute;top:7px;right:7px;border:0;background:#f1f5f9;color:#475569;border-radius:6px;width:24px;height:22px;font-size:14px;line-height:1;opacity:0;transition:opacity .12s;flex:none}
+.kc:hover .kmv,.kmv:focus{opacity:1}.kmv:hover{background:var(--acc);color:#fff}
+.kc .ft{flex-wrap:nowrap;white-space:nowrap}
+.kc .ft .loc{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.kc .ft .ml{flex:none}
+.chipS{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;background:#eef2f7;color:#475569;flex:none}
+.chipI{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 7px;border-radius:7px;margin-top:7px;background:#eef2ff;color:#3730a3}
+.chipI.fb{background:#fff7e6;color:#9a5b00}
+.kmenu{position:fixed;z-index:90;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 50px rgba(15,23,42,.22);padding:6px;min-width:210px}
+.kmenu .h{font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.08em;padding:8px 10px 4px}
+.kmenu button{display:flex;align-items:center;gap:9px;width:100%;border:0;background:none;padding:8px 10px;border-radius:8px;font-size:13.5px;text-align:left;color:var(--ink)}
+.kmenu button:hover{background:#f1f5f9}.kmenu button i{width:8px;height:8px;border-radius:50%;flex:none}
+.kmenu hr{border:0;border-top:1px solid var(--line);margin:5px 4px}
+/* site tabs + splits */
+.segs{display:inline-flex;background:#e6ebf2;border-radius:12px;padding:4px;gap:4px;margin-bottom:18px;flex-wrap:wrap}
+.segs button{border:0;background:none;padding:8px 16px;border-radius:9px;font-size:13.5px;font-weight:600;color:#475569;display:inline-flex;align-items:center;gap:8px}
+.segs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(15,23,42,.12)}
+.segs i,.siteH i,.subH i,.lg i,.sdot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.split{display:grid;gap:22px}.split.two{grid-template-columns:1fr 1fr}
+.siteH{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;margin:0 0 14px;letter-spacing:-.01em}
+.siteH span{font-weight:500;font-size:12.5px;color:var(--mut);margin-left:2px}
+.sitecol>.card{margin-bottom:18px}
+.qrow .when{color:var(--ink);font-weight:700}
+.subH{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);padding:10px 18px 4px}
+.lg{display:inline-flex;align-items:center;gap:6px;margin-right:12px;font-weight:600;color:var(--ink2)}
+tr.newrow td{background:#fffbeb}tr.newrow:hover td{background:#fef3c7}
+@media (max-width:1180px){.split.two{grid-template-columns:1fr}}
+/* touch devices: no drag, menu always visible */
+@media (hover:none){.kmv{opacity:1}.kc:hover .kt b{padding-right:0}.kc .kt b{padding-right:26px}.kc{cursor:pointer}}
+/* tablet + phone */
+@media (max-width:1024px){
+  .col{min-width:280px}.col.mini{min-width:52px}
+  .kb{scroll-snap-type:x proximity}.col{scroll-snap-align:start}
+  .pTools .hint{display:none}
+  .railBtn{display:none!important}
+  .jump{display:flex!important}
+}
+@media (max-width:860px){
+  .pTools input{width:auto;flex:1;min-width:0}.pTools select{flex:1;min-width:0}
+  .pTools .btn{width:100%;margin-left:0}
+  .segs{display:flex;width:100%}.segs button{flex:1;justify-content:center;padding:9px 8px}
+  .tools input{min-width:0;flex:1 1 100%}.tools select{flex:1}.tools .btn{flex:1 1 100%}
+  .tblw th:nth-child(n+5),.tblw td:nth-child(n+5){display:none}
+  .clip{max-width:150px}
+  .qrow{flex-wrap:wrap}.qrow .btn{margin-left:0;width:100%}
+  .top h2{font-size:18px}.crumb{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .clock,.top .chip{display:none!important}
+  .modal{padding:20px 18px;border-radius:14px}.fr{grid-template-columns:1fr!important}
+  .kmenu{left:12px!important;right:12px;width:auto}
+  .siteH span{display:none}
+  .tblw .nm .av{display:none}
+  .tblw td,.tblw th{padding:11px 10px}
+  .tblw td:first-child b{white-space:normal}
+}
+/* stage jump bar (tablet/phone) */
+.jump{display:none;gap:6px;overflow-x:auto;margin:-4px 0 12px;padding-bottom:2px;scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump button{flex:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 11px;font-size:12.5px;font-weight:600;color:var(--ink2);display:inline-flex;gap:6px;align-items:center}
+.jump button i{width:7px;height:7px;border-radius:50%}
+.jump button b{font-weight:700;color:var(--ink)}
+@media (max-width:600px){.col{min-width:84vw}.col.mini{min-width:52px}}
+/* collapsible sidebar */
+.railBtn{border:1px solid var(--line);background:#fff;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#475569;flex:none}
+.railBtn:hover{background:#f1f5f9}
+body.rail aside{width:76px}
+body.rail .brand{padding:16px 10px}
+body.rail .brand .syn{height:28px;margin:0 auto 12px}
+body.rail .coswitch{min-height:40px;padding:6px}
+body.rail .coswitch img{max-width:48px}
+body.rail .coswitch .cotext{font-size:10px}
+body.rail .coswitch .caret{display:none}
+body.rail .lbl,body.rail .navh,body.rail .meRow>div:last-child,body.rail .so span{display:none}
+body.rail #nav{padding:8px 10px}
+body.rail .ni{justify-content:center;padding:12px 0}
+body.rail .ni::before{left:-10px!important}
+body.rail .ni .badge{position:absolute;top:4px;right:6px;margin:0;font-size:10px;padding:1px 5px}
+body.rail .me{padding:12px 10px}
+body.rail .meRow{justify-content:center;margin-bottom:10px}
+body.rail .so{padding:9px 0}
+/* candidates table */
+.tblw td{white-space:nowrap}
+.tblw td .sub{font-size:12px;color:var(--mut);max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.clip{max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .kc:active{cursor:grabbing}.kc b{font-size:14px;display:block}.kc small{color:var(--mut);font-size:12px;display:block;margin-top:2px}
 .kc .ft{display:flex;gap:6px;margin-top:8px;align-items:center;font-size:11px;color:var(--mut)}
 
@@ -210,7 +314,7 @@ tr.cl:hover td{background:#f8fafc;cursor:pointer}
   .wrap{padding:18px 16px 50px}.top{padding:12px 16px}
   .heroBtn{position:static;margin-top:16px}.hero{padding:22px 20px}
   .clock{display:none}.kv,.fr{grid-template-columns:1fr}
-  .lcard{padding:30px 22px 22px}.cobrand{gap:14px}.cb-syn{height:36px}.cb-co{height:31px}
+  .lcard{padding:30px 22px 22px}.cobrand{gap:14px}.cb-syn{height:54px}.cb-co{height:30px}
   .qrow{margin:0 14px 10px}.secH{padding:16px}
 }
 /* ===== v2 additions ===== */
@@ -328,12 +432,12 @@ tr.cl:hover td{background:#f8fafc;cursor:pointer}
     <nav id="nav"></nav>
     <div class="me">
       <div class="meRow"><div class="av" style="background:var(--red)" id="meAv"></div><div><b id="meName"></b><span id="meTitle"></span></div></div>
-      <button class="so" id="signOut">⇥ Sign out</button>
+      <button class="so" id="signOut" title="Sign out">⇥<span> Sign out</span></button>
     </div>
   </aside>
   <main>
     <div class="top">
-      <button class="burger" id="burger">☰</button>
+      <button class="burger" id="burger">☰</button><button class="railBtn noprint" id="railBtn" title="Collapse / expand menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
       <div style="flex:1;min-width:0"><h2 id="vTitle">Overview</h2><div class="crumb" id="vCrumb"></div></div>
       <div class="topR"><button class="topSearch noprint" onclick="openCmdk()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search candidates…</span><kbd>Ctrl K</kbd></button><span class="chip"><span class="dot"></span>Live search</span><div class="clock" id="clock"></div></div>
     </div>
@@ -486,6 +590,7 @@ const R=()=>S.roles.filter(inScope);
 const live=()=>C().filter(c=>!c.is_spec);
 const reviewQ=()=>live().filter(c=>['submitted','reviewing'].includes(c.stage));
 const specQ=()=>C().filter(c=>c.is_spec&&(isSyn()?(c.spec_draft||(c.spec_reaction==='interested')):(!c.spec_draft&&!c.spec_reaction)));
+const poolNew=()=>C().filter(c=>c.in_talent_pool&&c.pool_reviewed===false);
 const chatUnread=()=>{let seen=0;try{seen=+localStorage.getItem('omc-chat-seen-'+S.me.id)||0}catch(e){}return S.chat.filter(m=>m.sender_id!==S.me.id&&new Date(m.created_at).getTime()>seen&&(S.co==='all'||!m.company_id||m.company_id===S.co)).length};
 
 /* ================= NAV / SHELL ================= */
@@ -509,15 +614,18 @@ function renderShell(){
   document.documentElement.style.setProperty('--acc',co?.accent||'#0b5fa5');
   const vis=visibleCos();
   $('#coBtn').innerHTML=(co?logoHTML(co):`<span class="cotext">All OMC sites</span>`)+(vis.length>1?'<span class="caret">▼</span>':'');
-  const items=[['h','Command'],['overview','Overview'],['pipeline','Pipeline'],['interviews','Interviews'],['diary','Diary'],['candidates','Candidates'],['compare','Compare'],['talent','Talent Pool'],['spec','Spec CVs',specQ().length],
-    ['h','Insight'],['reports','Reports'],['h','Comms'],['chat','Team Chat',chatUnread()],['h','Programme'],['vacancies','Vacancies']];
+  const items=[['h','Command'],['overview','Overview'],['reports','Reports'],['pipeline','Pipeline'],['interviews','Interviews'],['diary','Diary'],['candidates','Candidates'],['compare','Compare'],['talent','Talent Pool',poolNew().length],['spec','Spec CVs',specQ().length],
+    ['h','Comms'],['chat','Team Chat',chatUnread()],['h','Programme'],['vacancies','Vacancies']];
   if(isAdmin())items.push(['settings','Settings']);
   $('#nav').innerHTML=items.map(([k,l,b])=>k==='h'?`<div class="navh">${l.toUpperCase()}</div>`:
-    `<button class="ni ${S.view===k?'on':''}" data-v="${k}">${svg(k)}${l}${b?`<span class="badge">${b}</span>`:''}</button>`).join('');
+    `<button class="ni ${S.view===k?'on':''}" data-v="${k}" title="${l}">${svg(k)}<span class="lbl">${l}</span>${b?`<span class="badge">${b}</span>`:''}</button>`).join('');
 }
 $('#nav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;go(b.dataset.v)});
 function go(v){S.view=v;location.hash=v;$('#side').classList.remove('open');render();window.scrollTo(0,0)}
 $('#burger').onclick=()=>$('#side').classList.toggle('open');
+function applyRail(){let pref=null;try{pref=localStorage.getItem('omc-rail')}catch(e){}
+  const on=pref==='1'||(pref===null&&S.view==='pipeline');document.body.classList.toggle('rail',on)}
+$('#railBtn').onclick=()=>{const on=!document.body.classList.contains('rail');try{localStorage.setItem('omc-rail',on?'1':'0')}catch(e){}document.body.classList.toggle('rail',on);if(S.view==='pipeline')fitBoard()};
 $('#coBtn').onclick=e=>{e.stopPropagation();const vis=visibleCos();if(vis.length<2)return;const m=$('#coMenu');
   m.innerHTML=(isSyn()||vis.length>1?`<button data-co="all"><span class="sw" style="background:linear-gradient(135deg,#0b5fa5,#7c3aed,#0d9488)"></span>All OMC sites</button>`:'')+
   vis.map(c=>`<button data-co="${c.id}"><span class="sw" style="background:${esc(c.accent)}"></span>${esc(c.name)}<span class="tag ${c.is_live?'live':''}">${c.is_live?'Live':'Ready'}</span></button>`).join('');
@@ -528,7 +636,7 @@ document.addEventListener('click',()=>$('#coMenu').classList.add('hidden'));
 /* ================= RENDER ================= */
 const TITLES={overview:'Overview',pipeline:'Pipeline',interviews:'Interviews',diary:'Interview Diary',candidates:'Candidates',compare:'Compare Shortlist',talent:'Talent Pool',spec:'Spec CVs',reports:'Reports',chat:'Team Chat',vacancies:'Vacancies',settings:'Settings'};
 function render(){
-  if(!S.me)return;renderShell();
+  if(!S.me)return;renderShell();applyRail();
   const co=S.co==='all'?null:coById(S.co);
   $('#vTitle').textContent=TITLES[S.view]||'Overview';
   $('#vCrumb').textContent=(co?co.name:'OMC Engineered Solutions · Limerick & Thurles')+' · Recruitment '+new Date().getFullYear();
@@ -598,17 +706,63 @@ function roleRow(r){const cs=live().filter(c=>c.role_id===r.id);const p=cs.filte
   return`<div class="roleRow"><div style="flex:1;min-width:0"><b>${esc(r.title)}</b><div style="font-size:13px;color:var(--mut)">${esc(r.location||'')}${S.co==='all'?' · '+esc(coName(r.company_id)):''}</div></div><span class="pill b">${act} active</span><div class="prog"><i style="width:${Math.min(100,p/r.target*100)}%"></i></div><b style="font-size:14px;width:46px;text-align:right">${p}/${r.target}</b></div>`}
 
 /* ---------- Pipeline (Kanban) ---------- */
+const NEXT={submitted:'reviewing',reviewing:'interview_requested',interview_requested:'interview_scheduled',interview_scheduled:'feedback',feedback:'offer',offer:'placed'};
+const TERMINAL=['placed','rejected'];
+const shortLoc=l=>String(l||'').split(/\s[–-]\s|,/)[0].trim();
+const age=d=>{if(!d)return'';const h=(Date.now()-new Date(d))/36e5;return h<1?'now':h<24?Math.floor(h)+'h':Math.floor(h/24)+'d'};
+function kCard(c,k){
+  const iv=c.interview_at&&['interview_scheduled','feedback'].includes(k);
+  const stale=!TERMINAL.includes(k)&&c.stage_since&&(Date.now()-new Date(c.stage_since))>7*864e5;
+  const sub=c.current_title||role(c.role_id)?.title||'';
+  return`<div class="kc${stale?' stale':''}" draggable="true" data-id="${c.id}" title="${stale?'In this stage over 7 days':''}">
+    <div class="kt"><b>${esc(c.name)}</b>${isSyn()||k!=='placed'?`<button class="kmv" data-mv="${c.id}" title="Move to…">⋯</button>`:''}</div>
+    <small>${esc(sub)}</small>
+    ${iv?`<div class="chipI ${k==='feedback'?'fb':''}">${k==='feedback'?'Interviewed '+fd(c.interview_at).replace(/ \d{4}$/,''):'📅 '+esc(fIv(c))}</div>`:''}
+    <div class="ft">${S.co==='all'?`<span class="chipS">${esc(coName(c.company_id))}</span>`:''}<span class="loc">${esc(shortLoc(c.location))}</span><span class="ml">${age(c.stage_since)}</span></div></div>`}
 function vPipeline(v){
-  const L=live();
-  v.innerHTML=`<div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap"><select id="pRole" class="btn w" style="font-weight:600">${roleOpts(true)}</select><span style="color:var(--mut);font-size:13px">Drag cards between columns. Approving moves to Interview requested; booking a date moves to Interview scheduled; once the date passes it moves to Feedback.</span>${S.co!=='all'?'<button class="btn ml" onclick="openAdd()">＋ Add candidate</button>':''}</div>
-  <div class="kb">${STAGES.map(([k,l,col])=>{const cs=L.filter(c=>c.stage===k&&(!S.pRole||c.role_id===S.pRole));
-    return`<div class="col" data-stage="${k}"><div class="colH"><i style="background:${col}"></i>${l}<span>${cs.length}</span></div>
-    ${cs.map(c=>`<div class="kc" draggable="true" data-id="${c.id}"><b>${esc(c.name)}</b><small>${esc(role(c.role_id)?.title||c.current_title||'')}</small><div class="ft">${esc(c.location||'')}${c.interview_at&&k==='interview_scheduled'?' · '+fIv(c):''}<span class="ml">${ago(c.stage_since)}</span></div></div>`).join('')}</div>`}).join('')}</div>`;
+  S.kbOpen=S.kbOpen||{};
+  const q=(S.pq||'').toLowerCase();
+  const L=live().filter(c=>(!S.pRole||c.role_id===S.pRole)&&(!q||[c.name,c.current_title,c.location,c.current_employer].join(' ').toLowerCase().includes(q)));
+  v.innerHTML=`<div class="pTools"><input id="pQ" placeholder="Filter cards…" value="${esc(S.pq||'')}"><select id="pRole">${roleOpts(true)}</select>
+    <span class="hint">Drag a card, or use ⋯ on a card to move it.</span>
+    <button class="btn ml" onclick="openAdd()">＋ Add candidate</button></div>
+  <div class="jump">${STAGES.map(([k,l,col])=>`<button onclick="jumpTo('${k}')"><i style="background:${col}"></i>${l}<b>${L.filter(c=>c.stage===k).length}</b></button>`).join('')}</div>
+  <div class="kb" id="kb">${STAGES.map(([k,l,col])=>{const cs=L.filter(c=>c.stage===k);const mini=TERMINAL.includes(k)&&!S.kbOpen[k];
+    return`<div class="col${mini?' mini':''}" data-stage="${k}" ${mini?`title="Click to expand ${l}"`:''}><div class="colH"><i style="background:${col}"></i>${l}<span>${cs.length}</span>${TERMINAL.includes(k)&&!mini?`<button class="x" data-col="${k}" title="Collapse">‹</button>`:''}</div>
+    <div class="colB">${cs.map(c=>kCard(c,k)).join('')||'<div class="colEmpty">Drop here</div>'}</div></div>`}).join('')}</div>`;
   const sel=$('#pRole');sel.value=S.pRole||'';sel.onchange=()=>{S.pRole=sel.value;render()};
-  v.querySelectorAll('.kc').forEach(k=>{k.addEventListener('dragstart',e=>e.dataTransfer.setData('id',k.dataset.id));k.addEventListener('click',()=>openCand(k.dataset.id))});
-  v.querySelectorAll('.col').forEach(col=>{col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('over')});col.addEventListener('dragleave',()=>col.classList.remove('over'));
-    col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('over');const c=S.cands.find(x=>x.id===e.dataTransfer.getData('id'));if(c&&c.stage!==col.dataset.stage)moveStage(c,col.dataset.stage)})});
+  const pq=$('#pQ');pq.oninput=()=>{S.pq=pq.value;const pos=pq.selectionStart;render();const n=$('#pQ');n.focus();n.setSelectionRange(pos,pos)};
+  const kb=$('#kb');let dragId=null,raf=null,pt=null;
+  const autoScroll=()=>{if(!pt||!dragId){raf=null;return}const r=kb.getBoundingClientRect(),E=90;
+    if(pt.x<r.left+E)kb.scrollLeft-=Math.ceil((E-(pt.x-r.left))/5);else if(pt.x>r.right-E)kb.scrollLeft+=Math.ceil((E-(r.right-pt.x))/5);
+    const cb=document.elementFromPoint(pt.x,pt.y)?.closest('.colB');if(cb){const cr=cb.getBoundingClientRect();if(pt.y<cr.top+60)cb.scrollTop-=10;else if(pt.y>cr.bottom-60)cb.scrollTop+=10}
+    raf=requestAnimationFrame(autoScroll)};
+  v.querySelectorAll('.kc').forEach(k=>{
+    k.addEventListener('dragstart',e=>{dragId=k.dataset.id;e.dataTransfer.setData('id',dragId);e.dataTransfer.effectAllowed='move';setTimeout(()=>k.classList.add('drag'));if(!raf)raf=requestAnimationFrame(autoScroll)});
+    k.addEventListener('dragend',()=>{k.classList.remove('drag');dragId=null;pt=null;v.querySelectorAll('.col.over').forEach(x=>x.classList.remove('over'))});
+    k.addEventListener('click',e=>{if(e.target.closest('.kmv'))return;openCand(k.dataset.id)})});
+  kb.addEventListener('dragover',e=>{pt={x:e.clientX,y:e.clientY}});
+  v.querySelectorAll('.col').forEach(col=>{
+    col.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move';col.classList.add('over')});
+    col.addEventListener('dragleave',e=>{if(!col.contains(e.relatedTarget))col.classList.remove('over')});
+    col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('over');const c=S.cands.find(x=>x.id===e.dataTransfer.getData('id'));if(c&&c.stage!==col.dataset.stage)moveStage(c,col.dataset.stage)});
+    if(col.classList.contains('mini'))col.addEventListener('click',()=>{S.kbOpen[col.dataset.stage]=true;render()})});
+  v.querySelectorAll('[data-col]').forEach(b=>b.onclick=e=>{e.stopPropagation();S.kbOpen[b.dataset.col]=false;render()});
+  v.querySelectorAll('[data-mv]').forEach(b=>b.onclick=e=>{e.stopPropagation();openMoveMenu(b.dataset.mv,b)});
+  fitBoard();
 }
+window.jumpTo=k=>{if(TERMINAL.includes(k)&&!S.kbOpen?.[k]){S.kbOpen[k]=true;render()}const c=document.querySelector(`.col[data-stage="${k}"]`),kb=$('#kb');if(c&&kb)kb.scrollTo({left:c.offsetLeft-kb.offsetLeft-4,behavior:'smooth'})};
+function fitBoard(){const kb=$('#kb');if(!kb)return;const t=kb.getBoundingClientRect().top;kb.style.height=Math.max(360,innerHeight-t-18)+'px'}
+addEventListener('resize',()=>{if(S.view==='pipeline')fitBoard()});
+window.openMoveMenu=(id,anchor)=>{document.querySelector('.kmenu')?.remove();const c=S.cands.find(x=>x.id===id);if(!c)return;
+  const nx=NEXT[c.stage];const m=document.createElement('div');m.className='kmenu';
+  m.innerHTML=`${nx?`<button data-s="${nx}"><i style="background:${STAGE[nx].color}"></i><b>Next: ${STAGE[nx].label}</b></button><hr>`:''}<div class="h">MOVE TO</div>${STAGES.filter(s=>s[0]!==c.stage&&s[0]!==nx).map(([k,l,col])=>`<button data-s="${k}"><i style="background:${col}"></i>${l}</button>`).join('')}
+    <hr>${c.in_talent_pool?'<button disabled style="color:var(--mut)">★ In talent pool</button>':'<button data-pool="1">★ Add to talent pool</button>'}
+    ${isSyn()?visibleCos().filter(o=>o.id!==c.company_id).map(o=>`<button data-site="${o.id}">⇄ Move to ${esc(o.short_name)} site</button>`).join(''):''}`;
+  document.body.appendChild(m);const r=anchor.getBoundingClientRect();
+  m.style.left=Math.min(r.left,innerWidth-m.offsetWidth-12)+'px';m.style.top=(r.bottom+m.offsetHeight+8>innerHeight?r.top-m.offsetHeight-6:r.bottom+6)+'px';
+  m.onclick=e=>{const b=e.target.closest('button');if(!b)return;m.remove();if(b.dataset.s)moveStage(c,b.dataset.s);else if(b.dataset.site)moveSite(c.id,b.dataset.site);else if(b.dataset.pool)toPool(c.id)};
+  setTimeout(()=>document.addEventListener('click',function h(ev){if(!m.contains(ev.target)){m.remove();document.removeEventListener('click',h)}}),0)};
 async function moveStage(c,st){
   if(st==='rejected')return openReject(c);
   if(st==='interview_scheduled')return openInterview(c);
@@ -617,15 +771,20 @@ async function moveStage(c,st){
   const ok=await dbUpdate('omc_candidates',c.id,{stage:st},{local:c,label:'Move'});
   if(ok){logAct(c,'stage','Moved to '+STAGE[st].label);toast(c.name+' → '+STAGE[st].label)}
 }
+function siteTabs(){const vis=visibleCos();if(vis.length<2)return'';
+  return`<div class="segs noprint">${[['all','Both sites'],...vis.map(o=>[o.id,o.short_name])].map(([id,l])=>`<button class="${S.co===id?'on':''}" onclick="setSite('${id}')">${id!=='all'?`<i style="background:${esc(coById(id).accent)}"></i>`:''}${esc(l)}</button>`).join('')}</div>`}
+window.setSite=id=>{S.co=id;try{localStorage.setItem('omc-co',id)}catch(e){}render()};
+const siteDot=c=>`<i class="sdot" style="background:${esc(coById(c.company_id)?.accent||'#94a3b8')}" title="${esc(coName(c.company_id))}"></i>`;
+function siteRoleOpts(site,sel){return S.roles.filter(r=>r.company_id===site&&(r.is_open||r.id===sel)).map(r=>`<option value="${r.id}" ${r.id===sel?'selected':''}>${esc(r.title)}</option>`).join('')||'<option value="">No open role at this site</option>'}
 function roleOpts(all,sel){return(all?'<option value="">All roles</option>':'')+R().filter(r=>r.is_open||r.id===sel).map(r=>`<option value="${r.id}" ${r.id===sel?'selected':''}>${esc(r.title)}${S.co==='all'?' — '+esc(coName(r.company_id)):''}</option>`).join('')}
 
 /* ---------- Interviews ---------- */
 function vInterviews(v){
-  const L=live();const up=L.filter(c=>c.stage==='interview_scheduled').sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at));
-  const req=L.filter(c=>c.stage==='interview_requested');const fb=L.filter(c=>c.stage==='feedback');
-  const block=(t,p,list,btn)=>`<div class="card sec"><div class="secH"><div class="cnt">${list.length}</div><div><h3>${t}</h3><p>${p}</p></div></div>${list.length?list.map(c=>`<div class="qrow"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0"><b>${esc(c.name)}</b><span>${esc(role(c.role_id)?.title||'')}${c.interview_at?' · '+fIv(c):''}${c.interview_type?' · '+esc(c.interview_type):''}</span></div><button class="btn s ml" onclick="${btn}('${c.id}')">${btn==='iBook'?'Book date':btn==='iOutcome'?'Record outcome':'Open'} →</button></div>`).join('')+'<div style="height:14px"></div>':'<div class="empty">None right now.</div>'}</div>`;
-  v.innerHTML=block('Awaiting a date','Approved for interview — set the date and time',req,'iBook')+block('Booked','Upcoming interviews',up,'openCand')+block('Feedback needed','Interview has happened — record the outcome',fb,'iOutcome');
-  v.firstElementChild.classList.remove('sec');
+  const block=(t,p,list,btn)=>`<div class="card sec"><div class="secH"><div class="cnt">${list.length}</div><div><h3>${t}</h3><p>${p}</p></div></div>${list.length?list.map(c=>`<div class="qrow"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0"><b>${esc(c.name)}</b><span>${c.interview_at?'<b class="when">'+esc(fIv(c))+'</b>':''}${esc(c.current_title||role(c.role_id)?.title||'')}</span></div><button class="btn s ml" onclick="${btn}('${c.id}')">${btn==='iBook'?'Book date':btn==='iOutcome'?'Record outcome':'Open'} →</button></div>`).join('')+'<div style="height:14px"></div>':'<div class="empty">None right now.</div>'}</div>`;
+  const forSite=L=>{const up=L.filter(c=>c.stage==='interview_scheduled').sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at));
+    return block('Feedback needed','Interview has happened — record the outcome',L.filter(c=>c.stage==='feedback').sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at)),'iOutcome')+block('Booked','Upcoming interviews',up,'openCand')+block('Awaiting a date','Approved for interview — set the date and time',L.filter(c=>c.stage==='interview_requested'),'iBook')};
+  const sites=S.co==='all'?visibleCos():[coById(S.co)];
+  v.innerHTML=siteTabs()+`<div class="split${sites.length>1?' two':''}">${sites.map(o=>`<div class="sitecol">${sites.length>1||true?`<div class="siteH"><i style="background:${esc(o.accent)}"></i>OMC ${esc(o.short_name)}<span>${esc(o.location||'')}</span></div>`:''}${forSite(live().filter(c=>c.company_id===o.id))}</div>`).join('')}</div>`;
 }
 window.iBook=id=>openInterview(S.cands.find(c=>c.id===id));
 window.iOutcome=id=>openOutcome(S.cands.find(c=>c.id===id));
@@ -638,9 +797,11 @@ function vCandidates(v,opts={}){
   if(f.q){const q=f.q.toLowerCase();list=list.filter(c=>[c.name,c.current_title,c.current_employer,c.location,(c.skills||[]).join(' ')].join(' ').toLowerCase().includes(q))}
   if(f.role)list=list.filter(c=>c.role_id===f.role);
   if(f.stage)list=list.filter(c=>c.stage===f.stage);
-  v.innerHTML=`<div class="card"><div class="tools"><input id="fq" placeholder="Search name, title, employer, skills…" value="${esc(f.q||'')}"><select id="fr">${roleOpts(true)}</select>${pool?'':`<select id="fs"><option value="">All stages</option>${STAGES.map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select>`}${S.co!=='all'&&!pool?'<button class="btn" onclick="openAdd()">＋ Add candidate</button>':''}</div>
-  <div class="tblw"><table><thead><tr><th>Name</th><th>Role</th><th>Current role</th><th>Location</th><th>Notice</th><th>Salary exp.</th><th>Added</th><th>CV</th><th>${pool?'Reason':'Stage'}</th></tr></thead><tbody>
-  ${list.map(c=>`<tr class="cl" onclick="openCand('${c.id}')"><td><div class="nm"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><b>${esc(c.name)}</b></div></td><td>${esc(role(c.role_id)?.title||'—')}${S.co==='all'?`<div style="font-size:12px;color:var(--mut)">${esc(coName(c.company_id))}</div>`:''}</td><td>${esc(c.current_title||'—')}${c.current_employer?`<div style="font-size:12px;color:var(--mut)">${esc(c.current_employer)}</div>`:''}</td><td>${esc(c.location||'—')}</td><td>${esc(c.notice||'—')}</td><td>${esc(c.salary_expectation||'—')}</td><td>${fd(c.created_at)}</td><td>${c.cv_path?`<button class="btn s ghost" onclick="event.stopPropagation();viewCV('${c.id}')">View</button>`:'—'}</td><td>${pool?esc(c.reject_reason||'—'):stagePill(c.stage)}</td></tr>`).join('')}
+  if(pool)list=list.slice().sort((a,b)=>(a.pool_reviewed===false?0:1)-(b.pool_reviewed===false?0:1)||new Date(b.pool_added_at||0)-new Date(a.pool_added_at||0));
+  const hasNS=list.some(c=>c.notice||c.salary_expectation);
+  v.innerHTML=`<div class="card"><div class="tools"><input id="fq" placeholder="Search name, title, employer, skills…" value="${esc(f.q||'')}"><select id="fr">${roleOpts(true)}</select>${pool?'':`<select id="fs"><option value="">All stages</option>${STAGES.map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select>`}${!pool?'<button class="btn" onclick="openAdd()">＋ Add candidate</button>':poolNew().length?`<button class="btn" onclick="poolSeenAll()">✓ Mark all ${poolNew().length} reviewed</button>`:''}</div>
+  <div class="tblw"><table><thead><tr><th>Name</th>${pool?'':'<th>Stage</th>'}<th>${S.co==='all'?'Site':'Role'}</th><th>Current role</th><th>Location</th>${hasNS?'<th>Notice</th><th>Salary exp.</th>':''}<th>Added</th><th>CV</th>${pool?'<th>Reason</th><th>Status</th>':''}</tr></thead><tbody>
+  ${list.map(c=>`<tr class="cl${pool&&c.pool_reviewed===false?' newrow':''}" onclick="openCand('${c.id}')"><td><div class="nm"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><b>${esc(c.name)}</b></div></td>${pool?'':`<td>${stagePill(c.stage)}</td>`}<td>${S.co==='all'?`<span class="chipS">${esc(coName(c.company_id))}</span>`:esc(role(c.role_id)?.title||'—')}</td><td><div class="clip" title="${esc(c.current_title||'')}">${esc(c.current_title||'—')}</div>${c.current_employer?`<div class="sub clip" title="${esc(c.current_employer)}">${esc(c.current_employer)}</div>`:''}</td><td title="${esc(c.location||'')}">${esc(shortLoc(c.location)||'—')}</td>${hasNS?`<td>${esc(c.notice||'—')}</td><td>${esc(c.salary_expectation||'—')}</td>`:''}<td>${fd(c.created_at).replace(/ \d{4}$/,'')}</td><td>${c.cv_path?`<button class="btn s ghost" onclick="event.stopPropagation();viewCV('${c.id}')">View</button>`:'—'}</td>${pool?`<td>${esc(c.reject_reason||'—')}</td><td>${c.pool_reviewed===false?`<span class="pill a">New</span> <button class="btn s ghost" onclick="poolSeen('${c.id}',event)">✓ Reviewed</button>`:'<span style="color:var(--mut);font-size:12px">Reviewed</span>'}</td>`:''}</tr>`).join('')}
   </tbody></table>${list.length?'':`<div class="empty">${pool?'No one in the talent pool yet. Rejected candidates worth keeping land here.':'No candidates yet.'}</div>`}</div></div>`;
   const q=$('#fq');q.oninput=()=>{S.f={...S.f,q:q.value};const pos=q.selectionStart;render();const n=$('#fq');n.focus();n.setSelectionRange(pos,pos)};
   $('#fr').value=f.role||'';$('#fr').onchange=e=>{S.f={...S.f,role:e.target.value};render()};
@@ -648,6 +809,8 @@ function vCandidates(v,opts={}){
 }
 const stagePill=s=>{const m={placed:'g',rejected:'r',offer:'p',feedback:'a',interview_scheduled:'b',interview_requested:'b'}[s]||'';return`<span class="pill ${m}">${STAGE[s]?.label||s}</span>`};
 function vTalent(v){vCandidates(v,{pool:true})}
+window.poolSeen=async(id,ev)=>{ev&&ev.stopPropagation();const c=S.cands.find(x=>x.id===id);if(await dbUpdate('omc_candidates',id,{pool_reviewed:true},{local:c})){logAct(c,'stage','Talent pool entry reviewed')}};
+window.poolSeenAll=async()=>{for(const c of poolNew())await dbUpdate('omc_candidates',c.id,{pool_reviewed:true},{local:c});toast('All marked as reviewed')};
 
 /* ---------- Spec CVs: see v2 block ---------- */
 window.specReact=async(id,r)=>{const c=S.cands.find(x=>x.id===id);const ok=await dbUpdate('omc_candidates',id,{spec_reaction:r,spec_reacted_by:S.me.full_name,spec_reacted_at:new Date().toISOString()},{local:c});if(ok){logAct(c,'spec',r==='interested'?'Spec CV — client interested':'Spec CV — not now');toast(r==='interested'?'Syntech has been notified':'Noted')}};
@@ -657,11 +820,11 @@ window.openPromote=id=>{const c=S.cands.find(x=>x.id===id);const S2=S.co;modal(`
 /* ---------- Team chat ---------- */
 function vChat(v){
   try{localStorage.setItem('omc-chat-seen-'+S.me.id,Date.now())}catch(e){}
-  v.innerHTML=`<div class="card chat"><div class="secH" style="border-bottom:1px solid var(--line)"><div><h3>Team Chat</h3><p>${S.co==='all'?'Showing both site threads':'Syntech ↔ '+esc(coName(S.co))+' hiring team · anyone not in the chat gets an email'}</p></div></div><div class="msgs" id="msgs"></div>
-  <div class="cin"><textarea id="cmsg" placeholder="${S.co==='all'?'Pick Limerick or Thurles in the switcher to post':'Message the team…'}" ${S.co==='all'?'disabled':''}></textarea><button class="btn" id="csend" ${S.co==='all'?'disabled':''}>Send</button></div></div>`;
+  v.innerHTML=`<div class="card chat"><div class="secH" style="border-bottom:1px solid var(--line)"><div><h3>Team Chat</h3><p>${S.co==='all'?'Syntech ↔ OMC hiring team · both sites · anyone not in the chat gets an email':'Syntech ↔ OMC '+esc(coName(S.co))+' · anyone not in the chat gets an email'}</p></div></div><div class="msgs" id="msgs"></div>
+  <div class="cin"><textarea id="cmsg" placeholder="${S.co==='all'?'Message the OMC team (both sites)…':'Message the '+esc(coName(S.co))+' team…'}"></textarea><button class="btn" id="csend">Send</button></div></div>`;
   renderChatMsgs();renderShell();chatBeat();
   const send=async()=>{const t=$('#cmsg');const body=t.value.trim();if(!body)return;t.value='';
-    const d=await dbInsert('omc_team_messages',{company_id:S.co,sender_id:S.me.id,sender_name:S.me.full_name,body});if(d&&!S.chat.find(x=>x.id===d.id)){S.chat.push(d);renderChatMsgs()}
+    const d=await dbInsert('omc_team_messages',{company_id:S.co==='all'?null:S.co,sender_id:S.me.id,sender_name:S.me.full_name,body});if(d&&!S.chat.find(x=>x.id===d.id)){S.chat.push(d);renderChatMsgs()}
     if(d)fnCall('omc-chat-alert',{message_id:d.id}).then(r=>{if(r&&r.sent)toast('Emailed '+r.sent+' '+(r.sent===1?'person':'people')+' who aren\'t in the chat')}).catch(()=>{})};
   $('#csend').onclick=send;$('#cmsg').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
 }
@@ -743,8 +906,8 @@ window.openCand=id=>{
   if(isSyn()&&!c.is_spec&&['submitted','reviewing'].includes(c.stage))actions+=`<span style="font-size:12.5px;color:var(--mut);align-self:center">Client decides here — you can act on their behalf if they ask.</span>`;
   else if(['submitted','reviewing'].includes(c.stage))actions=`<button class="btn g" onclick="approve('${c.id}')">✓ Approve for interview</button><button class="btn r" onclick="openReject(S.cands.find(x=>x.id==='${c.id}'))">Pass</button>`;
   else if(c.stage==='interview_requested')actions=`<button class="btn" onclick="openInterview(S.cands.find(x=>x.id==='${c.id}'))">📅 Set interview date</button><button class="btn ghost" onclick="openReject(S.cands.find(x=>x.id==='${c.id}'))">Withdraw / reject</button>`;
-  else if(c.stage==='interview_scheduled')actions=`<button class="btn" onclick="openInterview(S.cands.find(x=>x.id==='${c.id}'))">Change date</button><button class="btn ghost" onclick="openOutcome(S.cands.find(x=>x.id==='${c.id}'))">Record outcome</button>`;
-  else if(c.stage==='feedback')actions=`<button class="btn" onclick="openOutcome(S.cands.find(x=>x.id==='${c.id}'))">Record interview outcome</button>`;
+  else if(c.stage==='interview_scheduled')actions=`<button class="btn" onclick="openInterview(S.cands.find(x=>x.id==='${c.id}'))">Change date</button><button class="btn ghost" onclick="openOutcome(S.cands.find(x=>x.id==='${c.id}'))">Record outcome</button><button class="btn ghost" onclick="openOffer(S.cands.find(x=>x.id==='${c.id}'))">Make offer</button>`;
+  else if(c.stage==='feedback')actions=`<button class="btn" onclick="openOffer(S.cands.find(x=>x.id==='${c.id}'))">Make offer</button><button class="btn ghost" onclick="openOutcome(S.cands.find(x=>x.id==='${c.id}'))">Record interview outcome</button>`;
   else if(c.stage==='offer')actions=`<button class="btn g" onclick="openPlaced(S.cands.find(x=>x.id==='${c.id}'))">★ Offer accepted — placed</button><button class="btn ghost" onclick="openReject(S.cands.find(x=>x.id==='${c.id}'),'Offer declined')">Offer declined</button>`;
   else if(c.stage==='rejected')actions=`<button class="btn ghost" onclick="reopen('${c.id}')">Reconsider</button>${c.in_talent_pool?'':`<button class="btn ghost" onclick="toPool('${c.id}')">Add to talent pool</button>`}`;
   $('#layer').innerHTML=`<div class="scrim" id="dr"><div class="drawer">
@@ -754,7 +917,7 @@ window.openCand=id=>{
     ${actions?`<div class="box" style="background:#f8fafc"><h4>Your decision</h4><div class="acts">${actions}</div></div>`:''}
     <div class="kv">
      <div><small>Current role</small>${esc(c.current_title||'—')}</div><div><small>Current employer</small>${esc(c.current_employer||'—')}</div>
-     <div><small>Location</small>${esc(c.location||'—')}</div><div><small>Right to work (UK)</small>${esc(c.right_to_work||'—')}</div>
+     <div><small>Location</small>${esc(c.location||'—')}</div><div><small>Right to work (IE)</small>${esc(c.right_to_work||'—')}</div>
      <div><small>Notice</small>${esc(c.notice||'—')}</div><div><small>Salary expectation</small>${esc(c.salary_expectation||'—')}</div>
      ${c.interview_at?`<div><small>Interview</small>${fIv(c)}${c.interview_type?' · '+esc(c.interview_type):''}</div>`:''}
      ${c.interview_outcome?`<div><small>Interview outcome</small>${esc(c.interview_outcome)}</div>`:''}
@@ -767,7 +930,7 @@ window.openCand=id=>{
     ${c.interview_notes?`<div class="box"><h4>Interview notes</h4><div style="font-size:14px;white-space:pre-wrap">${esc(c.interview_notes)}</div></div>`:''}
     <div class="box"><h4>CV</h4>${c.cv_path?`<div class="acts"><button class="btn" onclick="drawerTab('${c.id}','cv')">Read CV</button><button class="btn ghost" onclick="viewCV('${c.id}')">Full screen</button><span style="font-size:13px;color:var(--mut);align-self:center">${esc(c.cv_name||'')}</span></div>`:'<span style="font-size:14px;color:var(--mut)">No CV uploaded.</span>'}
       ${isSyn()?`<div class="dropmini" id="cvDrop" style="margin-top:10px">${c.cv_path?'Drop a new CV to replace':'Drop a CV here'} — or click to choose</div>`:''}</div>
-    ${isSyn()?`<div class="acts" style="margin-bottom:18px"><button class="btn s ghost" onclick="openEdit('${c.id}')">Edit details</button>${isOpenStage&&!c.is_spec?`<select class="btn s ghost" onchange="if(this.value)moveStage(S.cands.find(x=>x.id==='${c.id}'),this.value)"><option value="">Move stage…</option>${STAGES.filter(s=>s[0]!==c.stage).map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select>`:''}</div>`:''}
+    ${isSyn()?`<div class="acts" style="margin-bottom:18px"><button class="btn s ghost" onclick="openEdit('${c.id}')">Edit details</button>${visibleCos().filter(o=>o.id!==c.company_id).map(o=>`<button class="btn s ghost" onclick="moveSite('${c.id}','${o.id}')">⇄ Move to ${esc(o.short_name)}</button>`).join('')}${isOpenStage&&!c.is_spec?`<select class="btn s ghost" onchange="if(this.value)moveStage(S.cands.find(x=>x.id==='${c.id}'),this.value)"><option value="">Move stage…</option>${STAGES.filter(s=>s[0]!==c.stage).map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select>`:''}</div>`:''}
     <button class="btn ghost s" onclick="drawerTab('${c.id}','timeline')">View timeline →</button>`}
    </div></div></div>`;
   $('#dr').addEventListener('mousedown',e=>{if(e.target.id==='dr')closeDrawer()});
@@ -779,7 +942,7 @@ window.approve=async id=>{const c=S.cands.find(x=>x.id===id);const ok=await dbUp
   if(ok){logAct(c,'decision','Approved for interview');toast('Approved — Syntech will arrange the interview');nextInQueue(id)}};
 function nextInQueue(id){const q=reviewQ().filter(c=>c.id!==id);if(q.length)openCand(q[0].id);else{closeDrawer();toast('Review queue clear ✓')}}
 window.reopen=async id=>{const c=S.cands.find(x=>x.id===id);if(await dbUpdate('omc_candidates',id,{stage:'reviewing',client_decision:null,reject_reason:null,reject_note:null},{local:c})){logAct(c,'decision','Reconsidered — back to Reviewing');openCand(id)}};
-window.toPool=async id=>{const c=S.cands.find(x=>x.id===id);if(await dbUpdate('omc_candidates',id,{in_talent_pool:true},{local:c})){logAct(c,'stage','Added to talent pool');openCand(id)}};
+window.toPool=async id=>{const c=S.cands.find(x=>x.id===id);if(await dbUpdate('omc_candidates',id,{in_talent_pool:true,pool_reviewed:false,pool_added_at:new Date().toISOString()},{local:c})){logAct(c,'stage','Added to talent pool');toast(c.name+' added to the talent pool');if(S.openId===id)openCand(id);else render()}};
 
 window.openReject=(c,preset)=>{modal(`<h3>Pass on ${esc(c.name)}</h3><p class="s">A reason helps Syntech sharpen the next shortlist.</p>
   <div class="f"><label>Reason</label><select id="rr">${(preset?[preset,...REJECT_REASONS]:REJECT_REASONS).map(r=>`<option>${r}</option>`).join('')}</select></div>
@@ -812,12 +975,19 @@ window.openOutcome=c=>{modal(`<h3>How did ${esc(c.name)} do?</h3><p class="s">In
     else if(o==='second'){await dbUpdate('omc_candidates',c.id,{interview_outcome:'Second interview',interview_notes:notes||null,stage:'interview_requested'},{local:c});logAct(c,'decision','Interview outcome — second interview');toast('Second interview requested');openCand(c.id)}
     else{await dbUpdate('omc_candidates',c.id,{interview_outcome:'Not progressing',interview_notes:notes||null},{local:c});openReject(c,'Interview — not progressing')}}};
 
-window.openOffer=c=>{modal(`<h3>Offer — ${esc(c.name)}</h3><p class="s">Syntech will put this to the candidate.</p>
-  <div class="fr"><div class="f"><label>Salary / package</label><input id="os" value="${esc(c.offer_salary||'')}" placeholder="e.g. £55,000 + car + bonus"></div><div class="f"><label>Proposed start</label><input id="od" type="date" value="${c.start_date||''}"></div></div>
-  <div class="f"><label>Notes</label><textarea id="on">${esc(c.offer_notes||'')}</textarea></div>
-  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Record offer</button></div>`);
-  $('#go').onclick=async()=>{const ok=await dbUpdate('omc_candidates',c.id,{stage:'offer',offer_salary:$('#os').value.trim()||null,start_date:$('#od').value||null,offer_notes:$('#on').value.trim()||null,offer_made_at:new Date().toISOString()},{local:c});$('#mw')?.remove();
-    if(ok){logAct(c,'offer','Offer made'+(c.offer_salary?' — '+c.offer_salary:''));toast('Offer recorded');S.openId?openCand(c.id):render()}}};
+window.openOffer=c=>{const m=(c.offer_salary||'').match(/€?\s*([\d.,]+)\s*(per hour|per year|per day)?/i)||[];
+  modal(`<h3>Make an offer — ${esc(c.name)}</h3><p class="s">OMC ${esc(coName(c.company_id))} · Syntech is emailed straight away and puts the offer to the candidate.</p>
+  <div class="fr"><div class="f"><label>Rate (€)</label><input id="oa" inputmode="decimal" value="${esc(m[1]||'')}" placeholder="e.g. 21.50"></div><div class="f"><label>Basis</label><select id="ob">${['per hour','per year','per day'].map(o=>`<option ${o===(m[2]||'per hour').toLowerCase()?'selected':''}>${o}</option>`).join('')}</select></div></div>
+  <div class="fr"><div class="f"><label>Proposed start</label><input id="od" type="date" value="${c.start_date||''}"></div><div class="f"><label>Shift / hours</label><input id="oh" placeholder="e.g. Days, 39 hrs, Mon–Fri"></div></div>
+  <div class="f"><label>Anything else (overtime, probation, PPE, conditions)</label><textarea id="on">${esc(c.offer_notes||'')}</textarea></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Send offer to Syntech</button></div>`);
+  $('#go').onclick=async()=>{const amt=$('#oa').value.trim().replace(/^€/,'');if(!amt)return toast('Add the rate',true);
+    const pay='€'+amt+' '+$('#ob').value;const notes=[$('#oh').value.trim()?'Shift/hours: '+$('#oh').value.trim():'',$('#on').value.trim()].filter(Boolean).join('\n');
+    const b=$('#go');b.disabled=true;b.textContent='Sending…';
+    const ok=await dbUpdate('omc_candidates',c.id,{stage:'offer',client_decision:'approved',offer_salary:pay,start_date:$('#od').value||null,offer_notes:notes||null,offer_made_at:new Date().toISOString()},{local:c});$('#mw')?.remove();
+    if(ok){logAct(c,'offer','Offer made — '+pay+(c.start_date?' · start '+fd(c.start_date):'')+' (by '+S.me.full_name+')');
+      fnCall('omc-notify',{candidate_id:c.id}).then(r=>toast(r&&r.ok?'Offer sent — Syntech has been emailed':'Offer saved (email to Syntech failed — please message them)',!(r&&r.ok))).catch(()=>toast('Offer saved (email to Syntech failed)',true));
+      S.openId?openCand(c.id):render()}}};
 
 window.openPlaced=c=>{modal(`<h3>${esc(c.name)} accepted 🎉</h3><p class="s">Confirm the start date.</p>
   <div class="f"><label>Start date</label><input id="pd" type="date" value="${c.start_date||''}"></div>
@@ -826,15 +996,20 @@ window.openPlaced=c=>{modal(`<h3>${esc(c.name)} accepted 🎉</h3><p class="s">C
     if(ok){logAct(c,'placed','Placed'+(c.start_date?' — starts '+fd(c.start_date):''));toast('Placed ★');S.openId?openCand(c.id):render()}}};
 
 /* ---------- Add / edit candidate ---------- */
-window.openAdd=(spec=false)=>{if(S.co==='all')return toast('Pick a site first (Limerick or Thurles)',true);candForm({is_spec:spec,company_id:S.co,right_to_work:'yes'})};
+window.openAdd=(spec=false)=>{candForm({is_spec:spec,company_id:S.co==='all'?(visibleCos()[0]?.id):S.co,right_to_work:'yes'})};
 window.openEdit=id=>candForm(S.cands.find(x=>x.id===id));
+window.moveSite=async(id,site)=>{const c=S.cands.find(x=>x.id===id);if(!c||c.company_id===site)return;
+  const r=S.roles.find(x=>x.company_id===site&&x.is_open&&role(c.role_id)&&x.title===role(c.role_id).title)||S.roles.find(x=>x.company_id===site&&x.is_open);
+  const ok=await dbUpdate('omc_candidates',c.id,{company_id:site,role_id:r?.id||null},{local:c,label:'Move'});
+  if(ok){logAct(c,'stage','Moved to OMC '+coName(site)+' site');toast(c.name+' moved to '+coName(site));S.openId?openCand(c.id):render()}};
 function candForm(c){const edit=!!c.id;
   modal(`<h3>${edit?'Edit candidate':c.is_spec?'Add spec CV':'Add candidate'}</h3><p class="s">${esc(coName(c.company_id))}${c.is_spec?' · not tied to a live role':''}</p>
   ${edit?'':`<div class="f"><label>CV (PDF or Word)</label><div class="dropmini" id="cvz">Drop the CV here — or click to choose. We'll read it and fill in what we can.</div><div id="cvwarn"></div></div>`}
   <div id="dup"></div>
-  <div class="fr"><div class="f"><label>Full name</label><input id="cn" value="${esc(c.name||'')}"></div>${c.is_spec?'<div></div>':`<div class="f"><label>Role</label><select id="cr">${roleOpts(false,c.role_id)}</select></div>`}</div>
+  ${isSyn()?`<div class="f"><label>Site</label><select id="csite">${visibleCos().map(o=>`<option value="${o.id}" ${o.id===c.company_id?'selected':''}>${esc(o.short_name)}</option>`).join('')}</select></div>`:''}
+  <div class="fr"><div class="f"><label>Full name</label><input id="cn" value="${esc(c.name||'')}"></div>${c.is_spec?'<div></div>':`<div class="f"><label>Role</label><select id="cr">${siteRoleOpts(c.company_id,c.role_id)}</select></div>`}</div>
   <div class="fr"><div class="f"><label>Current job title</label><input id="ct" value="${esc(c.current_title||'')}"></div><div class="f"><label>Current employer</label><input id="ce" value="${esc(c.current_employer||'')}"></div></div>
-  <div class="fr"><div class="f"><label>Location</label><input id="cl" value="${esc(c.location||'')}"></div><div class="f"><label>Right to work (UK)</label><select id="cw">${['yes','sponsorship needed','tbc'].map(o=>`<option ${o===c.right_to_work?'selected':''}>${o}</option>`).join('')}</select></div></div>
+  <div class="fr"><div class="f"><label>Location</label><input id="cl" value="${esc(c.location||'')}"></div><div class="f"><label>Right to work (IE)</label><select id="cw">${['yes','sponsorship needed','tbc'].map(o=>`<option ${o===c.right_to_work?'selected':''}>${o}</option>`).join('')}</select></div></div>
   <div class="fr"><div class="f"><label>Notice period</label><input id="cno" value="${esc(c.notice||'')}"></div><div class="f"><label>Salary expectation</label><input id="cs" value="${esc(c.salary_expectation||'')}"></div></div>
   <div class="f"><label>Key skills (comma separated)</label><input id="ck" value="${esc((c.skills||[]).join(', '))}" placeholder="e.g. TIG, 6G, stainless, drawings"></div>
   <div class="f"><label>Syntech summary (client sees this)</label><textarea id="cu">${esc(c.summary||'')}</textarea></div>
@@ -844,6 +1019,8 @@ function candForm(c){const edit=!!c.id;
     const d=S.cands.find(x=>x.id!==c.id&&x.company_id===c.company_id&&((n&&x.name.toLowerCase()===n)||(e&&x.email&&x.email.toLowerCase()===e)));
     $('#dup').innerHTML=d?`<div class="warn">Possible duplicate: <b>${esc(d.name)}</b> is already in the portal (${STAGE[d.stage].label}, added ${fd(d.created_at)}).</div>`:''};
   $('#cn').oninput=dupCheck;$('#cem').oninput=dupCheck;
+  const siteOf=()=>$('#csite')?.value||c.company_id;
+  if($('#csite'))$('#csite').onchange=()=>{if($('#cr'))$('#cr').innerHTML=siteRoleOpts(siteOf(),null);$('#mw .s').textContent=coName(siteOf())};
   let cvFile=null;
   dropify($('#cvz'),async fs=>{cvFile=fs[0];$('#cvz').innerHTML=`<b style="color:var(--ink)">📄 ${esc(cvFile.name)}</b> · reading…`;
     const x=parseCV(await cvText(cvFile),cvFile.name);const fill=(id,v)=>{if(v&&!$(id).value)$(id).value=v};
@@ -855,8 +1032,9 @@ function candForm(c){const edit=!!c.id;
     if(!c.is_spec)p.role_id=$('#cr').value||null;
     if(!p.name)return toast('Add a name',true);
     const b=$('#go');b.disabled=true;
-    if(edit){const ok=await dbUpdate('omc_candidates',c.id,p,{local:c});if(ok){logAct(c,'edit','Details updated');$('#mw').remove();openCand(c.id)}else b.disabled=false;return}
-    const d=await dbInsert('omc_candidates',{...p,company_id:c.company_id,is_spec:!!c.is_spec,spec_draft:!!c.is_spec,stage:'submitted',added_by:S.me.full_name});
+    const site=siteOf(),moved=edit&&site!==c.company_id;if(moved)p.company_id=site;
+    if(edit){const ok=await dbUpdate('omc_candidates',c.id,p,{local:c});if(ok){logAct(c,moved?'stage':'edit',moved?'Moved to OMC '+coName(site)+' site':'Details updated');$('#mw').remove();if(moved)toast(c.name+' moved to '+coName(site));openCand(c.id)}else b.disabled=false;return}
+    const d=await dbInsert('omc_candidates',{...p,company_id:site,is_spec:!!c.is_spec,spec_draft:!!c.is_spec,stage:'submitted',added_by:S.me.full_name});
     if(!d){b.disabled=false;return}
     if(!S.cands.find(x=>x.id===d.id))S.cands.unshift(d);
     logAct(d,c.is_spec?'spec':'stage',c.is_spec?'Spec CV drafted':'CV submitted by Syntech');
@@ -1057,16 +1235,16 @@ S.cal=null;
 function vDiary(v){
   const today=new Date();const base=S.cal?new Date(S.cal):new Date(today.getFullYear(),today.getMonth(),1);
   const y=base.getFullYear(),m=base.getMonth();const first=new Date(y,m,1);const start=new Date(y,m,1-((first.getDay()+6)%7));
-  const ints=live().filter(c=>c.interview_at&&['interview_scheduled','feedback','offer','placed'].includes(c.stage)||c.stage==='interview_scheduled'&&c.interview_at);
+  const ints=live().filter(c=>c.interview_at&&['interview_scheduled','feedback','offer','placed','rejected'].includes(c.stage)&&(c.stage!=='rejected'||c.interview_outcome));
   const key=d=>d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
   const byDay={};ints.forEach(c=>{const k=key(new Date(c.interview_at));(byDay[k]=byDay[k]||[]).push(c)});
   const cells=[...Array(42)].map((_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);const evs=(byDay[key(d)]||[]).sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at));
-    return`<div class="dd ${d.getMonth()!==m?'out':''} ${key(d)===key(today)?'today':''}"><div class="n">${d.getDate()}</div>${evs.map(c=>`<button class="ev" onclick="openCand('${c.id}')">${esc(c.name)}<small>${c.interview_tbc?'Time tbc':new Date(c.interview_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · ${esc((role(c.role_id)?.title||'').split('–')[0].trim())}</small></button>`).join('')}</div>`}).join('');
+    return`<div class="dd ${d.getMonth()!==m?'out':''} ${key(d)===key(today)?'today':''}"><div class="n">${d.getDate()}</div>${evs.map(c=>`<button class="ev" style="border-left-color:${esc(coById(c.company_id)?.accent||'var(--acc)')}" onclick="openCand('${c.id}')">${esc(c.name)}<small>${c.interview_tbc?'Time tbc':new Date(c.interview_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · ${esc(coName(c.company_id))}</small></button>`).join('')}</div>`}).join('');
   const awaiting=live().filter(c=>c.stage==='interview_requested'||(c.stage==='interview_scheduled'&&!c.interview_at));
   const fb=live().filter(c=>c.stage==='feedback');
   const side=(t,p,list,btn,lab)=>`<div class="card" style="margin-bottom:16px"><div class="secH" style="padding:16px 18px"><div><h3 style="font-size:15px">${t}</h3><p style="font-size:12.5px">${p}</p></div><span class="cnt ml" style="width:30px;height:30px;font-size:13px;border-radius:8px">${list.length}</span></div>
-    ${list.length?list.map(c=>`<div class="att" style="padding:9px 18px" onclick="${btn}('${c.id}')"><div style="min-width:0"><b style="font-size:13.5px">${esc(c.name)}</b><div style="font-size:12px;color:var(--mut)">${esc(role(c.role_id)?.title||'')}</div></div><span class="pill b ml">${lab}</span></div>`).join(''):'<div class="empty" style="padding:14px">All clear</div>'}<div style="height:6px"></div></div>`;
-  v.innerHTML=`<div class="diary"><div class="card"><div class="secH"><div><h3>${base.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</h3><p>All interviews at a glance · click one to open the candidate</p></div>
+    ${list.length?(S.co==='all'?visibleCos():[coById(S.co)]).map(o=>{const ls=list.filter(c=>c.company_id===o.id);return ls.length?`${S.co==='all'?`<div class="subH"><i style="background:${esc(o.accent)}"></i>${esc(o.short_name)} · ${ls.length}</div>`:''}${ls.map(c=>`<div class="att" style="padding:9px 18px" onclick="${btn}('${c.id}')"><div style="min-width:0"><b style="font-size:13.5px">${esc(c.name)}</b><div style="font-size:12px;color:var(--mut)">${c.interview_at?esc(fIv(c)):esc(c.current_title||'')}</div></div><span class="pill b ml">${lab}</span></div>`).join('')}`:''}).join(''):'<div class="empty" style="padding:14px">All clear</div>'}<div style="height:6px"></div></div>`;
+  v.innerHTML=siteTabs()+`<div class="diary"><div class="card"><div class="secH"><div><h3>${base.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</h3><p>${S.co==='all'?visibleCos().map(o=>`<span class="lg"><i style="background:${esc(o.accent)}"></i>${esc(o.short_name)}</span>`).join(''):'OMC '+esc(coName(S.co))+' interviews'} · click one to open the candidate</p></div>
       <div class="ml" style="display:flex;gap:6px"><button class="btn ghost s" id="cP">‹</button><button class="btn ghost s" id="cT">Today</button><button class="btn ghost s" id="cN">›</button></div></div>
       <div class="cal">${['MON','TUE','WED','THU','FRI','SAT','SUN'].map(d=>`<div class="dh">${d}</div>`).join('')}${cells}</div></div>
     <div>${side('Awaiting a date','Approved for interview, not yet booked',awaiting,'iBook','Book')}${side('Feedback needed','Interview done, outcome to record',fb,'iOutcome','Record')}</div></div>`;
