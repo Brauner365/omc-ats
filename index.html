@@ -168,7 +168,7 @@ main{flex:1;min-width:0}
 .colEmpty{font-size:12px;color:#94a3b8;text-align:center;padding:18px 6px;border:1.5px dashed #d3dae4;border-radius:10px;margin-top:2px}
 .col.over{outline:2px dashed var(--acc);outline-offset:-4px}
 .colH{display:flex;align-items:center;gap:8px;padding:12px 14px 10px;font-weight:700;font-size:13px;white-space:nowrap}
-.colH .x{margin-left:auto;border:0;background:none;color:#94a3b8;font-size:14px;padding:0 2px}
+.colH .x{border:1px solid #cfd8e3;background:#fff;color:#475569;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:7px;margin-left:4px}.colH .x:hover{background:var(--acc);color:#fff;border-color:var(--acc)}
 .colH i{width:8px;height:8px;border-radius:50%;flex:none}
 .colH span{margin-left:auto;background:#fff;border-radius:99px;padding:1px 8px;font-size:12px;color:var(--mut)}
 .kc{position:relative;background:#fff;border-radius:10px;padding:10px 11px 9px;margin-bottom:7px;border:1px solid var(--line);cursor:grab;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:box-shadow .15s,transform .15s}
@@ -742,7 +742,7 @@ function vPipeline(v){
     <button class="btn ml" onclick="openAdd()">＋ Add candidate</button></div>
   <div class="jump">${STAGES.map(([k,l,col])=>`<button onclick="jumpTo('${k}')"><i style="background:${col}"></i>${l}<b>${L.filter(c=>c.stage===k).length}</b></button>`).join('')}</div>
   <div class="kb" id="kb">${STAGES.map(([k,l,col])=>{const cs=L.filter(c=>c.stage===k);const mini=TERMINAL.includes(k)&&!S.kbOpen[k];
-    return`<div class="col${mini?' mini':''}" data-stage="${k}" ${mini?`title="Click to expand ${l}"`:''}><div class="colH"><i style="background:${col}"></i>${l}<span>${cs.length}</span>${TERMINAL.includes(k)&&!mini?`<button class="x" data-col="${k}" title="Collapse">‹</button>`:''}</div>
+    return`<div class="col${mini?' mini':''}" data-stage="${k}" ${mini?`title="Click to expand ${l}"`:''}><div class="colH"><i style="background:${col}"></i>${l}<span>${cs.length}</span>${TERMINAL.includes(k)&&!mini?`<button class="x" data-col="${k}" title="Collapse this column">‹ Hide</button>`:''}</div>
     <div class="colB">${cs.map(c=>kCard(c,k)).join('')||'<div class="colEmpty">Drop here</div>'}</div></div>`}).join('')}</div>`;
   const sel=$('#pRole');sel.value=S.pRole||'';sel.onchange=()=>{S.pRole=sel.value;render()};
   const pq=$('#pQ');pq.oninput=()=>{S.pq=pq.value;const pos=pq.selectionStart;render();const n=$('#pQ');n.focus();n.setSelectionRange(pos,pos)};
