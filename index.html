@@ -104,6 +104,19 @@ main{flex:1;min-width:0}
 .heroBtn{position:absolute;right:32px;top:30px;z-index:2}
 .bar{display:flex;height:50px;border-radius:12px;overflow:hidden;margin:28px 0 14px;background:#1e293b;position:relative;z-index:1}
 .bar div{display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;min-width:0;transition:flex .6s}
+.sbars{display:grid;gap:14px;margin-top:24px;position:relative;z-index:1}
+.sbar{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 18px}
+.sbT{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sbN{display:flex;align-items:center;gap:9px;font-weight:800;font-size:16px}.sbN i{width:10px;height:10px;border-radius:50%}
+.sbF{margin-left:auto;color:#cbd5e1;font-size:14px}.sbF b{color:#fff}
+.slots{display:flex;gap:6px;height:38px}
+.slots div{flex:1;border-radius:8px;background:#1e293b;border:1px dashed #475569;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.slots div.p{background:linear-gradient(180deg,#22c55e,#15803d);border:0}
+.slots div.o{background:linear-gradient(180deg,#2dd4bf,#0f766e);border:0}
+.sbL{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:#cbd5e1;margin-top:12px}
+.sbL i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px}.sbL b{color:#fff;margin-left:4px}.sbL .rt{margin-left:auto}
+@media (min-width:1181px){.sbars.two{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.sbL .rt{margin-left:0}.sbF{font-size:12.5px}}
 .legend{display:flex;gap:22px;font-size:14px;color:#cbd5e1;flex-wrap:wrap;position:relative;z-index:1}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px}
 .legend b{color:#fff;margin-left:6px}.legend .rt{margin-left:auto}
@@ -666,13 +679,14 @@ function vOverview(v){
     <h1>Welcome back, ${esc(first)}</h1>
     <div class="hs">${esc(locs)} — ${target} ${target===1?'hire':'hires'} required across ${roles.length} ${roles.length===1?'role':'roles'}${co?'':' · '+visibleCos().filter(c=>c.is_live).length+(visibleCos().filter(c=>c.is_live).length===1?' live site':' live sites')}</div>
     ${S.co!=='all'?`<div class="heroBtn"><button class="btn w" onclick="openAdd()">＋ Add candidate</button></div>`:''}
-    <div class="bar">
-      ${placed?`<div style="flex:${placed};background:linear-gradient(90deg,#15803d,#16a34a)">${placed}</div>`:''}
-      ${inPipe?`<div style="flex:${inPipe};background:linear-gradient(90deg,#0b4f8a,#3b8fd6)">${inPipe}</div>`:''}
-      ${toSource?`<div style="flex:${toSource};background:#334155;color:#cbd5e1">${toSource}</div>`:''}
-      ${!placed&&!inPipe&&!toSource?`<div style="flex:1;color:#94a3b8;font-weight:600">No live roles yet</div>`:''}
-    </div>
-    <div class="legend"><span><i style="background:#16a34a"></i>Placed<b>${placed}</b></span><span><i style="background:#3b8fd6"></i>In pipeline<b>${inPipe}</b></span><span><i style="background:#475569"></i>Still to source<b>${toSource}</b></span><span class="rt">Target <b>${target}</b> · <b>${pct}%</b> filled</span></div>
+    <div class="sbars">${(S.co==='all'?visibleCos().filter(o=>o.is_live||isSyn()):[co]).map(o=>{
+      const rs=S.roles.filter(r=>r.company_id===o.id&&r.is_open);const tg=rs.reduce((a,r)=>a+r.target,0);
+      const ls=live().filter(c=>c.company_id===o.id);const pl=ls.filter(c=>c.stage==='placed').length;const of=ls.filter(c=>c.stage==='offer').length;
+      const iv=ls.filter(c=>['interview_requested','interview_scheduled','feedback'].includes(c.stage)).length;const pipe=ls.filter(c=>!['placed','rejected'].includes(c.stage)).length;
+      const slots=Math.max(tg,pl+of,1);const pc=tg?Math.min(100,Math.round(pl/tg*100)):0;
+      return`<div class="sbar"><div class="sbT"><span class="sbN"><i style="background:${esc(o.accent)}"></i>OMC ${esc(o.short_name)}</span><span class="sbF"><b>${pl}</b> of <b>${tg}</b> hired · ${pc}%</span></div>
+        <div class="slots">${[...Array(slots)].map((_,i)=>`<div class="${i<pl?'p':i<pl+of?'o':''}">${i<pl?'✓':i<pl+of?'Offer':''}</div>`).join('')}</div>
+        <div class="sbL"><span><i style="background:#16a34a"></i>Placed <b>${pl}</b></span><span><i style="background:#14b8a6"></i>Offers <b>${of}</b></span><span><i style="background:#8b5cf6"></i>Interview stage <b>${iv}</b></span><span><i style="background:#3b8fd6"></i>In pipeline <b>${pipe}</b></span><span class="rt">Still to fill <b>${Math.max(0,tg-pl)}</b></span></div></div>`}).join('')}</div>
   </div>
 
   <div class="card sec">
