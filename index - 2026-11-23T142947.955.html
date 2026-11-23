@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OMC Engineered Solutions Hiring Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  --red:#E8302A; --navy:#0b1a33; --navy2:#0f2444; --ink:#0f172a; --ink2:#334155; --mut:#64748b; --line:#e2e8f0;
+  --bg:#f1f5f9; --card:#fff; --green:#16a34a; --amber:#f59e0b; --blue:#2563eb; --acc:#0b5fa5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:14px}
+.hidden{display:none!important}
+
+/* ---------- LOGIN (The Weld) ---------- */
+#login{position:fixed;inset:0;background:#05080f;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;isolation:isolate}
+.bgfx{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.photo{position:absolute;inset:-6%;background-size:cover;background-position:center;opacity:0;filter:blur(3px) saturate(1.15);will-change:transform,opacity;animation:slide 27s ease-in-out infinite}
+.photo.p2{animation-delay:9s}.photo.p3{animation-delay:18s}
+@keyframes slide{0%{opacity:0;transform:scale(1.04) translate(0,0)}6%{opacity:1}33%{opacity:1}40%{opacity:0;transform:scale(1.16) translate(-2%,-1.5%)}100%{opacity:0;transform:scale(1.16) translate(-2%,-1.5%)}}
+.wash{position:absolute;inset:0;background:linear-gradient(100deg,rgba(232,48,42,.38) 0%,rgba(6,9,16,.72) 38%,rgba(6,9,16,.72) 62%,rgba(176,190,205,.30) 100%),rgba(5,8,14,.35)}
+#fxc{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.sweep{position:absolute;top:-50%;left:-60%;width:35%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);transform:rotate(18deg);animation:sweep 10s ease-in-out infinite}
+@keyframes sweep{0%{left:-60%}60%,100%{left:130%}}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(3,5,10,.55))}
+@media (prefers-reduced-motion:reduce){.sweep,.lcard{animation:none!important}.photo{animation:none!important}.photo.p1{opacity:1}}
+.cobrand{display:flex;align-items:center;gap:22px;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid #e8edf2}
+.cb-syn{height:46px;width:auto;display:block}
+.cb-co{height:40px;width:auto;display:block}
+.cb-x{width:1px;height:38px;background:#d9dee5}
+.lcard{animation:none!important}.photo{animation:none!important}.photo.p1{opacity:1}}
+.lk-syn{height:52px;width:auto;display:block}
+.lk-co{height:44px;width:auto;display:block}
+.lk-rule{width:1px;align-self:stretch;background:#d6dbe1}
+.lcard{position:relative;z-index:1;width:100%;max-width:470px;border-radius:18px;padding:40px 46px 28px;border:2px solid transparent;
+  background:linear-gradient(#f8fafc,#f8fafc) padding-box,linear-gradient(135deg,var(--red),#ff9a4a,#b8c4d2,var(--red)) border-box;background-size:100% 100%,300% 300%;animation:pulse 6s ease infinite;box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 60px rgba(232,48,42,.18),0 0 90px rgba(161,192,57,.22)}
+@keyframes pulse{0%,100%{background-position:0 0,0% 50%}50%{background-position:0 0,100% 50%}}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;font-size:13px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(232,48,42,.6);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(232,48,42,0)}}
+.lcard h1{font-size:26px;margin:18px 0 8px;letter-spacing:-.02em}
+.lcard p.sub{color:var(--mut);margin:0 0 28px;line-height:1.5}
+.lcard label{display:block;font-size:14px;font-weight:500;margin:0 0 8px;color:var(--ink2)}
+.lcard input{width:100%;padding:15px 18px;border-radius:10px;border:1px solid #c7d2fe;background:#e8efff;margin-bottom:20px;font-size:15px;outline:none}
+.lcard input:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 25%,transparent)}
+.lbtn{width:100%;padding:16px;border:0;border-radius:10px;background:linear-gradient(180deg,#0f2444,#0b1a33);color:#fff;font-weight:700;font-size:16px;box-shadow:0 10px 24px rgba(11,26,51,.35)}
+.lbtn:disabled{opacity:.6}
+.lnote{display:flex;justify-content:center;align-items:center;gap:6px;font-size:13px;color:var(--mut);margin:16px 0 18px}
+.lfoot{border-top:1px solid var(--line);padding-top:18px;text-align:center;font-size:13px;color:#94a3b8}
+.lerr{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:16px}
+.byline{position:relative;z-index:1;margin-top:28px;color:#94a3b8;font-size:14px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.byline b{color:#cbd5e1}
+
+/* ---------- APP SHELL ---------- */
+#app{display:flex;min-height:100vh}
+aside{width:288px;flex:none;background:var(--navy);color:#cbd5e1;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{padding:18px 22px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.brand .syn{height:46px;display:block;margin:0 0 16px 2px}
+.coswitch{width:100%;background:#fff;border:0;border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;position:relative}
+.coswitch img{max-height:34px;max-width:170px}
+.coswitch .caret{position:absolute;right:10px;color:#94a3b8;font-size:12px}
+.cotext{font-weight:800;color:var(--ink);font-size:15px}
+.comenu{position:absolute;left:22px;right:22px;top:120px;background:#fff;color:var(--ink);border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.35);z-index:50;padding:6px;font-size:14px}
+.comenu button{display:flex;width:100%;align-items:center;gap:10px;border:0;background:none;padding:10px 12px;border-radius:8px;text-align:left}
+.comenu button:hover{background:#f1f5f9}
+.comenu .sw{width:10px;height:10px;border-radius:3px}
+.comenu .tag{margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#f1f5f9;color:var(--mut)}
+.comenu .tag.live{background:#dcfce7;color:#166534}
+nav{flex:1;overflow:auto;padding:10px 14px}
+.navh{font-size:11px;letter-spacing:.14em;font-weight:700;color:#64748b;margin:18px 12px 8px}
+.ni{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:#cbd5e1;padding:11px 14px;border-radius:10px;font-size:15px;font-weight:500;position:relative}
+.ni:hover{background:rgba(255,255,255,.05)}
+.ni.on{background:#13305a;color:#fff;font-weight:700}
+.ni.on::before{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:4px;border-radius:0 4px 4px 0;background:var(--red)}
+.ni svg{width:19px;height:19px;flex:none;opacity:.85}
+.badge{margin-left:auto;min-width:22px;height:22px;border-radius:999px;background:var(--amber);color:#3b1d00;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;padding:0 6px;box-shadow:0 0 0 3px rgba(245,158,11,.25)}
+.me{padding:14px 16px 16px;border-top:1px solid rgba(255,255,255,.06)}
+.meRow{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.av{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex:none}
+.meRow b{color:#fff;display:block;font-size:14px}.meRow span{font-size:12px;color:#94a3b8}
+.so{width:100%;padding:11px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#e2e8f0;font-weight:600}
+main{flex:1;min-width:0}
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;gap:16px}
+.top h2{margin:0;font-size:22px;letter-spacing:-.01em}
+.top .crumb{color:var(--mut);font-size:14px;margin-top:2px}
+.topR{display:flex;align-items:center;gap:20px}
+.clock{text-align:right;font-size:12px;color:var(--mut)}.clock b{display:block;font-size:17px;color:var(--ink)}
+.burger{display:none;border:0;background:none;font-size:22px}
+.wrap{padding:28px 32px 60px;max-width:1500px}
+
+/* hero */
+.hero{background:var(--navy);border-radius:18px;color:#fff;padding:30px 32px;position:relative;overflow:hidden;border-left:5px solid var(--red)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;color:#93c5fd}
+.hero h1{margin:6px 0 6px;font-size:30px;letter-spacing:-.02em}
+.hero .hs{color:#cbd5e1;font-size:15px}
+.heroBtn{position:absolute;right:32px;top:30px;z-index:2}
+.bar{display:flex;height:50px;border-radius:12px;overflow:hidden;margin:28px 0 14px;background:#1e293b;position:relative;z-index:1}
+.bar div{display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;min-width:0;transition:flex .6s}
+.legend{display:flex;gap:22px;font-size:14px;color:#cbd5e1;flex-wrap:wrap;position:relative;z-index:1}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px}
+.legend b{color:#fff;margin-left:6px}.legend .rt{margin-left:auto}
+
+/* cards / generic */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px}
+.sec{margin-top:24px}
+.secH{display:flex;align-items:center;gap:14px;padding:20px 24px}
+.secH h3{margin:0;font-size:17px}.secH p{margin:3px 0 0;color:var(--mut);font-size:14px}
+.cnt{width:48px;height:48px;border-radius:12px;background:#0f2a52;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px}
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn.w{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.g{background:var(--green)}.btn.r{background:#dc2626}.btn.s{padding:7px 12px;font-size:13px}
+.btn.ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
+.btn:disabled{opacity:.5}
+.ml{margin-left:auto}
+.qrow{display:flex;align-items:center;gap:14px;margin:0 24px 10px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.qrow:hover{border-color:#cbd5e1}
+.qrow b{display:block;font-size:15px}.qrow span{font-size:13px;color:var(--mut)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.tile{padding:18px 20px}.tile .k{font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.08em}.tile .v{font-size:30px;font-weight:800;margin-top:6px;letter-spacing:-.02em}.tile .tx{font-size:13px;color:var(--mut)}
+.feed{padding:0 24px 18px}
+.fi{display:flex;gap:12px;padding:11px 0;border-top:1px solid #f1f5f9;font-size:14px}
+.fi:first-child{border-top:0}
+.fi .ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
+.fi small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+.empty{padding:28px 24px;color:var(--mut);font-size:14px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:#f1f5f9;color:var(--ink2);white-space:nowrap}
+.pill.g{background:#dcfce7;color:#166534}.pill.r{background:#fee2e2;color:#991b1b}.pill.b{background:#dbeafe;color:#1e40af}.pill.a{background:#fef3c7;color:#92400e}.pill.p{background:#ede9fe;color:#5b21b6}
+.roleRow{display:flex;align-items:center;gap:16px;padding:14px 24px;border-top:1px solid #f1f5f9}
+.prog{flex:1;height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;max-width:220px}.prog i{display:block;height:100%;background:var(--green)}
+
+/* kanban */
+.kb{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;align-items:flex-start}
+.col{flex:0 0 250px;background:#e8edf4;border-radius:14px;padding:10px;min-height:200px}
+.col.over{outline:2px dashed var(--acc);outline-offset:-4px}
+.colH{display:flex;align-items:center;gap:8px;padding:6px 6px 10px;font-weight:700;font-size:13px}
+.colH i{width:8px;height:8px;border-radius:50%}
+.colH span{margin-left:auto;background:#fff;border-radius:99px;padding:1px 8px;font-size:12px;color:var(--mut)}
+.kc{background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:8px;border:1px solid var(--line);cursor:grab;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kc:active{cursor:grabbing}.kc b{font-size:14px;display:block}.kc small{color:var(--mut);font-size:12px;display:block;margin-top:2px}
+.kc .ft{display:flex;gap:6px;margin-top:8px;align-items:center;font-size:11px;color:var(--mut)}
+
+/* table */
+.tools{display:flex;gap:10px;padding:16px 20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tools input,.tools select{padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff}
+.tools input{flex:1;min-width:200px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:700;padding:12px 16px;border-bottom:1px solid var(--line);background:#f8fafc}
+td{padding:12px 16px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+tr.cl:hover td{background:#f8fafc;cursor:pointer}
+.nm{display:flex;align-items:center;gap:10px}.nm .av{width:34px;height:34px;font-size:12px;border-radius:9px}
+.tblw{overflow-x:auto}
+
+/* chat */
+.chat{display:flex;flex-direction:column;height:calc(100vh - 170px);min-height:420px}
+.msgs{flex:1;overflow:auto;padding:20px 24px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:70%;padding:10px 14px;border-radius:14px;background:#f1f5f9;font-size:14px;line-height:1.45;white-space:pre-wrap}
+.m.mine{align-self:flex-end;background:var(--navy);color:#fff}
+.m small{display:block;font-size:11px;opacity:.65;margin-bottom:3px;font-weight:600}
+.cin{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line)}
+.cin textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 12px;height:46px}
+
+/* drawer + modal */
+.scrim{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:60;display:flex;justify-content:flex-end}
+.drawer{width:min(620px,100%);background:#fff;height:100%;overflow:auto;box-shadow:-20px 0 60px rgba(0,0,0,.2);display:flex;flex-direction:column}
+.dH{padding:24px 28px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:flex-start}
+.dH h3{margin:0 0 4px;font-size:22px}.dH p{margin:0;color:var(--mut);font-size:14px}
+.x{margin-left:auto;border:0;background:#f1f5f9;width:36px;height:36px;border-radius:10px;font-size:18px;flex:none}
+.dB{padding:22px 28px;flex:1}
+.kv{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px;margin-bottom:22px}
+.kv div small{display:block;color:var(--mut);font-size:12px;font-weight:600;margin-bottom:2px}.kv div{font-size:14px}
+.box{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.box h4{margin:0 0 10px;font-size:14px}
+.acts{display:flex;gap:10px;flex-wrap:wrap}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:16px}
+.tl div{position:relative;font-size:13px;padding:6px 0}.tl div::before{content:"";position:absolute;left:-22px;top:11px;width:10px;height:10px;border-radius:50%;background:#cbd5e1;border:2px solid #fff}
+.tl small{color:var(--mut)}
+.modalW{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:70;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:#fff;border-radius:16px;width:min(560px,100%);max-height:92vh;overflow:auto;padding:26px 28px}
+.modal h3{margin:0 0 4px}.modal p.s{margin:0 0 18px;color:var(--mut);font-size:14px}
+.f{margin-bottom:14px}.f label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff}
+.f textarea{min-height:80px;resize:vertical}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mF{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:9px;padding:10px 12px;font-size:13px;margin-bottom:14px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;z-index:90;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.toast.err{background:#b91c1c}
+.cvframe{width:100%;height:70vh;border:1px solid var(--line);border-radius:10px}
+.coCard{display:flex;align-items:center;gap:16px;padding:16px 20px;border-top:1px solid #f1f5f9}
+.coLogo{width:120px;height:46px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fff;font-weight:800;font-size:13px;padding:6px;text-align:center}
+.coLogo img{max-width:100%;max-height:100%}
+.sw2{position:relative;width:44px;height:24px;border-radius:99px;background:#cbd5e1;border:0;flex:none}
+.sw2::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+.sw2.on{background:var(--green)}.sw2.on::after{left:23px}
+
+@media (max-width:1100px){.tiles{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media (max-width:860px){
+  aside{position:fixed;left:0;top:0;z-index:55;transform:translateX(-100%);transition:transform .25s}
+  aside.open{transform:none}
+  .burger{display:block}
+  .wrap{padding:18px 16px 50px}.top{padding:12px 16px}
+  .heroBtn{position:static;margin-top:16px}.hero{padding:22px 20px}
+  .clock{display:none}.kv,.fr{grid-template-columns:1fr}
+  .lcard{padding:30px 22px 22px}.cobrand{gap:14px}.cb-syn{height:36px}.cb-co{height:31px}
+  .qrow{margin:0 14px 10px}.secH{padding:16px}
+}
+/* ===== v2 additions ===== */
+.lcard{background:#fff!important;border:1px solid rgba(255,255,255,.55)!important;animation:none!important;box-shadow:0 30px 90px rgba(0,0,0,.55)!important}
+.topSearch{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:#f8fafc;color:var(--mut);border-radius:10px;padding:8px 12px;font-size:13px;min-width:220px}
+.topSearch kbd{margin-left:auto;font-family:inherit;font-size:11px;border:1px solid var(--line);border-radius:5px;padding:1px 6px;background:#fff}
+.skel{background:linear-gradient(90deg,#e8edf3 25%,#f3f6f9 50%,#e8edf3 75%);background-size:200% 100%;animation:skel 1.2s infinite;border-radius:16px}
+@keyframes skel{to{background-position:-200% 0}}
+.view-enter{animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* drop zone */
+.drop{border:2px dashed #cbd5e1;border-radius:16px;background:#f8fafc;padding:28px;text-align:center;transition:all .15s;cursor:pointer}
+.drop.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 8%,#fff);transform:scale(1.005)}
+.drop b{display:block;font-size:16px;margin:8px 0 4px}.drop span{color:var(--mut);font-size:13px}
+.drop .ico{width:46px;height:46px;border-radius:12px;background:#fff;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center}
+.dropmini{border:1.5px dashed #cbd5e1;border-radius:10px;padding:12px;text-align:center;font-size:13px;color:var(--mut);cursor:pointer;background:#fff}
+.dropmini.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 8%,#fff)}
+.proc{display:flex;align-items:center;gap:10px;font-size:13px;padding:8px 0;border-top:1px solid #f1f5f9}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid #cbd5e1;border-top-color:var(--acc);animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.draft{border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 24px 12px;background:#fff}
+.draft .fr{margin-top:10px}.draft textarea{min-height:70px}
+.flag{display:inline-flex;gap:6px;align-items:center;font-size:12px;font-weight:600;color:#92400e;background:#fef3c7;border-radius:8px;padding:4px 8px}
+/* reports */
+.rgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.kpi{padding:16px 18px}.kpi .k{font-size:11.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.08em}.kpi .v{font-size:28px;font-weight:800;margin-top:6px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.kpi .tx{font-size:12.5px;color:var(--mut);margin-top:2px}
+.fun{padding:6px 24px 20px}
+.funr{display:grid;grid-template-columns:190px 1fr 90px;align-items:center;gap:14px;padding:7px 0}
+.funr .lab{font-size:14px;font-weight:600}.funr .lab small{display:block;font-weight:500;color:var(--mut);font-size:12px}
+.track{height:22px;background:#eef2f6;border-radius:6px;position:relative}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:#1d4ed8;min-width:2px}
+.funr .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}.funr .num small{display:block;color:var(--mut);font-weight:500;font-size:12px}
+.hbar{display:grid;grid-template-columns:minmax(120px,220px) 1fr 40px;gap:12px;align-items:center;padding:6px 24px;font-size:13.5px}
+.hbar .track{height:10px}.hbar b{text-align:right;font-variant-numeric:tabular-nums}
+.colchart{padding:8px 24px 18px}
+.colchart svg{width:100%;height:auto;max-height:220px;display:block;overflow:visible}
+.colchart .gl{stroke:#e2e8f0;stroke-width:1}
+.colchart .bx{fill:#1d4ed8}.colchart .bx:hover{fill:#1e40af}
+.colchart text{font-size:11px;fill:#64748b;font-family:Inter,sans-serif}
+.tip{position:fixed;z-index:95;background:var(--navy);color:#fff;font-size:12.5px;padding:7px 10px;border-radius:8px;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25);white-space:nowrap}
+.rtbl td,.rtbl th{text-align:right;font-variant-numeric:tabular-nums}.rtbl td:first-child,.rtbl th:first-child{text-align:left}
+.att{display:flex;align-items:center;gap:12px;padding:10px 24px;border-top:1px solid #f1f5f9;font-size:14px;cursor:pointer}.att:hover{background:#f8fafc}
+.days{margin-left:auto;font-weight:700;font-size:13px;color:#b45309;background:#fffbeb;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.seg button{border:0;background:none;padding:8px 12px;font-weight:600;font-size:13px;color:var(--ink2)}.seg button.on{background:var(--navy);color:#fff}
+.bar2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.bar2 select{padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600}
+/* diary */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:0 18px 18px}
+.cal .dh{font-size:11px;font-weight:700;color:var(--mut);text-align:center;padding:6px 0;letter-spacing:.08em}
+.cal .dd{min-height:96px;border:1px solid var(--line);border-radius:10px;padding:6px 7px;background:#fff;font-size:12px;overflow:hidden}
+.cal .dd.out{background:#f8fafc;color:#cbd5e1}.cal .dd.today{border:2px solid var(--navy)}.cal .dd .n{font-weight:700;font-size:12.5px;margin-bottom:4px}
+.ev{display:block;width:100%;text-align:left;border:0;border-left:3px solid var(--acc);background:#f1f5f9;border-radius:6px;padding:3px 6px;margin-bottom:3px;font-size:11.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev small{display:block;font-weight:500;color:var(--mut)}
+.diary{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+/* compare */
+.cmp{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:14px;overflow-x:auto;padding-bottom:10px}
+.cc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.cc h4{margin:0;font-size:17px}.cc .sub{color:var(--mut);font-size:13px;margin-top:2px}
+.cc dl{display:grid;grid-template-columns:100px 1fr;gap:6px 10px;margin:0;font-size:13px}.cc dt{color:var(--mut);font-weight:600}.cc dd{margin:0}
+.cc .sum{font-size:13px;line-height:1.5;color:var(--ink2);border-top:1px solid #f1f5f9;padding-top:10px}
+.cc .note{background:#fffbeb;border-radius:10px;padding:8px 10px;font-size:12.5px;color:#92400e}
+/* drawer tabs */
+.tabs{display:flex;gap:4px;padding:0 28px;border-bottom:1px solid var(--line)}
+.tabs button{border:0;background:none;padding:12px 14px;font-weight:600;font-size:14px;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--red)}
+.cvinline{width:100%;height:calc(100vh - 230px);border:1px solid var(--line);border-radius:10px}
+/* command palette */
+.cmdk{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:80;display:flex;justify-content:center;padding-top:12vh}
+.cmdk .box2{width:min(620px,92vw);background:#fff;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;height:fit-content}
+.cmdk input{width:100%;border:0;border-bottom:1px solid var(--line);padding:18px 20px;font-size:16px;outline:none}
+.cmdk .res{max-height:50vh;overflow:auto;padding:6px}
+.cmdk .it{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px}
+.cmdk .it.sel,.cmdk .it:hover{background:#f1f5f9}.cmdk .it small{color:var(--mut);display:block;font-size:12px}
+.cmdk .grp{font-size:11px;font-weight:700;color:var(--mut);letter-spacing:.1em;padding:10px 12px 4px}
+@media (max-width:1100px){.rgrid{grid-template-columns:repeat(3,1fr)}.diary{grid-template-columns:1fr}}
+@media (max-width:860px){.rgrid{grid-template-columns:repeat(2,1fr)}.funr{grid-template-columns:120px 1fr 64px}.topSearch{min-width:0}.topSearch span,.topSearch kbd{display:none}.cal .dd{min-height:64px}.ev small{display:none}}
+@media print{aside,.top,.noprint,.toast{display:none!important}main{margin:0}.wrap{padding:0;max-width:none}.card{break-inside:avoid;border-color:#ddd}body{background:#fff}#app{display:block}}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<section id="login">
+  <div class="bgfx" aria-hidden="true">
+    <div class="photo p1" style="background-image:url('https://www.omcengineeredsolutions.com/wp-content/uploads/2026/04/OMC-cta.webp')"></div>
+    <div class="photo p2" style="background-image:url('https://www.omcengineeredsolutions.com/wp-content/uploads/2026/05/steel-fabrication-featured.webp')"></div>
+    <div class="photo p3" style="background-image:url('https://www.omcengineeredsolutions.com/wp-content/uploads/2026/05/off-site-manufacturing-featured.webp')"></div>
+    <div class="wash"></div><canvas id="fxc"></canvas><div class="sweep"></div><div class="vig"></div></div>
+  <form class="lcard" id="loginForm" autocomplete="on">
+    <div class="cobrand"><img class="cb-syn" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzkwIDMwIDEzODAgNzcwJz48cGF0aCBkPSdNIDg1My4zODQgNDQuNDQxIEMgODUyLjEzMSA0Ny43MDcsIDg1NS44MTMgNTIuNjg1LCA4NjcuMTYwIDYzLjA2NCBDIDg3My4zOTcgNjguNzY5LCA4ODcuNzI1IDgyLjAyMCwgODk5IDkyLjUxMiBDIDkyNy4wMzUgMTE4LjU5OCwgOTQyLjAxMyAxMzIuMzE4LCA5NTguNTAwIDE0Ny4wMTYgQyA5NjYuMjAwIDE1My44ODEsIDk4Ni4yMzMgMTcyLjMyMywgMTAwMy4wMTcgMTg3Ljk5OSBDIDEwMTkuODAxIDIwMy42NzQsIDEwMzYuNTkzIDIxOS4yMDAsIDEwNDAuMzMyIDIyMi41MDAgQyAxMDQ2Ljk0MiAyMjguMzMzLCAxMDUwIDIzMi4zOTUsIDEwNTAgMjM1LjM0MCBDIDEwNTAgMjM2LjY5NSwgMTAyMC44MTggMjY0LjYyOCwgOTk2LjUwMCAyODYuNTQ5IEMgOTgxLjk0MyAyOTkuNjcxLCA5NjQuMDE2IDMxNi4zMjAsIDkyNi41MDAgMzUxLjU1NyBDIDkwOS40NTAgMzY3LjU3MSwgODg4LjQ3NCAzODYuOTkxLCA4NzkuODg3IDM5NC43MTEgQyA4NTYuNTQ3IDQxNS42OTQsIDg1Mi43NDggNDIwLjQ2MywgODU3Ljc1MCA0MjIuNDk4IEMgODU4LjcxMiA0MjIuODkwLCA4ODYuNzI1IDQyMy4xMzcsIDkyMCA0MjMuMDQ3IEwgOTgwLjUwMCA0MjIuODg0IDk4Mi41MDAgNDIxLjU3MyBDIDk4NS45NzggNDE5LjI5MiwgMTAwNi42MzcgNDAwLjQ2OSwgMTAzMi41MDAgMzc2LjAxNyBDIDEwNDYuMjUwIDM2My4wMTYsIDEwNjUuOTkxIDM0NC44MjksIDEwNzYuMzcwIDMzNS42MDAgQyAxMDg2Ljc0OCAzMjYuMzcxLCAxMDk5Ljc5OCAzMTQuNDE3LCAxMTA1LjM3MCAzMDkuMDM1IEMgMTExMC45NDEgMzAzLjY1NCwgMTEyNi45NzUgMjg4Ljk3NywgMTE0MSAyNzYuNDIwIEMgMTE1NS4wMjUgMjYzLjg2MywgMTE2Ny4xNzUgMjUyLjgyMiwgMTE2OCAyNTEuODg0IEMgMTE2OC44MjUgMjUwLjk0NywgMTE3Mi40MjUgMjQ3LjYyMCwgMTE3NiAyNDQuNDkxIEMgMTE3OS41NzUgMjQxLjM2MiwgMTE4Mi44NzggMjM4LjEzOSwgMTE4My4zNDEgMjM3LjMyOCBDIDExODUuNDc1IDIzMy41ODQsIDExODQuNjU4IDIzMi43NDAsIDExMzcuMTIyIDE4OS41ODAgQyAxMTMyLjkzMCAxODUuNzc0LCAxMTE1LjEwMCAxNjkuMDg3LCAxMDk3LjUwMCAxNTIuNDk5IEMgMTA3OS45MDAgMTM1LjkxMCwgMTA2MC4xMDAgMTE3LjQ0OSwgMTA1My41MDAgMTExLjQ3NCBDIDEwMzUuMjczIDk0Ljk3NCwgMTAyMS4zMDkgODIuMDk1LCAxMDAyLjc3MyA2NC42ODUgQyA5OTMuNTEyIDU1Ljk4NywgOTg0LjMxNiA0OC4xOTQsIDk4Mi4zMzcgNDcuMzY4IEwgOTc4Ljc0MCA0NS44NjUgOTQ2LjYyMCA0NC45OTAgQyA5MjguOTU0IDQ0LjUwOCwgOTAwLjg5OSA0My43OTYsIDg4NC4yNzYgNDMuNDA4IEwgODU0LjA1MiA0Mi43MDEgODUzLjM4NCA0NC40NDEgTSA3NDIuNDAwIDY0Ljg4MiBDIDc0MC4yNTUgNjYuNDY3LCA3MzQuMzg5IDcxLjUyOSwgNzI5LjM2NSA3Ni4xMzIgQyA2ODQuMzgxIDExNy4zMzgsIDY4NS4yNjcgMTE2LjM4NywgNjg2LjUyMSAxMjIuMDk3IEwgNjg3LjEyNSAxMjQuODQ3IDcwOC4zMTMgMTQ0Ljc2NCBDIDcxOS45NjYgMTU1LjcxOSwgNzM4Ljc2MiAxNzMuMTkxLCA3NTAuMDgzIDE4My41OTEgQyA3OTYuMjUyIDIyNi4wMDYsIDgwNCAyMzMuNTM3LCA4MDQgMjM2IEMgODA0IDIzOC40MDUsIDc5MC41MTYgMjUxLjQ4MSwgNzU1Ljg0NyAyODIuNjk3IEMgNzQ2Ljg1NiAyOTAuNzkyLCA3MzIuMjk1IDMwNC4xODUsIDcyMy40ODggMzEyLjQ1OCBDIDcwMS4zOTkgMzMzLjIwOSwgNjc2LjEwNCAzNTYuMzc4LCA2NzIuNTAwIDM1OS4xNjEgQyA2NjguODgxIDM2MS45NTQsIDY0MS45MTQgMzg1LjkyNCwgNjQwLjUwMCAzODcuNjA0IEMgNjM5Ljk1MCAzODguMjU3LCA2MzQuMzI1IDM5My4zODgsIDYyOCAzOTkuMDA1IEMgNjE1LjAyMCA0MTAuNTMyLCA2MDguNjUzIDQxNy42NTMsIDYwOS40NTUgNDE5Ljc0NSBDIDYwOS43NTUgNDIwLjUyNSwgNjEwIDQyMS4zNjMsIDYxMCA0MjEuNjA3IEMgNjEwIDQyMy40MjMsIDYyMS45OTggNDIzLjg4NywgNjc0LjMzNyA0MjQuMDk0IEwgNzMzLjkxNiA0MjQuMzMxIDczNy43NzggNDIxLjY1NCBDIDc0MS45OTQgNDE4LjczMiwgNzYxLjA4OCA0MDEuOTA3LCA3NzMuMDA1IDM5MC42MTMgQyA3NzcuMTMzIDM4Ni43MDEsIDc4Ni4xMjIgMzc4LjMyNSwgNzkyLjk4MCAzNzIgQyA3OTkuODM4IDM2NS42NzUsIDgwOS4wNjEgMzU3LjExMSwgODEzLjQ3NSAzNTIuOTY4IEMgODE3Ljg4OSAzNDguODI2LCA4MzEuNjE4IDMzNi40NTEsIDg0My45ODQgMzI1LjQ2OCBDIDg1Ni4zNTEgMzE0LjQ4NiwgODczLjkwMSAyOTguNTE3LCA4ODIuOTg0IDI4OS45ODIgQyA4OTIuMDY4IDI4MS40NDcsIDkwNy43MTMgMjY2LjkwMCwgOTE3Ljc1MCAyNTcuNjU2IEMgOTQxLjQ0NyAyMzUuODMxLCA5NDEuMzcyIDIzNi4xNDMsIDkyNi4yODIgMjIyLjM4NyBDIDkyMC45MjAgMjE3LjQ5OSwgOTAyLjEyNSAyMDAsIDg4NC41MTQgMTgzLjUwMCBDIDg2Ni45MDQgMTY3LCA4NDcuNzcyIDE0OS4yNjMsIDg0MS45OTggMTQ0LjA4NSBDIDgyNy4yMDIgMTMwLjgxNiwgNzk5Ljk2OSAxMDUuNjczLCA3NzcuMDQ3IDg0LjEyMCBDIDc1MS4yMDIgNTkuODE3LCA3NTAuMDkwIDU5LjIwMCwgNzQyLjQwMCA2NC44ODIgTSA2MjAuNzU2IDE3OS43NTAgQyA2MDUuMDU5IDE5My42MDAsIDU4NS4yMDIgMjExLjYyMSwgNTcxLjQ2MiAyMjQuNDg1IEMgNTM5LjcyOSAyNTQuMTkzLCA1MTYuMjU3IDI3NS44MzcsIDQ5NC45OTEgMjk1IEMgNDgzLjA4OCAzMDUuNzI1LCA0NjMuMDI3IDMyNC4xNzUsIDQ1MC40MTAgMzM2IEMgNDM3Ljc5NCAzNDcuODI1LCA0MTYuNDUzIDM2Ny40NDMsIDQwMi45ODYgMzc5LjU5NiBDIDM2NC45NDUgNDEzLjkyMywgMzYxLjY4MiA0MTcuNTAyLCAzNjQuODkyIDQyMS4zNjkgTCAzNjYuMDA3IDQyMi43MTMgNDIwLjI1MyA0MjMuNDk5IEMgNDg5Ljk5MiA0MjQuNTEwLCA0ODcuMTM4IDQyNC41MzEsIDQ5MC4wMjUgNDIyLjk5MyBDIDQ5NC4zMTEgNDIwLjcxMSwgNDk5LjU3OCA0MTYuMTExLCA1MjQuMzY2IDM5Mi45OTYgQyA1NDUuNDA5IDM3My4zNzUsIDU2OC4xNjEgMzUyLjUyOCwgNTk3LjM0OCAzMjYuMTI2IEMgNjAxLjgzMiAzMjIuMDcxLCA2MDguOTA1IDMxNS41NDYsIDYxMy4wNjYgMzExLjYyNiBDIDYxNy4yMjcgMzA3LjcwNywgNjMxLjYyNyAyOTQuMzc1LCA2NDUuMDY2IDI4Mi4wMDEgQyA2NTguNTA1IDI2OS42MjYsIDY3NC4zMzcgMjU0Ljc1MywgNjgwLjI1MCAyNDguOTUxIEwgNjkxIDIzOC40MDAgNjkxIDIzNC45MjIgQyA2OTEgMjMyLjkwMSwgNjkwLjA1NyAyMzAuMTQyLCA2ODguNzUwIDIyOC4zMzkgQyA2ODYuNzg3IDIyNS42MjksIDY2Mi4yMTkgMjAyLjkwMiwgNjUwLjU4NiAxOTMuMDM0IEMgNjQ4LjMzOSAxOTEuMTI3LCA2NDMuMTkyIDE4Ni41MTUsIDYzOS4xNDkgMTgyLjc4NCBMIDYzMS43OTcgMTc2IDYyOC40MDIgMTc2IEwgNjI1LjAwNiAxNzYgNjIwLjc1NiAxNzkuNzUwJyBmaWxsPScjRTgzMDJBJy8+PHBhdGggZD0nTSAyOTUuMTkxIDUxMS41MjkgQyAyODcuMzc3IDUxMy4yMjUsIDI3Ny4yMDAgNTIwLjQwNCwgMjcxLjAzNiA1MjguNTY4IEMgMjY0LjU5NyA1MzcuMDk2LCAyNjMuNzI1IDUzOS45NTQsIDI2NC4xNzIgNTUxLjA2NiBDIDI2NC41NDggNTYwLjQzMywgMjY0LjY2OSA1NjAuODUzLCAyNjguODU2IDU2Ny4yNzkgQyAyNzQuMzQ4IDU3NS43MDksIDI4Mi4yNDYgNTgxLjc4MiwgMjkwLjgwMSA1ODQuMTU1IEMgMjk0LjMwNyA1ODUuMTI3LCAyOTkuNDk5IDU4Ni43ODcsIDMwMi4zMzggNTg3Ljg0NCBDIDMwNS4xNzcgNTg4LjkwMiwgMzExLjA0MSA1OTAuNDk1LCAzMTUuMzY5IDU5MS4zODYgQyAzMjguOTExIDU5NC4xNzIsIDM0MSA2MDIuOTgyLCAzNDEgNjEwLjA2NCBDIDM0MSA2MTQuMzYxLCAzMzUuNjcwIDYyMS41MTcsIDMzMS4xMjIgNjIzLjMyNyBDIDMyNS4yMjkgNjI1LjY3MiwgMzE2LjA2MiA2MjcuMjMwLCAzMTIuMTQ4IDYyNi41NTIgQyAyOTcuNDMwIDYyNC4wMDEsIDI5My44NjUgNjIyLjcyOSwgMjg1LjA4NCA2MTYuODk1IEMgMjc0LjY1NiA2MDkuOTY2LCAyNzMuMjIxIDYwOS43ODcsIDI2Ny45MDkgNjE0Ljc1MCBDIDI1Ni41OTQgNjI1LjMyMiwgMjYyLjg5NyA2MzQuOTI0LCAyODYuNTE0IDY0My4wODkgQyAzMDUuMTc3IDY0OS41NDEsIDMyMC45OTEgNjQ5LjU4NiwgMzQwLjM1MSA2NDMuMjQxIEMgMzU1LjkwOSA2MzguMTQyLCAzNjYuNTAwIDYyMy4yNjEsIDM2Ni41MDAgNjA2LjUwMCBDIDM2Ni41MDAgNTkxLjc5NiwgMzU5LjEzMCA1ODEuNTEyLCAzNDIuNjQ4IDU3My4yMTUgQyAzMzcuMTExIDU3MC40MjgsIDMzMS40MDMgNTY4LjQzOCwgMzI2LjMxOCA1NjcuNTIxIEMgMzE3LjQ2MyA1NjUuOTI1LCAyOTkuNTkyIDU2MC4wODksIDI5NS42NTMgNTU3LjUwOCBDIDI5Mi4zNDggNTU1LjM0MiwgMjg4Ljk5OSA1NDkuOTkxLCAyODkuMDA0IDU0Ni44ODIgQyAyODkuMDI2IDUzMi40NDYsIDMyNC40MzcgNTI4LjE4MCwgMzQwLjc3OCA1NDAuNjQ0IEMgMzQ2LjM5NyA1NDQuOTMwLCAzNTAuMjQ1IDU0NC40NDEsIDM1NS42MTQgNTM4Ljc1OCBDIDM2My44MDUgNTMwLjA4OSwgMzYxLjY0MSA1MjQuMzA4LCAzNDcuNDkxIDUxNy4wNTggQyAzMzUuNzg3IDUxMS4wNjIsIDMwOS45MzIgNTA4LjMyOCwgMjk1LjE5MSA1MTEuNTI5IE0gMTA0MS4xMDkgNTEyLjA0NSBDIDEwMjAuNTQ4IDUxNC4xOTksIDk5NS45MTkgNTM4LjI0MiwgOTkxLjM0MCA1NjAuNjMxIEMgOTg5LjMxMCA1NzAuNTU0LCA5ODkuMzA0IDU4Ny44ODIsIDk5MS4zMjcgNTk4LjgyOCBDIDk5Ny43MDggNjMzLjM2OSwgMTA0OC4zNjcgNjU4LjI5OCwgMTA4Mi4xODkgNjQzLjU0MSBDIDEwOTUuNjY2IDYzNy42NjEsIDEwOTcuMDMyIDYzNi44MTMsIDExMDQuMTc4IDYyOS44OTMgQyAxMTEzLjUwMCA2MjAuODY2LCAxMTEzLjIwOSA2MTcuNzU1LCAxMTAyLjUxNSA2MTIuMTA1IEMgMTA5NS45MzUgNjA4LjYyOSwgMTA5Mi45NTAgNjA5LjIyOCwgMTA4Ni4zMDcgNjE1LjM1OCBDIDEwNzUuMTQ0IDYyNS42NTcsIDEwNjUuNTA2IDYyOC4yNTksIDEwNTAuMTMwIDYyNS4xMjMgQyAxMDM4Ljc5NyA2MjIuODEyLCAxMDM4LjEzMSA2MjIuNTMyLCAxMDMwLjcwMiA2MTYuOTc2IEMgMTAxOS41ODQgNjA4LjY2MiwgMTAxNS42MDAgNjAwLjYxMCwgMTAxNC40NTQgNTg0LjEzOCBDIDEwMTIuNzU5IDU1OS43NzksIDEwMjIuNDkzIDU0Mi45MDAsIDEwNDMuNTgyIDUzMy42MjkgQyAxMDUxLjUwMSA1MzAuMTQ3LCAxMDUyLjk5OCA1MjkuODA5LCAxMDU4LjQ0NCA1MzAuMjczIEMgMTA2Ny4zNDYgNTMxLjAzMCwgMTA3OS45NTggNTM2LjM2MCwgMTA4Ni42MDAgNTQyLjE3MyBDIDEwOTIuODA2IDU0Ny42MDQsIDEwOTUuNDA4IDU0OC4xMDMsIDExMDMuMzcxIDU0NS4zODkgQyAxMTA4Ljc1OSA1NDMuNTUzLCAxMTExLjUxOCA1NDAuMjAxLCAxMTEwLjYxMiA1MzYuNTkwIEMgMTEwOC42MjIgNTI4LjY2MCwgMTA4OC4wOTkgNTE0LjQxNCwgMTA3NS4yNDMgNTEyLjAzNyBDIDEwNjguOTQzIDUxMC44NzMsIDEwNTIuMjcyIDUxMC44NzcsIDEwNDEuMTA5IDUxMi4wNDUgTSAzOTcuOTYwIDUxMy44MzEgQyAzOTQuOTI5IDUxNi4yODYsIDM5NS42NzEgNTE4LjY5MCwgNDAyLjI0NSA1MjcuNzE0IEMgNDA1LjEzNSA1MzEuNjgxLCA0MDguODUwIDUzNy4wMDQsIDQxMC41MDAgNTM5LjU0MiBDIDQxNy4zMzIgNTUwLjA1MiwgNDE4Ljk2NCA1NTIuNTA5LCA0MjkuMjI4IDU2Ny43MzQgQyA0NDQuODA4IDU5MC44NDQsIDQ0NC4zNTQgNTg5LjQ5NSwgNDQ0LjY0OCA2MTMuNTAwIEMgNDQ0Ljc4MyA2MjQuNTAwLCA0NDQuOTE3IDYzNS4yMjIsIDQ0NC45NDcgNjM3LjMyNyBDIDQ0NS4wNjAgNjQ1LjQyOCwgNDU0LjA4OSA2NDkuNDk2LCA0NjMuMzYwIDY0NS42MjMgQyA0NjguNDA2IDY0My41MTUsIDQ2OC44ODAgNjQxLjAzMCwgNDY5LjIwNiA2MTUgTCA0NjkuNTAwIDU5MS41MDAgNDcyLjUwMCA1ODUuNzgwIEMgNDc0LjE1MCA1ODIuNjM0LCA0ODEuMzUwIDU3MS40NDcsIDQ4OC41MDAgNTYwLjkyMSBDIDQ5NS42NTAgNTUwLjM5NSwgNTAyLjY2MSA1MzkuOTE5LCA1MDQuMDgwIDUzNy42NDEgQyA1MDUuNDk5IDUzNS4zNjQsIDUwOS4yMTIgNTI5LjkwMywgNTEyLjMzMCA1MjUuNTA3IEMgNTE4Ljc1MiA1MTYuNDUzLCA1MTguOTU4IDUxNS42NzQsIDUxNS41MjcgNTEzLjQyNiBDIDUxMy41NzAgNTEyLjE0MywgNTExLjA1MCA1MTEuODc4LCA1MDMuNDQ5IDUxMi4xNTMgTCA0OTMuODQ0IDUxMi41MDAgNDkwLjY3MiA1MTYuMTU5IEMgNDg4LjkyNyA1MTguMTcxLCA0ODUuOTI1IDUyMi40MDksIDQ4NCA1MjUuNTc3IEMgNDgwLjA4MCA1MzIuMDI2LCA0NzUuNTg5IDUzOS4xMjIsIDQ2OC44NDIgNTQ5LjUyMiBDIDQ2Ni4zMzcgNTUzLjM4NSwgNDYzLjU2NSA1NTcuOTQwLCA0NjIuNjgzIDU1OS42NDUgQyA0NTkuNzQ5IDU2NS4zMjAsIDQ1My4wNzUgNTY0LjIwNiwgNDQ5LjAwNCA1NTcuMzYyIEMgNDQ3Ljc0MSA1NTUuMjM4LCA0NDUuMjU1IDU1MS4yNTAsIDQ0My40ODAgNTQ4LjUwMCBDIDQ0MS43MDQgNTQ1Ljc1MCwgNDM4LjA5NSA1NDAuMTI1LCA0MzUuNDYwIDUzNiBDIDQyNC42MjEgNTE5LjAzNywgNDIxLjc1MSA1MTQuOTM5LCA0MTkuNzA0IDUxMy41MDUgQyA0MTYuMzgzIDUxMS4xNzksIDQwMC45NTAgNTExLjQxMSwgMzk3Ljk2MCA1MTMuODMxIE0gNTU4LjMwOCA1MTMuMTk0IEMgNTU3LjEwMyA1MTMuNzc3LCA1NTUuODI1IDUxNC45ODQsIDU1NS40NjggNTE1Ljg3NyBDIDU1NC40NjYgNTE4LjM4NCwgNTU0Ljk4NSA2MzguODI5LCA1NTYuMDA5IDY0MS41MjQgQyA1NTguMjQ3IDY0Ny40MTAsIDU3MS4wMTAgNjQ5LjE0MywgNTc1LjkyNSA2NDQuMjI5IEMgNTc5LjY5NCA2NDAuNDYwLCA1ODAuMTYxIDYzNC43MzEsIDU3OS44OTggNTk1LjQ5OSBDIDU3OS42NjEgNTU5Ljk0NiwgNTc5Ljc3OCA1NTkuMjgyLCA1ODUuNzU0IDU2Mi4zNzMgQyA1ODguNDAxIDU2My43NDIsIDU5Mi4xMDMgNTY4LjM4MywgNjA3IDU4OS4wMTIgQyA2MTMuMjE2IDU5Ny42MTksIDYyNy4zODAgNjE2LjkxMCwgNjMxLjc5NyA2MjIuNzg1IEMgNjM0LjE2MCA2MjUuOTI4LCA2MzcuNTkyIDYzMC43NTQsIDYzOS40MjMgNjMzLjUwOSBDIDY0MS4yNTUgNjM2LjI2MywgNjQ0Ljg0MyA2NDAuNDQ0LCA2NDcuMzk4IDY0Mi43OTkgTCA2NTIuMDQyIDY0Ny4wODAgNjYwLjE2NyA2NDYuNzkwIEMgNjczLjYyMiA2NDYuMzEwLCA2NzIuNTAwIDY1Mi41MjEsIDY3Mi41MDAgNTc4LjUzMyBDIDY3Mi41MDAgNTA1LjIzNSwgNjczLjczNiA1MTIsIDY2MC4zNDUgNTEyIEMgNjQ3LjA2NCA1MTIsIDY0OCA1MDguODk2LCA2NDggNTUyLjkzNSBDIDY0OCA1NzQuNTEzLCA2NDcuNTk1IDU5MC45MzYsIDY0Ny4wMjUgNTkyLjQzNSBDIDY0NS4zNTkgNTk2LjgxNiwgNjQyLjcwMSA1OTUuNTgwLCA2MzYuOTUxIDU4Ny43NTAgQyA2MTMuODE5IDU1Ni4yNTIsIDU4MS40MzEgNTEzLjc2NiwgNTc5Ljk0NiA1MTIuOTcxIEMgNTc3LjUzNSA1MTEuNjgxLCA1NjEuMDg5IDUxMS44NTEsIDU1OC4zMDggNTEzLjE5NCBNIDcxMy44ODggNTE0LjExMiBDIDcxMi4wOTIgNTE1LjkwOCwgNzExLjg0MCA1MTcuMTEwLCA3MTIuMjA1IDUyMi4xNTEgQyA3MTIuOTEyIDUzMS45MjgsIDcxMy44NzUgNTMyLjQzNCwgNzMyLjUwOCA1MzIuODIwIEMgNzU0LjI0NCA1MzMuMjcwLCA3NTEuOTkwIDUyNy4wODksIDc1Mi4wNDQgNTg2LjM4NSBDIDc1Mi4wODggNjM0Ljk5NCwgNzUyLjQ3OSA2NDEuOTA4LCA3NTUuMzUzIDY0NC43ODIgQyA3NTcuMDg0IDY0Ni41MTMsIDc2Ny4yMjQgNjQ3LjY2MywgNzcxLjQzNSA2NDYuNjA2IEMgNzc2LjQ0MSA2NDUuMzQ5LCA3NzYuNDY1IDY0NS4wOTksIDc3NyA1ODkuNjYzIEwgNzc3LjUwMCA1MzcuODI1IDc4MC4zMDYgNTM1LjQxMyBDIDc4Mi45NzIgNTMzLjEyMCwgNzgzLjc4NCA1MzMsIDc5Ni42MDUgNTMzIEMgODExLjkxMSA1MzMsIDgxNS4wOTMgNTMyLjA0MCwgODE2Ljg5MiA1MjYuODgxIEMgODE4Ljc0OSA1MjEuNTUzLCA4MTguMjgwIDUxNi42MTIsIDgxNS42ODYgNTE0LjE3NCBDIDgxMi4wOTAgNTEwLjc5NywgNzE3LjI2MSA1MTAuNzM5LCA3MTMuODg4IDUxNC4xMTIgTSA4NTkuNjM1IDUxNC4wNzMgTCA4NTcgNTE2LjE0NSA4NTcgNTc2LjkyMyBDIDg1NyA2NDIuMDgyLCA4NTcuMDY0IDY0Mi45NDcsIDg2Mi4wNTkgNjQ1LjUzMCBDIDg2NS41ODUgNjQ3LjM1NCwgOTQwLjYwNyA2NDcuNzMwLCA5NDUuNzEzIDY0NS45NTAgQyA5NTIuOTgyIDY0My40MTYsIDk1Mi45ODIgNjI4LjU4NCwgOTQ1LjcxMyA2MjYuMDUwIEMgOTQzLjkwNyA2MjUuNDIwLCA5MzIuMjE3IDYyNSwgOTE2LjUwMCA2MjUgQyA4ODkuNDc4IDYyNSwgODg0Ljg0MiA2MjQuNDQxLCA4ODIuOTc5IDYyMC45NjEgQyA4ODIuNDQxIDYxOS45NTUsIDg4MiA2MTMuNzI3LCA4ODIgNjA3LjEyMiBDIDg4MiA1OTUuODcxLCA4ODIuMTUzIDU5NC45MzQsIDg4NC40MTEgNTkyLjMwNiBMIDg4Ni44MjIgNTg5LjUwMCA5MTQuMTYxIDU4OC45OTcgQyA5NDQuNjAyIDU4OC40MzcsIDk0Ni43NjAgNTg3Ljk5NSwgOTQ4Ljg5MiA1ODEuODgxIEMgOTUxLjI4NCA1NzUuMDE3LCA5NDkuMjY4IDU2OS43NjEsIDk0My43NzUgNTY4LjU0OCBDIDk0Mi41MjQgNTY4LjI3MiwgOTI5LjMyOSA1NjcuOTIzLCA5MTQuNDU0IDU2Ny43NzMgQyA4NzkuNzAxIDU2Ny40MjIsIDg4MiA1NjguNTczLCA4ODIgNTUxLjUzMyBDIDg4MiA1MzkuODQ4LCA4ODIuMTQzIDUzOC45NDUsIDg4NC40MTEgNTM2LjMwNiBMIDg4Ni44MjIgNTMzLjUwMCA5MTUuNjYxIDUzMi45NTUgQyA5MzEuNTIzIDUzMi42NTUsIDk0NS4zMDQgNTMyLjAzOCwgOTQ2LjI4NyA1MzEuNTg0IEMgOTUyLjE3NSA1MjguODYyLCA5NTIuOTYwIDUxNS4wNzYsIDk0Ny4zNDkgNTEyLjk0MyBDIDk0NS45NDIgNTEyLjQwOCwgOTI3LjAxMCA1MTIsIDkwMy41NzAgNTEyIEMgODYzLjMwMiA1MTIsIDg2Mi4yMDQgNTEyLjA1MiwgODU5LjYzNSA1MTQuMDczIE0gMTE1NC44NjEgNTEzLjkxMSBMIDExNTIuNTAwIDUxNS44MjIgMTE1Mi4xOTMgNTcyLjY2MSBDIDExNTEuNzgyIDY0OC43MjcsIDExNTEuMzQyIDY0NS43NzYsIDExNjMuMjU5IDY0Ni43MzMgQyAxMTc1Ljk3MSA2NDcuNzUzLCAxMTc2Ljk4NiA2NDUuNDI5LCAxMTc2Ljk5NCA2MTUuMzA2IEMgMTE3NyA1OTQuMzQ4LCAxMTc3LjAyNyA1OTQuMDgwLCAxMTc5LjQxMyA1OTEuMzA2IEwgMTE4MS44MjYgNTg4LjUwMCAxMjEwLjE2MyA1ODguNTAwIEMgMTIyNS43NDggNTg4LjUwMCwgMTIzOS43MjkgNTg4Ljg0NCwgMTI0MS4yMzIgNTg5LjI2NCBDIDEyNDYuMzc5IDU5MC43MDUsIDEyNDcgNTkzLjcyMiwgMTI0NyA2MTcuMzAxIEMgMTI0NyA2NDAuOTM3LCAxMjQ3LjU3MCA2NDQuMTY1LCAxMjUyLjA3MCA2NDYuMDI5IEMgMTI1Ny4wNzAgNjQ4LjEwMCwgMTI2NS45MTAgNjQ2LjgwNiwgMTI2OC42NjkgNjQzLjU5OCBMIDEyNzEgNjQwLjg4OCAxMjcxIDU3OC42MzUgQyAxMjcxIDUyNi42MjMsIDEyNzAuNzY4IDUxNi4wNjUsIDEyNjkuNTg5IDUxNC40NTMgQyAxMjY3LjI1MSA1MTEuMjU2LCAxMjUyLjcxOCA1MTAuOTc2LCAxMjQ5LjQzMSA1MTQuMDY1IEMgMTI0Ny4wMDggNTE2LjM0MSwgMTI0NyA1MTYuNDIxLCAxMjQ3IDUzNy4wMjUgQyAxMjQ3IDU1OS4yMjcsIDEyNDYuMzY4IDU2My4wNTYsIDEyNDIuNDAzIDU2NC44NjIgQyAxMjQwLjcyMSA1NjUuNjI5LCAxMjMwLjQ5MSA1NjYsIDEyMTEuMDY0IDU2NiBDIDExODQuMTcwIDU2NiwgMTE4Mi4wNjIgNTY1Ljg3MSwgMTE3OS44NjEgNTY0LjA5MSBDIDExNzcuNTMxIDU2Mi4yMDcsIDExNzcuNDkzIDU2MS44NzUsIDExNzcgNTM5IEMgMTE3Ni41MDcgNTE2LjEyNiwgMTE3Ni40NjkgNTE1Ljc5NCwgMTE3NC4xMzkgNTEzLjkxMCBDIDExNzAuNzU1IDUxMS4xNzIsIDExNTguMjQzIDUxMS4xNzMsIDExNTQuODYxIDUxMy45MTEnIGZpbGw9JyMwYjFhMzMnLz48cGF0aCBkPSdNMTE5LjI0ODA0Njg3NSA3NzYuMEgxMjYuODA5NTcwMzEyNVY3NjAuNTA4Nzg5MDYyNUgxMzQuNjgyNjE3MTg3NUwxNDIuOTgwNDY4NzUgNzc2LjBIMTUxLjQ0ODI0MjE4NzVMMTQyLjMwMDc4MTI1IDc1OS4yMzQzNzVDMTQ3LjI4NTE1NjI1IDc1Ny4yNTE5NTMxMjUgMTQ5Ljg5MDYyNSA3NTMuMDMyMjI2NTYyNSAxNDkuODkwNjI1IDc0Ny4zMTE1MjM0Mzc1QzE0OS44OTA2MjUgNzM5LjI2ODU1NDY4NzUgMTQ0LjczNjMyODEyNSA3MzMuODAyNzM0Mzc1IDEzNS4wMjI0NjA5Mzc1IDczMy44MDI3MzQzNzVIMTE5LjI0ODA0Njg3NVpNMTI2LjgwOTU3MDMxMjUgNzU0LjI1Vjc0MC4xNDY0ODQzNzVIMTMzLjg2MTMyODEyNUMxMzkuNjEwMzUxNTYyNSA3NDAuMTQ2NDg0Mzc1IDE0Mi4xNTkxNzk2ODc1IDc0Mi44MDg1OTM3NSAxNDIuMTU5MTc5Njg3NSA3NDcuMzExNTIzNDM3NUMxNDIuMTU5MTc5Njg3NSA3NTEuNzg2MTMyODEyNSAxMzkuNjEwMzUxNTYyNSA3NTQuMjUgMTMzLjkxNzk2ODc1IDc1NC4yNVpNMTg0Ljg1NTk1NzAzMTI1IDc3Ni4wSDIxMi4zODMzMDA3ODEyNVY3NjkuNjI3OTI5Njg3NUgxOTIuNDE3NDgwNDY4NzVWNzU3Ljg0NjY3OTY4NzVIMjEwLjc5NzM2MzI4MTI1Vjc1MS41NTk1NzAzMTI1SDE5Mi40MTc0ODA0Njg3NVY3NDAuMTc0ODA0Njg3NUgyMTIuMjcwMDE5NTMxMjVWNzMzLjgwMjczNDM3NUgxODQuODU1OTU3MDMxMjVaTTI2NS43Mjg1MTU2MjUgNzc2LjU2NjQwNjI1QzI3NS42OTcyNjU2MjUgNzc2LjU2NjQwNjI1IDI4Mi4zODA4NTkzNzUgNzcwLjAyNDQxNDA2MjUgMjgzLjU0MTk5MjE4NzUgNzYxLjk1MzEyNUgyNzUuODk1NTA3ODEyNUMyNzQuOTMyNjE3MTg3NSA3NjYuOTM3NSAyNzAuODU0NDkyMTg3NSA3NjkuNzk3ODUxNTYyNSAyNjUuODEzNDc2NTYyNSA3NjkuNzk3ODUxNTYyNUMyNTguOTU5OTYwOTM3NSA3NjkuNzk3ODUxNTYyNSAyNTQuMDAzOTA2MjUgNzY0LjYxNTIzNDM3NSAyNTQuMDAzOTA2MjUgNzU0LjkyOTY4NzVDMjU0LjAwMzkwNjI1IDc0NS4zNTc0MjE4NzUgMjU4LjkzMTY0MDYyNSA3NDAuMDA0ODgyODEyNSAyNjUuODQxNzk2ODc1IDc0MC4wMDQ4ODI4MTI1QzI3MC44ODI4MTI1IDc0MC4wMDQ4ODI4MTI1IDI3NC45NjA5Mzc1IDc0Mi44NjUyMzQzNzUgMjc1Ljg5NTUwNzgxMjUgNzQ3Ljg0OTYwOTM3NUgyODMuNTEzNjcxODc1QzI4Mi4xODI2MTcxODc1IDczOC42MTcxODc1IDI3NC45ODkyNTc4MTI1IDczMy4yMzYzMjgxMjUgMjY1LjcyODUxNTYyNSA3MzMuMjM2MzI4MTI1QzI1NC43MTE5MTQwNjI1IDczMy4yMzYzMjgxMjUgMjQ2LjQxNDA2MjUgNzQxLjI3OTI5Njg3NSAyNDYuNDE0MDYyNSA3NTQuOTI5Njg3NUMyNDYuNDE0MDYyNSA3NjguNTIzNDM3NSAyNTQuNjI2OTUzMTI1IDc3Ni41NjY0MDYyNSAyNjUuNzI4NTE1NjI1IDc3Ni41NjY0MDYyNVpNMzE4LjI1MjQ0MTQwNjI1IDc3Ni4wSDMyNS44MTM5NjQ4NDM3NVY3NjAuNTA4Nzg5MDYyNUgzMzMuNjg3MDExNzE4NzVMMzQxLjk4NDg2MzI4MTI1IDc3Ni4wSDM1MC40NTI2MzY3MTg3NUwzNDEuMzA1MTc1NzgxMjUgNzU5LjIzNDM3NUMzNDYuMjg5NTUwNzgxMjUgNzU3LjI1MTk1MzEyNSAzNDguODk1MDE5NTMxMjUgNzUzLjAzMjIyNjU2MjUgMzQ4Ljg5NTAxOTUzMTI1IDc0Ny4zMTE1MjM0Mzc1QzM0OC44OTUwMTk1MzEyNSA3MzkuMjY4NTU0Njg3NSAzNDMuNzQwNzIyNjU2MjUgNzMzLjgwMjczNDM3NSAzMzQuMDI2ODU1NDY4NzUgNzMzLjgwMjczNDM3NUgzMTguMjUyNDQxNDA2MjVaTTMyNS44MTM5NjQ4NDM3NSA3NTQuMjVWNzQwLjE0NjQ4NDM3NUgzMzIuODY1NzIyNjU2MjVDMzM4LjYxNDc0NjA5Mzc1IDc0MC4xNDY0ODQzNzUgMzQxLjE2MzU3NDIxODc1IDc0Mi44MDg1OTM3NSAzNDEuMTYzNTc0MjE4NzUgNzQ3LjMxMTUyMzQzNzVDMzQxLjE2MzU3NDIxODc1IDc1MS43ODYxMzI4MTI1IDMzOC42MTQ3NDYwOTM3NSA3NTQuMjUgMzMyLjkyMjM2MzI4MTI1IDc1NC4yNVpNNDAwLjk2NTgyMDMxMjUgNzc2LjYyMzA0Njg3NUM0MTEuMjQ2MDkzNzUgNzc2LjYyMzA0Njg3NSA0MTguMDcxMjg5MDYyNSA3NzAuMzkyNTc4MTI1IDQxOC4wNzEyODkwNjI1IDc2MS4zNTgzOTg0Mzc1VjczMy44MDI3MzQzNzVINDEwLjUwOTc2NTYyNVY3NjAuNzM1MzUxNTYyNUM0MTAuNTA5NzY1NjI1IDc2Ni4wMzEyNSA0MDYuNzk5ODA0Njg3NSA3NjkuODU0NDkyMTg3NSA0MDAuOTY1ODIwMzEyNSA3NjkuODU0NDkyMTg3NUMzOTUuMTMxODM1OTM3NSA3NjkuODU0NDkyMTg3NSAzOTEuNDIxODc1IDc2Ni4wMzEyNSAzOTEuNDIxODc1IDc2MC43MzUzNTE1NjI1VjczMy44MDI3MzQzNzVIMzgzLjg2MDM1MTU2MjVWNzYxLjM1ODM5ODQzNzVDMzgzLjg2MDM1MTU2MjUgNzcwLjM5MjU3ODEyNSAzOTAuNjI4OTA2MjUgNzc2LjYyMzA0Njg3NSA0MDAuOTY1ODIwMzEyNSA3NzYuNjIzMDQ2ODc1Wk00NjEuODcyNTU4NTkzNzUgNzMzLjgwMjczNDM3NUg0NTQuMzExMDM1MTU2MjVWNzc2LjBINDYxLjg3MjU1ODU5Mzc1Wk00OTYuMjQzMTY0MDYyNSA3NDAuMTc0ODA0Njg3NUg1MDkuMjcwNTA3ODEyNVY3NzYuMEg1MTYuODMyMDMxMjVWNzQwLjE3NDgwNDY4NzVINTI5LjgzMTA1NDY4NzVWNzMzLjgwMjczNDM3NUg0OTYuMjQzMTY0MDYyNVpNNTY0LjIwMTY2MDE1NjI1IDc3Ni4wSDU3MS42MjE1ODIwMzEyNVY3NTQuNzAzMTI1QzU3MS42MjE1ODIwMzEyNSA3NTEuNTAyOTI5Njg3NSA1NzEuNDUxNjYwMTU2MjUgNzQ1LjY2ODk0NTMxMjUgNTcxLjMzODM3ODkwNjI1IDc0MC44ODI4MTI1QzU3Mi44OTU5OTYwOTM3NSA3NDYuMzIwMzEyNSA1NzQuNTk1MjE0ODQzNzUgNzUxLjk1NjA1NDY4NzUgNTc1LjU4NjQyNTc4MTI1IDc1NC43MDMxMjVMNTgzLjQ4Nzc5Mjk2ODc1IDc3Ni4wSDU4OS45MTY1MDM5MDYyNUw1OTcuNzA0NTg5ODQzNzUgNzU0LjcwMzEyNUM1OTguNjk1ODAwNzgxMjUgNzUxLjg3MTA5Mzc1IDYwMC40Nzk5ODA0Njg3NSA3NDYuMDY1NDI5Njg3NSA2MDEuOTI0MzE2NDA2MjUgNzQwLjY1NjI1QzYwMS44MzkzNTU0Njg3NSA3NDUuNjY4OTQ1MzEyNSA2MDEuNjY5NDMzNTkzNzUgNzUxLjU1OTU3MDMxMjUgNjAxLjY2OTQzMzU5Mzc1IDc1NC43MDMxMjVWNzc2LjBINjA5LjIwMjYzNjcxODc1VjczMy44MDI3MzQzNzVINTk3Ljc4OTU1MDc4MTI1TDU4OS44NTk4NjMyODEyNSA3NTUuNTgxMDU0Njg3NUM1ODkuMDM4NTc0MjE4NzUgNzU4LjEwMTU2MjUgNTg3LjczNTgzOTg0Mzc1IDc2My4zMTI1IDU4Ni43NDQ2Mjg5MDYyNSA3NjcuNDc1NTg1OTM3NUM1ODUuNzgxNzM4MjgxMjUgNzYzLjI1NTg1OTM3NSA1ODQuNDUwNjgzNTkzNzUgNzU4LjA3MzI0MjE4NzUgNTgzLjYwMTA3NDIxODc1IDc1NS41ODEwNTQ2ODc1TDU3NS41ODY0MjU3ODEyNSA3MzMuODAyNzM0Mzc1SDU2NC4yMDE2NjAxNTYyNVpNNjQ1LjQ3MDcwMzEyNSA3NzYuMEg2NzIuOTk4MDQ2ODc1Vjc2OS42Mjc5Mjk2ODc1SDY1My4wMzIyMjY1NjI1Vjc1Ny44NDY2Nzk2ODc1SDY3MS40MTIxMDkzNzVWNzUxLjU1OTU3MDMxMjVINjUzLjAzMjIyNjU2MjVWNzQwLjE3NDgwNDY4NzVINjcyLjg4NDc2NTYyNVY3MzMuODAyNzM0Mzc1SDY0NS40NzA3MDMxMjVaTTcwOC4zNTk4NjMyODEyNSA3NzYuMEg3MTYuMDYyOTg4MjgxMjVWNzU1LjA0Mjk2ODc1QzcxNi4wNjI5ODgyODEyNSA3NTIuNjkyMzgyODEyNSA3MTUuODA4MTA1NDY4NzUgNzQ4LjI0NjA5Mzc1IDcxNS41MjQ5MDIzNDM3NSA3NDMuMDM1MTU2MjVDNzE4LjM1NjkzMzU5Mzc1IDc0OC41MjkyOTY4NzUgNzE5Ljk0Mjg3MTA5Mzc1IDc1MS41MzEyNSA3MjIuMTUxODU1NDY4NzUgNzU1LjA3MTI4OTA2MjVMNzM1LjMyMDgwMDc4MTI1IDc3Ni4wSDc0My45MDE4NTU0Njg3NVY3MzMuODAyNzM0Mzc1SDczNi4yMjcwNTA3ODEyNVY3NTUuOTQ5MjE4NzVDNzM2LjIyNzA1MDc4MTI1IDc1OC41MjYzNjcxODc1IDczNi4zOTY5NzI2NTYyNSA3NjIuODAyNzM0Mzc1IDczNi42ODAxNzU3ODEyNSA3NjYuODgwODU5Mzc1QzczNC44MzkzNTU0Njg3NSA3NjIuNjYxMTMyODEyNSA3MzIuOTk4NTM1MTU2MjUgNzU5LjQ2MDkzNzUgNzMxLjQ5NzU1ODU5Mzc1IDc1Ny4wNTM3MTA5Mzc1TDcxNi45MTI1OTc2NTYyNSA3MzMuODAyNzM0Mzc1SDcwOC4zNTk4NjMyODEyNVpNNzc4LjI3MjQ2MDkzNzUgNzQwLjE3NDgwNDY4NzVINzkxLjI5OTgwNDY4NzVWNzc2LjBINzk4Ljg2MTMyODEyNVY3NDAuMTc0ODA0Njg3NUg4MTEuODYwMzUxNTYyNVY3MzMuODAyNzM0Mzc1SDc3OC4yNzI0NjA5Mzc1Wk05MDMuNDI3NzM0Mzc1IDc3Ni42NTEzNjcxODc1QzkxMy41MDk3NjU2MjUgNzc2LjY1MTM2NzE4NzUgOTE5LjQwMDM5MDYyNSA3NzEuNTgyMDMxMjUgOTE5LjQwMDM5MDYyNSA3NjQuMTYyMTA5Mzc1QzkxOS40MDAzOTA2MjUgNzU2Ljc5ODgyODEyNSA5MTMuMjU0ODgyODEyNSA3NTMuNTQxOTkyMTg3NSA5MDYuOTk2MDkzNzUgNzUyLjA0MTAxNTYyNUw5MDMuMDU5NTcwMzEyNSA3NTEuMDIxNDg0Mzc1Qzg5OS42MzI4MTI1IDc1MC4xNzE4NzUgODk1Ljg2NjIxMDkzNzUgNzQ4Ljc1NTg1OTM3NSA4OTUuODY2MjEwOTM3NSA3NDUuMjE1ODIwMzEyNUM4OTUuODY2MjEwOTM3NSA3NDIuMDE1NjI1IDg5OC43NTQ4ODI4MTI1IDczOS42NjUwMzkwNjI1IDkwMy41MTI2OTUzMTI1IDczOS42NjUwMzkwNjI1QzkwOC4wNzIyNjU2MjUgNzM5LjY2NTAzOTA2MjUgOTExLjEzMDg1OTM3NSA3NDEuNzYwNzQyMTg3NSA5MTEuNDk5MDIzNDM3NSA3NDUuMzU3NDIxODc1SDkxOC44MzM5ODQzNzVDOTE4LjYzNTc0MjE4NzUgNzM4LjMwNTY2NDA2MjUgOTEyLjYzMTgzNTkzNzUgNzMzLjIzNjMyODEyNSA5MDMuNjI1OTc2NTYyNSA3MzMuMjM2MzI4MTI1Qzg5NC43OTAwMzkwNjI1IDczMy4yMzYzMjgxMjUgODg4LjIxOTcyNjU2MjUgNzM4LjIyMDcwMzEyNSA4ODguMjE5NzI2NTYyNSA3NDUuNjY4OTQ1MzEyNUM4ODguMjE5NzI2NTYyNSA3NTEuNjE2MjEwOTM3NSA4OTIuMzgyODEyNSA3NTUuMTg0NTcwMzEyNSA4OTkuNDM0NTcwMzEyNSA3NTYuOTk3MDcwMzEyNUw5MDQuMjIwNzAzMTI1IDc1OC4yNDMxNjQwNjI1QzkwOC43ODAyNzM0Mzc1IDc1OS40MzI2MTcxODc1IDkxMS44Mzg4NjcxODc1IDc2MC44MjAzMTI1IDkxMS44Mzg4NjcxODc1IDc2NC4xMDU0Njg3NUM5MTEuODM4ODY3MTg3NSA3NjcuNzMwNDY4NzUgOTA4LjM1NTQ2ODc1IDc3MC4xOTQzMzU5Mzc1IDkwMy4zNzEwOTM3NSA3NzAuMTk0MzM1OTM3NUM4OTguNjEzMjgxMjUgNzcwLjE5NDMzNTkzNzUgODk0Ljg0NjY3OTY4NzUgNzY4LjA0MTk5MjE4NzUgODk0LjUwNjgzNTkzNzUgNzYzLjU5NTcwMzEyNUg4ODcuMDU4NTkzNzVDODg3LjM5ODQzNzUgNzcxLjkyMTg3NSA4OTMuNjAwNTg1OTM3NSA3NzYuNjUxMzY3MTg3NSA5MDMuNDI3NzM0Mzc1IDc3Ni42NTEzNjcxODc1Wk05NzIuMTc5MTk5MjE4NzUgNzc2LjU2NjQwNjI1Qzk4My4yMjQxMjEwOTM3NSA3NzYuNTY2NDA2MjUgOTkxLjUyMTk3MjY1NjI1IDc2OC41NTE3NTc4MTI1IDk5MS41MjE5NzI2NTYyNSA3NTQuOTI5Njg3NUM5OTEuNTIxOTcyNjU2MjUgNzQxLjI3OTI5Njg3NSA5ODMuMjI0MTIxMDkzNzUgNzMzLjIzNjMyODEyNSA5NzIuMTc5MTk5MjE4NzUgNzMzLjIzNjMyODEyNUM5NjEuMTA1OTU3MDMxMjUgNzMzLjIzNjMyODEyNSA5NTIuNzc5Nzg1MTU2MjUgNzQxLjI3OTI5Njg3NSA5NTIuNzc5Nzg1MTU2MjUgNzU0LjkyOTY4NzVDOTUyLjc3OTc4NTE1NjI1IDc2OC41MjM0Mzc1IDk2MS4xMDU5NTcwMzEyNSA3NzYuNTY2NDA2MjUgOTcyLjE3OTE5OTIxODc1IDc3Ni41NjY0MDYyNVpNOTcyLjE3OTE5OTIxODc1IDc2OS43OTc4NTE1NjI1Qzk2NS4yNjkwNDI5Njg3NSA3NjkuNzk3ODUxNTYyNSA5NjAuMzY5NjI4OTA2MjUgNzY0LjUzMDI3MzQzNzUgOTYwLjM2OTYyODkwNjI1IDc1NC45Mjk2ODc1Qzk2MC4zNjk2Mjg5MDYyNSA3NDUuMjcyNDYwOTM3NSA5NjUuMjY5MDQyOTY4NzUgNzQwLjAwNDg4MjgxMjUgOTcyLjE3OTE5OTIxODc1IDc0MC4wMDQ4ODI4MTI1Qzk3OS4wMzI3MTQ4NDM3NSA3NDAuMDA0ODgyODEyNSA5ODMuOTAzODA4NTkzNzUgNzQ1LjI0NDE0MDYyNSA5ODMuOTAzODA4NTkzNzUgNzU0LjkyOTY4NzVDOTgzLjkwMzgwODU5Mzc1IDc2NC41NTg1OTM3NSA5NzkuMDMyNzE0ODQzNzUgNzY5Ljc5Nzg1MTU2MjUgOTcyLjE3OTE5OTIxODc1IDc2OS43OTc4NTE1NjI1Wk0xMDI2LjQ1ODk4NDM3NSA3NzYuMEgxMDUyLjY1NTI3MzQzNzVWNzY5LjYyNzkyOTY4NzVIMTAzNC4wMjA1MDc4MTI1VjczMy44MDI3MzQzNzVIMTAyNi40NTg5ODQzNzVaTTExMDQuMTMxMzQ3NjU2MjUgNzc2LjYyMzA0Njg3NUMxMTE0LjQxMTYyMTA5Mzc1IDc3Ni42MjMwNDY4NzUgMTEyMS4yMzY4MTY0MDYyNSA3NzAuMzkyNTc4MTI1IDExMjEuMjM2ODE2NDA2MjUgNzYxLjM1ODM5ODQzNzVWNzMzLjgwMjczNDM3NUgxMTEzLjY3NTI5Mjk2ODc1Vjc2MC43MzUzNTE1NjI1QzExMTMuNjc1MjkyOTY4NzUgNzY2LjAzMTI1IDExMDkuOTY1MzMyMDMxMjUgNzY5Ljg1NDQ5MjE4NzUgMTEwNC4xMzEzNDc2NTYyNSA3NjkuODU0NDkyMTg3NUMxMDk4LjI5NzM2MzI4MTI1IDc2OS44NTQ0OTIxODc1IDEwOTQuNTg3NDAyMzQzNzUgNzY2LjAzMTI1IDEwOTQuNTg3NDAyMzQzNzUgNzYwLjczNTM1MTU2MjVWNzMzLjgwMjczNDM3NUgxMDg3LjAyNTg3ODkwNjI1Vjc2MS4zNTgzOTg0Mzc1QzEwODcuMDI1ODc4OTA2MjUgNzcwLjM5MjU3ODEyNSAxMDkzLjc5NDQzMzU5Mzc1IDc3Ni42MjMwNDY4NzUgMTEwNC4xMzEzNDc2NTYyNSA3NzYuNjIzMDQ2ODc1Wk0xMTU1LjU3OTEwMTU2MjUgNzQwLjE3NDgwNDY4NzVIMTE2OC42MDY0NDUzMTI1Vjc3Ni4wSDExNzYuMTY3OTY4NzVWNzQwLjE3NDgwNDY4NzVIMTE4OS4xNjY5OTIxODc1VjczMy44MDI3MzQzNzVIMTE1NS41NzkxMDE1NjI1Wk0xMjMxLjA5OTEyMTA5Mzc1IDczMy44MDI3MzQzNzVIMTIyMy41Mzc1OTc2NTYyNVY3NzYuMEgxMjMxLjA5OTEyMTA5Mzc1Wk0xMjg1LjQzNTU0Njg3NSA3NzYuNTY2NDA2MjVDMTI5Ni40ODA0Njg3NSA3NzYuNTY2NDA2MjUgMTMwNC43NzgzMjAzMTI1IDc2OC41NTE3NTc4MTI1IDEzMDQuNzc4MzIwMzEyNSA3NTQuOTI5Njg3NUMxMzA0Ljc3ODMyMDMxMjUgNzQxLjI3OTI5Njg3NSAxMjk2LjQ4MDQ2ODc1IDczMy4yMzYzMjgxMjUgMTI4NS40MzU1NDY4NzUgNzMzLjIzNjMyODEyNUMxMjc0LjM2MjMwNDY4NzUgNzMzLjIzNjMyODEyNSAxMjY2LjAzNjEzMjgxMjUgNzQxLjI3OTI5Njg3NSAxMjY2LjAzNjEzMjgxMjUgNzU0LjkyOTY4NzVDMTI2Ni4wMzYxMzI4MTI1IDc2OC41MjM0Mzc1IDEyNzQuMzYyMzA0Njg3NSA3NzYuNTY2NDA2MjUgMTI4NS40MzU1NDY4NzUgNzc2LjU2NjQwNjI1Wk0xMjg1LjQzNTU0Njg3NSA3NjkuNzk3ODUxNTYyNUMxMjc4LjUyNTM5MDYyNSA3NjkuNzk3ODUxNTYyNSAxMjczLjYyNTk3NjU2MjUgNzY0LjUzMDI3MzQzNzUgMTI3My42MjU5NzY1NjI1IDc1NC45Mjk2ODc1QzEyNzMuNjI1OTc2NTYyNSA3NDUuMjcyNDYwOTM3NSAxMjc4LjUyNTM5MDYyNSA3NDAuMDA0ODgyODEyNSAxMjg1LjQzNTU0Njg3NSA3NDAuMDA0ODgyODEyNUMxMjkyLjI4OTA2MjUgNzQwLjAwNDg4MjgxMjUgMTI5Ny4xNjAxNTYyNSA3NDUuMjQ0MTQwNjI1IDEyOTcuMTYwMTU2MjUgNzU0LjkyOTY4NzVDMTI5Ny4xNjAxNTYyNSA3NjQuNTU4NTkzNzUgMTI5Mi4yODkwNjI1IDc2OS43OTc4NTE1NjI1IDEyODUuNDM1NTQ2ODc1IDc2OS43OTc4NTE1NjI1Wk0xMzM5LjcxNTMzMjAzMTI1IDc3Ni4wSDEzNDcuNDE4NDU3MDMxMjVWNzU1LjA0Mjk2ODc1QzEzNDcuNDE4NDU3MDMxMjUgNzUyLjY5MjM4MjgxMjUgMTM0Ny4xNjM1NzQyMTg3NSA3NDguMjQ2MDkzNzUgMTM0Ni44ODAzNzEwOTM3NSA3NDMuMDM1MTU2MjVDMTM0OS43MTI0MDIzNDM3NSA3NDguNTI5Mjk2ODc1IDEzNTEuMjk4MzM5ODQzNzUgNzUxLjUzMTI1IDEzNTMuNTA3MzI0MjE4NzUgNzU1LjA3MTI4OTA2MjVMMTM2Ni42NzYyNjk1MzEyNSA3NzYuMEgxMzc1LjI1NzMyNDIxODc1VjczMy44MDI3MzQzNzVIMTM2Ny41ODI1MTk1MzEyNVY3NTUuOTQ5MjE4NzVDMTM2Ny41ODI1MTk1MzEyNSA3NTguNTI2MzY3MTg3NSAxMzY3Ljc1MjQ0MTQwNjI1IDc2Mi44MDI3MzQzNzUgMTM2OC4wMzU2NDQ1MzEyNSA3NjYuODgwODU5Mzc1QzEzNjYuMTk0ODI0MjE4NzUgNzYyLjY2MTEzMjgxMjUgMTM2NC4zNTQwMDM5MDYyNSA3NTkuNDYwOTM3NSAxMzYyLjg1MzAyNzM0Mzc1IDc1Ny4wNTM3MTA5Mzc1TDEzNDguMjY4MDY2NDA2MjUgNzMzLjgwMjczNDM3NUgxMzM5LjcxNTMzMjAzMTI1Wk0xNDI2LjMzNjkxNDA2MjUgNzc2LjY1MTM2NzE4NzVDMTQzNi40MTg5NDUzMTI1IDc3Ni42NTEzNjcxODc1IDE0NDIuMzA5NTcwMzEyNSA3NzEuNTgyMDMxMjUgMTQ0Mi4zMDk1NzAzMTI1IDc2NC4xNjIxMDkzNzVDMTQ0Mi4zMDk1NzAzMTI1IDc1Ni43OTg4MjgxMjUgMTQzNi4xNjQwNjI1IDc1My41NDE5OTIxODc1IDE0MjkuOTA1MjczNDM3NSA3NTIuMDQxMDE1NjI1TDE0MjUuOTY4NzUgNzUxLjAyMTQ4NDM3NUMxNDIyLjU0MTk5MjE4NzUgNzUwLjE3MTg3NSAxNDE4Ljc3NTM5MDYyNSA3NDguNzU1ODU5Mzc1IDE0MTguNzc1MzkwNjI1IDc0NS4yMTU4MjAzMTI1QzE0MTguNzc1MzkwNjI1IDc0Mi4wMTU2MjUgMTQyMS42NjQwNjI1IDczOS42NjUwMzkwNjI1IDE0MjYuNDIxODc1IDczOS42NjUwMzkwNjI1QzE0MzAuOTgxNDQ1MzEyNSA3MzkuNjY1MDM5MDYyNSAxNDM0LjA0MDAzOTA2MjUgNzQxLjc2MDc0MjE4NzUgMTQzNC40MDgyMDMxMjUgNzQ1LjM1NzQyMTg3NUgxNDQxLjc0MzE2NDA2MjVDMTQ0MS41NDQ5MjE4NzUgNzM4LjMwNTY2NDA2MjUgMTQzNS41NDEwMTU2MjUgNzMzLjIzNjMyODEyNSAxNDI2LjUzNTE1NjI1IDczMy4yMzYzMjgxMjVDMTQxNy42OTkyMTg3NSA3MzMuMjM2MzI4MTI1IDE0MTEuMTI4OTA2MjUgNzM4LjIyMDcwMzEyNSAxNDExLjEyODkwNjI1IDc0NS42Njg5NDUzMTI1QzE0MTEuMTI4OTA2MjUgNzUxLjYxNjIxMDkzNzUgMTQxNS4yOTE5OTIxODc1IDc1NS4xODQ1NzAzMTI1IDE0MjIuMzQzNzUgNzU2Ljk5NzA3MDMxMjVMMTQyNy4xMjk4ODI4MTI1IDc1OC4yNDMxNjQwNjI1QzE0MzEuNjg5NDUzMTI1IDc1OS40MzI2MTcxODc1IDE0MzQuNzQ4MDQ2ODc1IDc2MC44MjAzMTI1IDE0MzQuNzQ4MDQ2ODc1IDc2NC4xMDU0Njg3NUMxNDM0Ljc0ODA0Njg3NSA3NjcuNzMwNDY4NzUgMTQzMS4yNjQ2NDg0Mzc1IDc3MC4xOTQzMzU5Mzc1IDE0MjYuMjgwMjczNDM3NSA3NzAuMTk0MzM1OTM3NUMxNDIxLjUyMjQ2MDkzNzUgNzcwLjE5NDMzNTkzNzUgMTQxNy43NTU4NTkzNzUgNzY4LjA0MTk5MjE4NzUgMTQxNy40MTYwMTU2MjUgNzYzLjU5NTcwMzEyNUgxNDA5Ljk2Nzc3MzQzNzVDMTQxMC4zMDc2MTcxODc1IDc3MS45MjE4NzUgMTQxNi41MDk3NjU2MjUgNzc2LjY1MTM2NzE4NzUgMTQyNi4zMzY5MTQwNjI1IDc3Ni42NTEzNjcxODc1WicgZmlsbD0nIzMzNDE1NScvPjwvc3ZnPg==" alt="Syntech Recruitment Solutions"><span class="cb-x" aria-hidden="true"></span><img class="cb-co" src="https://www.omcengineeredsolutions.com/wp-content/uploads/2026/04/omc-engineered-solutions-logo-footer.svg" alt="OMC Engineered Solutions"></div>
+    <span class="chip"><span class="dot"></span><span id="loginChip">Live search · Limerick &amp; Thurles</span></span>
+    <h1>Sign in to the portal</h1>
+    <p class="sub" id="loginSub">Syntech &amp; OMC Engineered Solutions — one hiring campaign, two sites, one place.</p>
+    <div id="loginErr" class="lerr hidden"></div>
+    <label for="em">Email address</label>
+    <input id="em" type="email" required autocomplete="username">
+    <label for="pw">Password</label>
+    <input id="pw" type="password" required autocomplete="current-password">
+    <button class="lbtn" id="lbtn" type="submit">Sign in to portal</button>
+    <div class="lnote"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Encrypted connection · Authorised users only</div>
+    <div class="lfoot">Trouble signing in? Contact your Syntech administrator.</div>
+  </form>
+  <div class="byline"><b>Syntech Recruitment Solutions</b> in partnership with <b id="bylineCo">OMC Engineered Solutions</b></div>
+</section>
+
+<!-- ================= APP ================= -->
+<div id="app" class="hidden">
+  <aside id="side">
+    <div class="brand">
+      <img class="syn" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzkwIDMwIDEzODAgNzcwJz48cGF0aCBkPSdNIDg1My4zODQgNDQuNDQxIEMgODUyLjEzMSA0Ny43MDcsIDg1NS44MTMgNTIuNjg1LCA4NjcuMTYwIDYzLjA2NCBDIDg3My4zOTcgNjguNzY5LCA4ODcuNzI1IDgyLjAyMCwgODk5IDkyLjUxMiBDIDkyNy4wMzUgMTE4LjU5OCwgOTQyLjAxMyAxMzIuMzE4LCA5NTguNTAwIDE0Ny4wMTYgQyA5NjYuMjAwIDE1My44ODEsIDk4Ni4yMzMgMTcyLjMyMywgMTAwMy4wMTcgMTg3Ljk5OSBDIDEwMTkuODAxIDIwMy42NzQsIDEwMzYuNTkzIDIxOS4yMDAsIDEwNDAuMzMyIDIyMi41MDAgQyAxMDQ2Ljk0MiAyMjguMzMzLCAxMDUwIDIzMi4zOTUsIDEwNTAgMjM1LjM0MCBDIDEwNTAgMjM2LjY5NSwgMTAyMC44MTggMjY0LjYyOCwgOTk2LjUwMCAyODYuNTQ5IEMgOTgxLjk0MyAyOTkuNjcxLCA5NjQuMDE2IDMxNi4zMjAsIDkyNi41MDAgMzUxLjU1NyBDIDkwOS40NTAgMzY3LjU3MSwgODg4LjQ3NCAzODYuOTkxLCA4NzkuODg3IDM5NC43MTEgQyA4NTYuNTQ3IDQxNS42OTQsIDg1Mi43NDggNDIwLjQ2MywgODU3Ljc1MCA0MjIuNDk4IEMgODU4LjcxMiA0MjIuODkwLCA4ODYuNzI1IDQyMy4xMzcsIDkyMCA0MjMuMDQ3IEwgOTgwLjUwMCA0MjIuODg0IDk4Mi41MDAgNDIxLjU3MyBDIDk4NS45NzggNDE5LjI5MiwgMTAwNi42MzcgNDAwLjQ2OSwgMTAzMi41MDAgMzc2LjAxNyBDIDEwNDYuMjUwIDM2My4wMTYsIDEwNjUuOTkxIDM0NC44MjksIDEwNzYuMzcwIDMzNS42MDAgQyAxMDg2Ljc0OCAzMjYuMzcxLCAxMDk5Ljc5OCAzMTQuNDE3LCAxMTA1LjM3MCAzMDkuMDM1IEMgMTExMC45NDEgMzAzLjY1NCwgMTEyNi45NzUgMjg4Ljk3NywgMTE0MSAyNzYuNDIwIEMgMTE1NS4wMjUgMjYzLjg2MywgMTE2Ny4xNzUgMjUyLjgyMiwgMTE2OCAyNTEuODg0IEMgMTE2OC44MjUgMjUwLjk0NywgMTE3Mi40MjUgMjQ3LjYyMCwgMTE3NiAyNDQuNDkxIEMgMTE3OS41NzUgMjQxLjM2MiwgMTE4Mi44NzggMjM4LjEzOSwgMTE4My4zNDEgMjM3LjMyOCBDIDExODUuNDc1IDIzMy41ODQsIDExODQuNjU4IDIzMi43NDAsIDExMzcuMTIyIDE4OS41ODAgQyAxMTMyLjkzMCAxODUuNzc0LCAxMTE1LjEwMCAxNjkuMDg3LCAxMDk3LjUwMCAxNTIuNDk5IEMgMTA3OS45MDAgMTM1LjkxMCwgMTA2MC4xMDAgMTE3LjQ0OSwgMTA1My41MDAgMTExLjQ3NCBDIDEwMzUuMjczIDk0Ljk3NCwgMTAyMS4zMDkgODIuMDk1LCAxMDAyLjc3MyA2NC42ODUgQyA5OTMuNTEyIDU1Ljk4NywgOTg0LjMxNiA0OC4xOTQsIDk4Mi4zMzcgNDcuMzY4IEwgOTc4Ljc0MCA0NS44NjUgOTQ2LjYyMCA0NC45OTAgQyA5MjguOTU0IDQ0LjUwOCwgOTAwLjg5OSA0My43OTYsIDg4NC4yNzYgNDMuNDA4IEwgODU0LjA1MiA0Mi43MDEgODUzLjM4NCA0NC40NDEgTSA3NDIuNDAwIDY0Ljg4MiBDIDc0MC4yNTUgNjYuNDY3LCA3MzQuMzg5IDcxLjUyOSwgNzI5LjM2NSA3Ni4xMzIgQyA2ODQuMzgxIDExNy4zMzgsIDY4NS4yNjcgMTE2LjM4NywgNjg2LjUyMSAxMjIuMDk3IEwgNjg3LjEyNSAxMjQuODQ3IDcwOC4zMTMgMTQ0Ljc2NCBDIDcxOS45NjYgMTU1LjcxOSwgNzM4Ljc2MiAxNzMuMTkxLCA3NTAuMDgzIDE4My41OTEgQyA3OTYuMjUyIDIyNi4wMDYsIDgwNCAyMzMuNTM3LCA4MDQgMjM2IEMgODA0IDIzOC40MDUsIDc5MC41MTYgMjUxLjQ4MSwgNzU1Ljg0NyAyODIuNjk3IEMgNzQ2Ljg1NiAyOTAuNzkyLCA3MzIuMjk1IDMwNC4xODUsIDcyMy40ODggMzEyLjQ1OCBDIDcwMS4zOTkgMzMzLjIwOSwgNjc2LjEwNCAzNTYuMzc4LCA2NzIuNTAwIDM1OS4xNjEgQyA2NjguODgxIDM2MS45NTQsIDY0MS45MTQgMzg1LjkyNCwgNjQwLjUwMCAzODcuNjA0IEMgNjM5Ljk1MCAzODguMjU3LCA2MzQuMzI1IDM5My4zODgsIDYyOCAzOTkuMDA1IEMgNjE1LjAyMCA0MTAuNTMyLCA2MDguNjUzIDQxNy42NTMsIDYwOS40NTUgNDE5Ljc0NSBDIDYwOS43NTUgNDIwLjUyNSwgNjEwIDQyMS4zNjMsIDYxMCA0MjEuNjA3IEMgNjEwIDQyMy40MjMsIDYyMS45OTggNDIzLjg4NywgNjc0LjMzNyA0MjQuMDk0IEwgNzMzLjkxNiA0MjQuMzMxIDczNy43NzggNDIxLjY1NCBDIDc0MS45OTQgNDE4LjczMiwgNzYxLjA4OCA0MDEuOTA3LCA3NzMuMDA1IDM5MC42MTMgQyA3NzcuMTMzIDM4Ni43MDEsIDc4Ni4xMjIgMzc4LjMyNSwgNzkyLjk4MCAzNzIgQyA3OTkuODM4IDM2NS42NzUsIDgwOS4wNjEgMzU3LjExMSwgODEzLjQ3NSAzNTIuOTY4IEMgODE3Ljg4OSAzNDguODI2LCA4MzEuNjE4IDMzNi40NTEsIDg0My45ODQgMzI1LjQ2OCBDIDg1Ni4zNTEgMzE0LjQ4NiwgODczLjkwMSAyOTguNTE3LCA4ODIuOTg0IDI4OS45ODIgQyA4OTIuMDY4IDI4MS40NDcsIDkwNy43MTMgMjY2LjkwMCwgOTE3Ljc1MCAyNTcuNjU2IEMgOTQxLjQ0NyAyMzUuODMxLCA5NDEuMzcyIDIzNi4xNDMsIDkyNi4yODIgMjIyLjM4NyBDIDkyMC45MjAgMjE3LjQ5OSwgOTAyLjEyNSAyMDAsIDg4NC41MTQgMTgzLjUwMCBDIDg2Ni45MDQgMTY3LCA4NDcuNzcyIDE0OS4yNjMsIDg0MS45OTggMTQ0LjA4NSBDIDgyNy4yMDIgMTMwLjgxNiwgNzk5Ljk2OSAxMDUuNjczLCA3NzcuMDQ3IDg0LjEyMCBDIDc1MS4yMDIgNTkuODE3LCA3NTAuMDkwIDU5LjIwMCwgNzQyLjQwMCA2NC44ODIgTSA2MjAuNzU2IDE3OS43NTAgQyA2MDUuMDU5IDE5My42MDAsIDU4NS4yMDIgMjExLjYyMSwgNTcxLjQ2MiAyMjQuNDg1IEMgNTM5LjcyOSAyNTQuMTkzLCA1MTYuMjU3IDI3NS44MzcsIDQ5NC45OTEgMjk1IEMgNDgzLjA4OCAzMDUuNzI1LCA0NjMuMDI3IDMyNC4xNzUsIDQ1MC40MTAgMzM2IEMgNDM3Ljc5NCAzNDcuODI1LCA0MTYuNDUzIDM2Ny40NDMsIDQwMi45ODYgMzc5LjU5NiBDIDM2NC45NDUgNDEzLjkyMywgMzYxLjY4MiA0MTcuNTAyLCAzNjQuODkyIDQyMS4zNjkgTCAzNjYuMDA3IDQyMi43MTMgNDIwLjI1MyA0MjMuNDk5IEMgNDg5Ljk5MiA0MjQuNTEwLCA0ODcuMTM4IDQyNC41MzEsIDQ5MC4wMjUgNDIyLjk5MyBDIDQ5NC4zMTEgNDIwLjcxMSwgNDk5LjU3OCA0MTYuMTExLCA1MjQuMzY2IDM5Mi45OTYgQyA1NDUuNDA5IDM3My4zNzUsIDU2OC4xNjEgMzUyLjUyOCwgNTk3LjM0OCAzMjYuMTI2IEMgNjAxLjgzMiAzMjIuMDcxLCA2MDguOTA1IDMxNS41NDYsIDYxMy4wNjYgMzExLjYyNiBDIDYxNy4yMjcgMzA3LjcwNywgNjMxLjYyNyAyOTQuMzc1LCA2NDUuMDY2IDI4Mi4wMDEgQyA2NTguNTA1IDI2OS42MjYsIDY3NC4zMzcgMjU0Ljc1MywgNjgwLjI1MCAyNDguOTUxIEwgNjkxIDIzOC40MDAgNjkxIDIzNC45MjIgQyA2OTEgMjMyLjkwMSwgNjkwLjA1NyAyMzAuMTQyLCA2ODguNzUwIDIyOC4zMzkgQyA2ODYuNzg3IDIyNS42MjksIDY2Mi4yMTkgMjAyLjkwMiwgNjUwLjU4NiAxOTMuMDM0IEMgNjQ4LjMzOSAxOTEuMTI3LCA2NDMuMTkyIDE4Ni41MTUsIDYzOS4xNDkgMTgyLjc4NCBMIDYzMS43OTcgMTc2IDYyOC40MDIgMTc2IEwgNjI1LjAwNiAxNzYgNjIwLjc1NiAxNzkuNzUwJyBmaWxsPScjRTgzMDJBJy8+PHBhdGggZD0nTSAyOTUuMTkxIDUxMS41MjkgQyAyODcuMzc3IDUxMy4yMjUsIDI3Ny4yMDAgNTIwLjQwNCwgMjcxLjAzNiA1MjguNTY4IEMgMjY0LjU5NyA1MzcuMDk2LCAyNjMuNzI1IDUzOS45NTQsIDI2NC4xNzIgNTUxLjA2NiBDIDI2NC41NDggNTYwLjQzMywgMjY0LjY2OSA1NjAuODUzLCAyNjguODU2IDU2Ny4yNzkgQyAyNzQuMzQ4IDU3NS43MDksIDI4Mi4yNDYgNTgxLjc4MiwgMjkwLjgwMSA1ODQuMTU1IEMgMjk0LjMwNyA1ODUuMTI3LCAyOTkuNDk5IDU4Ni43ODcsIDMwMi4zMzggNTg3Ljg0NCBDIDMwNS4xNzcgNTg4LjkwMiwgMzExLjA0MSA1OTAuNDk1LCAzMTUuMzY5IDU5MS4zODYgQyAzMjguOTExIDU5NC4xNzIsIDM0MSA2MDIuOTgyLCAzNDEgNjEwLjA2NCBDIDM0MSA2MTQuMzYxLCAzMzUuNjcwIDYyMS41MTcsIDMzMS4xMjIgNjIzLjMyNyBDIDMyNS4yMjkgNjI1LjY3MiwgMzE2LjA2MiA2MjcuMjMwLCAzMTIuMTQ4IDYyNi41NTIgQyAyOTcuNDMwIDYyNC4wMDEsIDI5My44NjUgNjIyLjcyOSwgMjg1LjA4NCA2MTYuODk1IEMgMjc0LjY1NiA2MDkuOTY2LCAyNzMuMjIxIDYwOS43ODcsIDI2Ny45MDkgNjE0Ljc1MCBDIDI1Ni41OTQgNjI1LjMyMiwgMjYyLjg5NyA2MzQuOTI0LCAyODYuNTE0IDY0My4wODkgQyAzMDUuMTc3IDY0OS41NDEsIDMyMC45OTEgNjQ5LjU4NiwgMzQwLjM1MSA2NDMuMjQxIEMgMzU1LjkwOSA2MzguMTQyLCAzNjYuNTAwIDYyMy4yNjEsIDM2Ni41MDAgNjA2LjUwMCBDIDM2Ni41MDAgNTkxLjc5NiwgMzU5LjEzMCA1ODEuNTEyLCAzNDIuNjQ4IDU3My4yMTUgQyAzMzcuMTExIDU3MC40MjgsIDMzMS40MDMgNTY4LjQzOCwgMzI2LjMxOCA1NjcuNTIxIEMgMzE3LjQ2MyA1NjUuOTI1LCAyOTkuNTkyIDU2MC4wODksIDI5NS42NTMgNTU3LjUwOCBDIDI5Mi4zNDggNTU1LjM0MiwgMjg4Ljk5OSA1NDkuOTkxLCAyODkuMDA0IDU0Ni44ODIgQyAyODkuMDI2IDUzMi40NDYsIDMyNC40MzcgNTI4LjE4MCwgMzQwLjc3OCA1NDAuNjQ0IEMgMzQ2LjM5NyA1NDQuOTMwLCAzNTAuMjQ1IDU0NC40NDEsIDM1NS42MTQgNTM4Ljc1OCBDIDM2My44MDUgNTMwLjA4OSwgMzYxLjY0MSA1MjQuMzA4LCAzNDcuNDkxIDUxNy4wNTggQyAzMzUuNzg3IDUxMS4wNjIsIDMwOS45MzIgNTA4LjMyOCwgMjk1LjE5MSA1MTEuNTI5IE0gMTA0MS4xMDkgNTEyLjA0NSBDIDEwMjAuNTQ4IDUxNC4xOTksIDk5NS45MTkgNTM4LjI0MiwgOTkxLjM0MCA1NjAuNjMxIEMgOTg5LjMxMCA1NzAuNTU0LCA5ODkuMzA0IDU4Ny44ODIsIDk5MS4zMjcgNTk4LjgyOCBDIDk5Ny43MDggNjMzLjM2OSwgMTA0OC4zNjcgNjU4LjI5OCwgMTA4Mi4xODkgNjQzLjU0MSBDIDEwOTUuNjY2IDYzNy42NjEsIDEwOTcuMDMyIDYzNi44MTMsIDExMDQuMTc4IDYyOS44OTMgQyAxMTEzLjUwMCA2MjAuODY2LCAxMTEzLjIwOSA2MTcuNzU1LCAxMTAyLjUxNSA2MTIuMTA1IEMgMTA5NS45MzUgNjA4LjYyOSwgMTA5Mi45NTAgNjA5LjIyOCwgMTA4Ni4zMDcgNjE1LjM1OCBDIDEwNzUuMTQ0IDYyNS42NTcsIDEwNjUuNTA2IDYyOC4yNTksIDEwNTAuMTMwIDYyNS4xMjMgQyAxMDM4Ljc5NyA2MjIuODEyLCAxMDM4LjEzMSA2MjIuNTMyLCAxMDMwLjcwMiA2MTYuOTc2IEMgMTAxOS41ODQgNjA4LjY2MiwgMTAxNS42MDAgNjAwLjYxMCwgMTAxNC40NTQgNTg0LjEzOCBDIDEwMTIuNzU5IDU1OS43NzksIDEwMjIuNDkzIDU0Mi45MDAsIDEwNDMuNTgyIDUzMy42MjkgQyAxMDUxLjUwMSA1MzAuMTQ3LCAxMDUyLjk5OCA1MjkuODA5LCAxMDU4LjQ0NCA1MzAuMjczIEMgMTA2Ny4zNDYgNTMxLjAzMCwgMTA3OS45NTggNTM2LjM2MCwgMTA4Ni42MDAgNTQyLjE3MyBDIDEwOTIuODA2IDU0Ny42MDQsIDEwOTUuNDA4IDU0OC4xMDMsIDExMDMuMzcxIDU0NS4zODkgQyAxMTA4Ljc1OSA1NDMuNTUzLCAxMTExLjUxOCA1NDAuMjAxLCAxMTEwLjYxMiA1MzYuNTkwIEMgMTEwOC42MjIgNTI4LjY2MCwgMTA4OC4wOTkgNTE0LjQxNCwgMTA3NS4yNDMgNTEyLjAzNyBDIDEwNjguOTQzIDUxMC44NzMsIDEwNTIuMjcyIDUxMC44NzcsIDEwNDEuMTA5IDUxMi4wNDUgTSAzOTcuOTYwIDUxMy44MzEgQyAzOTQuOTI5IDUxNi4yODYsIDM5NS42NzEgNTE4LjY5MCwgNDAyLjI0NSA1MjcuNzE0IEMgNDA1LjEzNSA1MzEuNjgxLCA0MDguODUwIDUzNy4wMDQsIDQxMC41MDAgNTM5LjU0MiBDIDQxNy4zMzIgNTUwLjA1MiwgNDE4Ljk2NCA1NTIuNTA5LCA0MjkuMjI4IDU2Ny43MzQgQyA0NDQuODA4IDU5MC44NDQsIDQ0NC4zNTQgNTg5LjQ5NSwgNDQ0LjY0OCA2MTMuNTAwIEMgNDQ0Ljc4MyA2MjQuNTAwLCA0NDQuOTE3IDYzNS4yMjIsIDQ0NC45NDcgNjM3LjMyNyBDIDQ0NS4wNjAgNjQ1LjQyOCwgNDU0LjA4OSA2NDkuNDk2LCA0NjMuMzYwIDY0NS42MjMgQyA0NjguNDA2IDY0My41MTUsIDQ2OC44ODAgNjQxLjAzMCwgNDY5LjIwNiA2MTUgTCA0NjkuNTAwIDU5MS41MDAgNDcyLjUwMCA1ODUuNzgwIEMgNDc0LjE1MCA1ODIuNjM0LCA0ODEuMzUwIDU3MS40NDcsIDQ4OC41MDAgNTYwLjkyMSBDIDQ5NS42NTAgNTUwLjM5NSwgNTAyLjY2MSA1MzkuOTE5LCA1MDQuMDgwIDUzNy42NDEgQyA1MDUuNDk5IDUzNS4zNjQsIDUwOS4yMTIgNTI5LjkwMywgNTEyLjMzMCA1MjUuNTA3IEMgNTE4Ljc1MiA1MTYuNDUzLCA1MTguOTU4IDUxNS42NzQsIDUxNS41MjcgNTEzLjQyNiBDIDUxMy41NzAgNTEyLjE0MywgNTExLjA1MCA1MTEuODc4LCA1MDMuNDQ5IDUxMi4xNTMgTCA0OTMuODQ0IDUxMi41MDAgNDkwLjY3MiA1MTYuMTU5IEMgNDg4LjkyNyA1MTguMTcxLCA0ODUuOTI1IDUyMi40MDksIDQ4NCA1MjUuNTc3IEMgNDgwLjA4MCA1MzIuMDI2LCA0NzUuNTg5IDUzOS4xMjIsIDQ2OC44NDIgNTQ5LjUyMiBDIDQ2Ni4zMzcgNTUzLjM4NSwgNDYzLjU2NSA1NTcuOTQwLCA0NjIuNjgzIDU1OS42NDUgQyA0NTkuNzQ5IDU2NS4zMjAsIDQ1My4wNzUgNTY0LjIwNiwgNDQ5LjAwNCA1NTcuMzYyIEMgNDQ3Ljc0MSA1NTUuMjM4LCA0NDUuMjU1IDU1MS4yNTAsIDQ0My40ODAgNTQ4LjUwMCBDIDQ0MS43MDQgNTQ1Ljc1MCwgNDM4LjA5NSA1NDAuMTI1LCA0MzUuNDYwIDUzNiBDIDQyNC42MjEgNTE5LjAzNywgNDIxLjc1MSA1MTQuOTM5LCA0MTkuNzA0IDUxMy41MDUgQyA0MTYuMzgzIDUxMS4xNzksIDQwMC45NTAgNTExLjQxMSwgMzk3Ljk2MCA1MTMuODMxIE0gNTU4LjMwOCA1MTMuMTk0IEMgNTU3LjEwMyA1MTMuNzc3LCA1NTUuODI1IDUxNC45ODQsIDU1NS40NjggNTE1Ljg3NyBDIDU1NC40NjYgNTE4LjM4NCwgNTU0Ljk4NSA2MzguODI5LCA1NTYuMDA5IDY0MS41MjQgQyA1NTguMjQ3IDY0Ny40MTAsIDU3MS4wMTAgNjQ5LjE0MywgNTc1LjkyNSA2NDQuMjI5IEMgNTc5LjY5NCA2NDAuNDYwLCA1ODAuMTYxIDYzNC43MzEsIDU3OS44OTggNTk1LjQ5OSBDIDU3OS42NjEgNTU5Ljk0NiwgNTc5Ljc3OCA1NTkuMjgyLCA1ODUuNzU0IDU2Mi4zNzMgQyA1ODguNDAxIDU2My43NDIsIDU5Mi4xMDMgNTY4LjM4MywgNjA3IDU4OS4wMTIgQyA2MTMuMjE2IDU5Ny42MTksIDYyNy4zODAgNjE2LjkxMCwgNjMxLjc5NyA2MjIuNzg1IEMgNjM0LjE2MCA2MjUuOTI4LCA2MzcuNTkyIDYzMC43NTQsIDYzOS40MjMgNjMzLjUwOSBDIDY0MS4yNTUgNjM2LjI2MywgNjQ0Ljg0MyA2NDAuNDQ0LCA2NDcuMzk4IDY0Mi43OTkgTCA2NTIuMDQyIDY0Ny4wODAgNjYwLjE2NyA2NDYuNzkwIEMgNjczLjYyMiA2NDYuMzEwLCA2NzIuNTAwIDY1Mi41MjEsIDY3Mi41MDAgNTc4LjUzMyBDIDY3Mi41MDAgNTA1LjIzNSwgNjczLjczNiA1MTIsIDY2MC4zNDUgNTEyIEMgNjQ3LjA2NCA1MTIsIDY0OCA1MDguODk2LCA2NDggNTUyLjkzNSBDIDY0OCA1NzQuNTEzLCA2NDcuNTk1IDU5MC45MzYsIDY0Ny4wMjUgNTkyLjQzNSBDIDY0NS4zNTkgNTk2LjgxNiwgNjQyLjcwMSA1OTUuNTgwLCA2MzYuOTUxIDU4Ny43NTAgQyA2MTMuODE5IDU1Ni4yNTIsIDU4MS40MzEgNTEzLjc2NiwgNTc5Ljk0NiA1MTIuOTcxIEMgNTc3LjUzNSA1MTEuNjgxLCA1NjEuMDg5IDUxMS44NTEsIDU1OC4zMDggNTEzLjE5NCBNIDcxMy44ODggNTE0LjExMiBDIDcxMi4wOTIgNTE1LjkwOCwgNzExLjg0MCA1MTcuMTEwLCA3MTIuMjA1IDUyMi4xNTEgQyA3MTIuOTEyIDUzMS45MjgsIDcxMy44NzUgNTMyLjQzNCwgNzMyLjUwOCA1MzIuODIwIEMgNzU0LjI0NCA1MzMuMjcwLCA3NTEuOTkwIDUyNy4wODksIDc1Mi4wNDQgNTg2LjM4NSBDIDc1Mi4wODggNjM0Ljk5NCwgNzUyLjQ3OSA2NDEuOTA4LCA3NTUuMzUzIDY0NC43ODIgQyA3NTcuMDg0IDY0Ni41MTMsIDc2Ny4yMjQgNjQ3LjY2MywgNzcxLjQzNSA2NDYuNjA2IEMgNzc2LjQ0MSA2NDUuMzQ5LCA3NzYuNDY1IDY0NS4wOTksIDc3NyA1ODkuNjYzIEwgNzc3LjUwMCA1MzcuODI1IDc4MC4zMDYgNTM1LjQxMyBDIDc4Mi45NzIgNTMzLjEyMCwgNzgzLjc4NCA1MzMsIDc5Ni42MDUgNTMzIEMgODExLjkxMSA1MzMsIDgxNS4wOTMgNTMyLjA0MCwgODE2Ljg5MiA1MjYuODgxIEMgODE4Ljc0OSA1MjEuNTUzLCA4MTguMjgwIDUxNi42MTIsIDgxNS42ODYgNTE0LjE3NCBDIDgxMi4wOTAgNTEwLjc5NywgNzE3LjI2MSA1MTAuNzM5LCA3MTMuODg4IDUxNC4xMTIgTSA4NTkuNjM1IDUxNC4wNzMgTCA4NTcgNTE2LjE0NSA4NTcgNTc2LjkyMyBDIDg1NyA2NDIuMDgyLCA4NTcuMDY0IDY0Mi45NDcsIDg2Mi4wNTkgNjQ1LjUzMCBDIDg2NS41ODUgNjQ3LjM1NCwgOTQwLjYwNyA2NDcuNzMwLCA5NDUuNzEzIDY0NS45NTAgQyA5NTIuOTgyIDY0My40MTYsIDk1Mi45ODIgNjI4LjU4NCwgOTQ1LjcxMyA2MjYuMDUwIEMgOTQzLjkwNyA2MjUuNDIwLCA5MzIuMjE3IDYyNSwgOTE2LjUwMCA2MjUgQyA4ODkuNDc4IDYyNSwgODg0Ljg0MiA2MjQuNDQxLCA4ODIuOTc5IDYyMC45NjEgQyA4ODIuNDQxIDYxOS45NTUsIDg4MiA2MTMuNzI3LCA4ODIgNjA3LjEyMiBDIDg4MiA1OTUuODcxLCA4ODIuMTUzIDU5NC45MzQsIDg4NC40MTEgNTkyLjMwNiBMIDg4Ni44MjIgNTg5LjUwMCA5MTQuMTYxIDU4OC45OTcgQyA5NDQuNjAyIDU4OC40MzcsIDk0Ni43NjAgNTg3Ljk5NSwgOTQ4Ljg5MiA1ODEuODgxIEMgOTUxLjI4NCA1NzUuMDE3LCA5NDkuMjY4IDU2OS43NjEsIDk0My43NzUgNTY4LjU0OCBDIDk0Mi41MjQgNTY4LjI3MiwgOTI5LjMyOSA1NjcuOTIzLCA5MTQuNDU0IDU2Ny43NzMgQyA4NzkuNzAxIDU2Ny40MjIsIDg4MiA1NjguNTczLCA4ODIgNTUxLjUzMyBDIDg4MiA1MzkuODQ4LCA4ODIuMTQzIDUzOC45NDUsIDg4NC40MTEgNTM2LjMwNiBMIDg4Ni44MjIgNTMzLjUwMCA5MTUuNjYxIDUzMi45NTUgQyA5MzEuNTIzIDUzMi42NTUsIDk0NS4zMDQgNTMyLjAzOCwgOTQ2LjI4NyA1MzEuNTg0IEMgOTUyLjE3NSA1MjguODYyLCA5NTIuOTYwIDUxNS4wNzYsIDk0Ny4zNDkgNTEyLjk0MyBDIDk0NS45NDIgNTEyLjQwOCwgOTI3LjAxMCA1MTIsIDkwMy41NzAgNTEyIEMgODYzLjMwMiA1MTIsIDg2Mi4yMDQgNTEyLjA1MiwgODU5LjYzNSA1MTQuMDczIE0gMTE1NC44NjEgNTEzLjkxMSBMIDExNTIuNTAwIDUxNS44MjIgMTE1Mi4xOTMgNTcyLjY2MSBDIDExNTEuNzgyIDY0OC43MjcsIDExNTEuMzQyIDY0NS43NzYsIDExNjMuMjU5IDY0Ni43MzMgQyAxMTc1Ljk3MSA2NDcuNzUzLCAxMTc2Ljk4NiA2NDUuNDI5LCAxMTc2Ljk5NCA2MTUuMzA2IEMgMTE3NyA1OTQuMzQ4LCAxMTc3LjAyNyA1OTQuMDgwLCAxMTc5LjQxMyA1OTEuMzA2IEwgMTE4MS44MjYgNTg4LjUwMCAxMjEwLjE2MyA1ODguNTAwIEMgMTIyNS43NDggNTg4LjUwMCwgMTIzOS43MjkgNTg4Ljg0NCwgMTI0MS4yMzIgNTg5LjI2NCBDIDEyNDYuMzc5IDU5MC43MDUsIDEyNDcgNTkzLjcyMiwgMTI0NyA2MTcuMzAxIEMgMTI0NyA2NDAuOTM3LCAxMjQ3LjU3MCA2NDQuMTY1LCAxMjUyLjA3MCA2NDYuMDI5IEMgMTI1Ny4wNzAgNjQ4LjEwMCwgMTI2NS45MTAgNjQ2LjgwNiwgMTI2OC42NjkgNjQzLjU5OCBMIDEyNzEgNjQwLjg4OCAxMjcxIDU3OC42MzUgQyAxMjcxIDUyNi42MjMsIDEyNzAuNzY4IDUxNi4wNjUsIDEyNjkuNTg5IDUxNC40NTMgQyAxMjY3LjI1MSA1MTEuMjU2LCAxMjUyLjcxOCA1MTAuOTc2LCAxMjQ5LjQzMSA1MTQuMDY1IEMgMTI0Ny4wMDggNTE2LjM0MSwgMTI0NyA1MTYuNDIxLCAxMjQ3IDUzNy4wMjUgQyAxMjQ3IDU1OS4yMjcsIDEyNDYuMzY4IDU2My4wNTYsIDEyNDIuNDAzIDU2NC44NjIgQyAxMjQwLjcyMSA1NjUuNjI5LCAxMjMwLjQ5MSA1NjYsIDEyMTEuMDY0IDU2NiBDIDExODQuMTcwIDU2NiwgMTE4Mi4wNjIgNTY1Ljg3MSwgMTE3OS44NjEgNTY0LjA5MSBDIDExNzcuNTMxIDU2Mi4yMDcsIDExNzcuNDkzIDU2MS44NzUsIDExNzcgNTM5IEMgMTE3Ni41MDcgNTE2LjEyNiwgMTE3Ni40NjkgNTE1Ljc5NCwgMTE3NC4xMzkgNTEzLjkxMCBDIDExNzAuNzU1IDUxMS4xNzIsIDExNTguMjQzIDUxMS4xNzMsIDExNTQuODYxIDUxMy45MTEnIGZpbGw9JyNmZmZmZmYnLz48cGF0aCBkPSdNMTE5LjI0ODA0Njg3NSA3NzYuMEgxMjYuODA5NTcwMzEyNVY3NjAuNTA4Nzg5MDYyNUgxMzQuNjgyNjE3MTg3NUwxNDIuOTgwNDY4NzUgNzc2LjBIMTUxLjQ0ODI0MjE4NzVMMTQyLjMwMDc4MTI1IDc1OS4yMzQzNzVDMTQ3LjI4NTE1NjI1IDc1Ny4yNTE5NTMxMjUgMTQ5Ljg5MDYyNSA3NTMuMDMyMjI2NTYyNSAxNDkuODkwNjI1IDc0Ny4zMTE1MjM0Mzc1QzE0OS44OTA2MjUgNzM5LjI2ODU1NDY4NzUgMTQ0LjczNjMyODEyNSA3MzMuODAyNzM0Mzc1IDEzNS4wMjI0NjA5Mzc1IDczMy44MDI3MzQzNzVIMTE5LjI0ODA0Njg3NVpNMTI2LjgwOTU3MDMxMjUgNzU0LjI1Vjc0MC4xNDY0ODQzNzVIMTMzLjg2MTMyODEyNUMxMzkuNjEwMzUxNTYyNSA3NDAuMTQ2NDg0Mzc1IDE0Mi4xNTkxNzk2ODc1IDc0Mi44MDg1OTM3NSAxNDIuMTU5MTc5Njg3NSA3NDcuMzExNTIzNDM3NUMxNDIuMTU5MTc5Njg3NSA3NTEuNzg2MTMyODEyNSAxMzkuNjEwMzUxNTYyNSA3NTQuMjUgMTMzLjkxNzk2ODc1IDc1NC4yNVpNMTg0Ljg1NTk1NzAzMTI1IDc3Ni4wSDIxMi4zODMzMDA3ODEyNVY3NjkuNjI3OTI5Njg3NUgxOTIuNDE3NDgwNDY4NzVWNzU3Ljg0NjY3OTY4NzVIMjEwLjc5NzM2MzI4MTI1Vjc1MS41NTk1NzAzMTI1SDE5Mi40MTc0ODA0Njg3NVY3NDAuMTc0ODA0Njg3NUgyMTIuMjcwMDE5NTMxMjVWNzMzLjgwMjczNDM3NUgxODQuODU1OTU3MDMxMjVaTTI2NS43Mjg1MTU2MjUgNzc2LjU2NjQwNjI1QzI3NS42OTcyNjU2MjUgNzc2LjU2NjQwNjI1IDI4Mi4zODA4NTkzNzUgNzcwLjAyNDQxNDA2MjUgMjgzLjU0MTk5MjE4NzUgNzYxLjk1MzEyNUgyNzUuODk1NTA3ODEyNUMyNzQuOTMyNjE3MTg3NSA3NjYuOTM3NSAyNzAuODU0NDkyMTg3NSA3NjkuNzk3ODUxNTYyNSAyNjUuODEzNDc2NTYyNSA3NjkuNzk3ODUxNTYyNUMyNTguOTU5OTYwOTM3NSA3NjkuNzk3ODUxNTYyNSAyNTQuMDAzOTA2MjUgNzY0LjYxNTIzNDM3NSAyNTQuMDAzOTA2MjUgNzU0LjkyOTY4NzVDMjU0LjAwMzkwNjI1IDc0NS4zNTc0MjE4NzUgMjU4LjkzMTY0MDYyNSA3NDAuMDA0ODgyODEyNSAyNjUuODQxNzk2ODc1IDc0MC4wMDQ4ODI4MTI1QzI3MC44ODI4MTI1IDc0MC4wMDQ4ODI4MTI1IDI3NC45NjA5Mzc1IDc0Mi44NjUyMzQzNzUgMjc1Ljg5NTUwNzgxMjUgNzQ3Ljg0OTYwOTM3NUgyODMuNTEzNjcxODc1QzI4Mi4xODI2MTcxODc1IDczOC42MTcxODc1IDI3NC45ODkyNTc4MTI1IDczMy4yMzYzMjgxMjUgMjY1LjcyODUxNTYyNSA3MzMuMjM2MzI4MTI1QzI1NC43MTE5MTQwNjI1IDczMy4yMzYzMjgxMjUgMjQ2LjQxNDA2MjUgNzQxLjI3OTI5Njg3NSAyNDYuNDE0MDYyNSA3NTQuOTI5Njg3NUMyNDYuNDE0MDYyNSA3NjguNTIzNDM3NSAyNTQuNjI2OTUzMTI1IDc3Ni41NjY0MDYyNSAyNjUuNzI4NTE1NjI1IDc3Ni41NjY0MDYyNVpNMzE4LjI1MjQ0MTQwNjI1IDc3Ni4wSDMyNS44MTM5NjQ4NDM3NVY3NjAuNTA4Nzg5MDYyNUgzMzMuNjg3MDExNzE4NzVMMzQxLjk4NDg2MzI4MTI1IDc3Ni4wSDM1MC40NTI2MzY3MTg3NUwzNDEuMzA1MTc1NzgxMjUgNzU5LjIzNDM3NUMzNDYuMjg5NTUwNzgxMjUgNzU3LjI1MTk1MzEyNSAzNDguODk1MDE5NTMxMjUgNzUzLjAzMjIyNjU2MjUgMzQ4Ljg5NTAxOTUzMTI1IDc0Ny4zMTE1MjM0Mzc1QzM0OC44OTUwMTk1MzEyNSA3MzkuMjY4NTU0Njg3NSAzNDMuNzQwNzIyNjU2MjUgNzMzLjgwMjczNDM3NSAzMzQuMDI2ODU1NDY4NzUgNzMzLjgwMjczNDM3NUgzMTguMjUyNDQxNDA2MjVaTTMyNS44MTM5NjQ4NDM3NSA3NTQuMjVWNzQwLjE0NjQ4NDM3NUgzMzIuODY1NzIyNjU2MjVDMzM4LjYxNDc0NjA5Mzc1IDc0MC4xNDY0ODQzNzUgMzQxLjE2MzU3NDIxODc1IDc0Mi44MDg1OTM3NSAzNDEuMTYzNTc0MjE4NzUgNzQ3LjMxMTUyMzQzNzVDMzQxLjE2MzU3NDIxODc1IDc1MS43ODYxMzI4MTI1IDMzOC42MTQ3NDYwOTM3NSA3NTQuMjUgMzMyLjkyMjM2MzI4MTI1IDc1NC4yNVpNNDAwLjk2NTgyMDMxMjUgNzc2LjYyMzA0Njg3NUM0MTEuMjQ2MDkzNzUgNzc2LjYyMzA0Njg3NSA0MTguMDcxMjg5MDYyNSA3NzAuMzkyNTc4MTI1IDQxOC4wNzEyODkwNjI1IDc2MS4zNTgzOTg0Mzc1VjczMy44MDI3MzQzNzVINDEwLjUwOTc2NTYyNVY3NjAuNzM1MzUxNTYyNUM0MTAuNTA5NzY1NjI1IDc2Ni4wMzEyNSA0MDYuNzk5ODA0Njg3NSA3NjkuODU0NDkyMTg3NSA0MDAuOTY1ODIwMzEyNSA3NjkuODU0NDkyMTg3NUMzOTUuMTMxODM1OTM3NSA3NjkuODU0NDkyMTg3NSAzOTEuNDIxODc1IDc2Ni4wMzEyNSAzOTEuNDIxODc1IDc2MC43MzUzNTE1NjI1VjczMy44MDI3MzQzNzVIMzgzLjg2MDM1MTU2MjVWNzYxLjM1ODM5ODQzNzVDMzgzLjg2MDM1MTU2MjUgNzcwLjM5MjU3ODEyNSAzOTAuNjI4OTA2MjUgNzc2LjYyMzA0Njg3NSA0MDAuOTY1ODIwMzEyNSA3NzYuNjIzMDQ2ODc1Wk00NjEuODcyNTU4NTkzNzUgNzMzLjgwMjczNDM3NUg0NTQuMzExMDM1MTU2MjVWNzc2LjBINDYxLjg3MjU1ODU5Mzc1Wk00OTYuMjQzMTY0MDYyNSA3NDAuMTc0ODA0Njg3NUg1MDkuMjcwNTA3ODEyNVY3NzYuMEg1MTYuODMyMDMxMjVWNzQwLjE3NDgwNDY4NzVINTI5LjgzMTA1NDY4NzVWNzMzLjgwMjczNDM3NUg0OTYuMjQzMTY0MDYyNVpNNTY0LjIwMTY2MDE1NjI1IDc3Ni4wSDU3MS42MjE1ODIwMzEyNVY3NTQuNzAzMTI1QzU3MS42MjE1ODIwMzEyNSA3NTEuNTAyOTI5Njg3NSA1NzEuNDUxNjYwMTU2MjUgNzQ1LjY2ODk0NTMxMjUgNTcxLjMzODM3ODkwNjI1IDc0MC44ODI4MTI1QzU3Mi44OTU5OTYwOTM3NSA3NDYuMzIwMzEyNSA1NzQuNTk1MjE0ODQzNzUgNzUxLjk1NjA1NDY4NzUgNTc1LjU4NjQyNTc4MTI1IDc1NC43MDMxMjVMNTgzLjQ4Nzc5Mjk2ODc1IDc3Ni4wSDU4OS45MTY1MDM5MDYyNUw1OTcuNzA0NTg5ODQzNzUgNzU0LjcwMzEyNUM1OTguNjk1ODAwNzgxMjUgNzUxLjg3MTA5Mzc1IDYwMC40Nzk5ODA0Njg3NSA3NDYuMDY1NDI5Njg3NSA2MDEuOTI0MzE2NDA2MjUgNzQwLjY1NjI1QzYwMS44MzkzNTU0Njg3NSA3NDUuNjY4OTQ1MzEyNSA2MDEuNjY5NDMzNTkzNzUgNzUxLjU1OTU3MDMxMjUgNjAxLjY2OTQzMzU5Mzc1IDc1NC43MDMxMjVWNzc2LjBINjA5LjIwMjYzNjcxODc1VjczMy44MDI3MzQzNzVINTk3Ljc4OTU1MDc4MTI1TDU4OS44NTk4NjMyODEyNSA3NTUuNTgxMDU0Njg3NUM1ODkuMDM4NTc0MjE4NzUgNzU4LjEwMTU2MjUgNTg3LjczNTgzOTg0Mzc1IDc2My4zMTI1IDU4Ni43NDQ2Mjg5MDYyNSA3NjcuNDc1NTg1OTM3NUM1ODUuNzgxNzM4MjgxMjUgNzYzLjI1NTg1OTM3NSA1ODQuNDUwNjgzNTkzNzUgNzU4LjA3MzI0MjE4NzUgNTgzLjYwMTA3NDIxODc1IDc1NS41ODEwNTQ2ODc1TDU3NS41ODY0MjU3ODEyNSA3MzMuODAyNzM0Mzc1SDU2NC4yMDE2NjAxNTYyNVpNNjQ1LjQ3MDcwMzEyNSA3NzYuMEg2NzIuOTk4MDQ2ODc1Vjc2OS42Mjc5Mjk2ODc1SDY1My4wMzIyMjY1NjI1Vjc1Ny44NDY2Nzk2ODc1SDY3MS40MTIxMDkzNzVWNzUxLjU1OTU3MDMxMjVINjUzLjAzMjIyNjU2MjVWNzQwLjE3NDgwNDY4NzVINjcyLjg4NDc2NTYyNVY3MzMuODAyNzM0Mzc1SDY0NS40NzA3MDMxMjVaTTcwOC4zNTk4NjMyODEyNSA3NzYuMEg3MTYuMDYyOTg4MjgxMjVWNzU1LjA0Mjk2ODc1QzcxNi4wNjI5ODgyODEyNSA3NTIuNjkyMzgyODEyNSA3MTUuODA4MTA1NDY4NzUgNzQ4LjI0NjA5Mzc1IDcxNS41MjQ5MDIzNDM3NSA3NDMuMDM1MTU2MjVDNzE4LjM1NjkzMzU5Mzc1IDc0OC41MjkyOTY4NzUgNzE5Ljk0Mjg3MTA5Mzc1IDc1MS41MzEyNSA3MjIuMTUxODU1NDY4NzUgNzU1LjA3MTI4OTA2MjVMNzM1LjMyMDgwMDc4MTI1IDc3Ni4wSDc0My45MDE4NTU0Njg3NVY3MzMuODAyNzM0Mzc1SDczNi4yMjcwNTA3ODEyNVY3NTUuOTQ5MjE4NzVDNzM2LjIyNzA1MDc4MTI1IDc1OC41MjYzNjcxODc1IDczNi4zOTY5NzI2NTYyNSA3NjIuODAyNzM0Mzc1IDczNi42ODAxNzU3ODEyNSA3NjYuODgwODU5Mzc1QzczNC44MzkzNTU0Njg3NSA3NjIuNjYxMTMyODEyNSA3MzIuOTk4NTM1MTU2MjUgNzU5LjQ2MDkzNzUgNzMxLjQ5NzU1ODU5Mzc1IDc1Ny4wNTM3MTA5Mzc1TDcxNi45MTI1OTc2NTYyNSA3MzMuODAyNzM0Mzc1SDcwOC4zNTk4NjMyODEyNVpNNzc4LjI3MjQ2MDkzNzUgNzQwLjE3NDgwNDY4NzVINzkxLjI5OTgwNDY4NzVWNzc2LjBINzk4Ljg2MTMyODEyNVY3NDAuMTc0ODA0Njg3NUg4MTEuODYwMzUxNTYyNVY3MzMuODAyNzM0Mzc1SDc3OC4yNzI0NjA5Mzc1Wk05MDMuNDI3NzM0Mzc1IDc3Ni42NTEzNjcxODc1QzkxMy41MDk3NjU2MjUgNzc2LjY1MTM2NzE4NzUgOTE5LjQwMDM5MDYyNSA3NzEuNTgyMDMxMjUgOTE5LjQwMDM5MDYyNSA3NjQuMTYyMTA5Mzc1QzkxOS40MDAzOTA2MjUgNzU2Ljc5ODgyODEyNSA5MTMuMjU0ODgyODEyNSA3NTMuNTQxOTkyMTg3NSA5MDYuOTk2MDkzNzUgNzUyLjA0MTAxNTYyNUw5MDMuMDU5NTcwMzEyNSA3NTEuMDIxNDg0Mzc1Qzg5OS42MzI4MTI1IDc1MC4xNzE4NzUgODk1Ljg2NjIxMDkzNzUgNzQ4Ljc1NTg1OTM3NSA4OTUuODY2MjEwOTM3NSA3NDUuMjE1ODIwMzEyNUM4OTUuODY2MjEwOTM3NSA3NDIuMDE1NjI1IDg5OC43NTQ4ODI4MTI1IDczOS42NjUwMzkwNjI1IDkwMy41MTI2OTUzMTI1IDczOS42NjUwMzkwNjI1QzkwOC4wNzIyNjU2MjUgNzM5LjY2NTAzOTA2MjUgOTExLjEzMDg1OTM3NSA3NDEuNzYwNzQyMTg3NSA5MTEuNDk5MDIzNDM3NSA3NDUuMzU3NDIxODc1SDkxOC44MzM5ODQzNzVDOTE4LjYzNTc0MjE4NzUgNzM4LjMwNTY2NDA2MjUgOTEyLjYzMTgzNTkzNzUgNzMzLjIzNjMyODEyNSA5MDMuNjI1OTc2NTYyNSA3MzMuMjM2MzI4MTI1Qzg5NC43OTAwMzkwNjI1IDczMy4yMzYzMjgxMjUgODg4LjIxOTcyNjU2MjUgNzM4LjIyMDcwMzEyNSA4ODguMjE5NzI2NTYyNSA3NDUuNjY4OTQ1MzEyNUM4ODguMjE5NzI2NTYyNSA3NTEuNjE2MjEwOTM3NSA4OTIuMzgyODEyNSA3NTUuMTg0NTcwMzEyNSA4OTkuNDM0NTcwMzEyNSA3NTYuOTk3MDcwMzEyNUw5MDQuMjIwNzAzMTI1IDc1OC4yNDMxNjQwNjI1QzkwOC43ODAyNzM0Mzc1IDc1OS40MzI2MTcxODc1IDkxMS44Mzg4NjcxODc1IDc2MC44MjAzMTI1IDkxMS44Mzg4NjcxODc1IDc2NC4xMDU0Njg3NUM5MTEuODM4ODY3MTg3NSA3NjcuNzMwNDY4NzUgOTA4LjM1NTQ2ODc1IDc3MC4xOTQzMzU5Mzc1IDkwMy4zNzEwOTM3NSA3NzAuMTk0MzM1OTM3NUM4OTguNjEzMjgxMjUgNzcwLjE5NDMzNTkzNzUgODk0Ljg0NjY3OTY4NzUgNzY4LjA0MTk5MjE4NzUgODk0LjUwNjgzNTkzNzUgNzYzLjU5NTcwMzEyNUg4ODcuMDU4NTkzNzVDODg3LjM5ODQzNzUgNzcxLjkyMTg3NSA4OTMuNjAwNTg1OTM3NSA3NzYuNjUxMzY3MTg3NSA5MDMuNDI3NzM0Mzc1IDc3Ni42NTEzNjcxODc1Wk05NzIuMTc5MTk5MjE4NzUgNzc2LjU2NjQwNjI1Qzk4My4yMjQxMjEwOTM3NSA3NzYuNTY2NDA2MjUgOTkxLjUyMTk3MjY1NjI1IDc2OC41NTE3NTc4MTI1IDk5MS41MjE5NzI2NTYyNSA3NTQuOTI5Njg3NUM5OTEuNTIxOTcyNjU2MjUgNzQxLjI3OTI5Njg3NSA5ODMuMjI0MTIxMDkzNzUgNzMzLjIzNjMyODEyNSA5NzIuMTc5MTk5MjE4NzUgNzMzLjIzNjMyODEyNUM5NjEuMTA1OTU3MDMxMjUgNzMzLjIzNjMyODEyNSA5NTIuNzc5Nzg1MTU2MjUgNzQxLjI3OTI5Njg3NSA5NTIuNzc5Nzg1MTU2MjUgNzU0LjkyOTY4NzVDOTUyLjc3OTc4NTE1NjI1IDc2OC41MjM0Mzc1IDk2MS4xMDU5NTcwMzEyNSA3NzYuNTY2NDA2MjUgOTcyLjE3OTE5OTIxODc1IDc3Ni41NjY0MDYyNVpNOTcyLjE3OTE5OTIxODc1IDc2OS43OTc4NTE1NjI1Qzk2NS4yNjkwNDI5Njg3NSA3NjkuNzk3ODUxNTYyNSA5NjAuMzY5NjI4OTA2MjUgNzY0LjUzMDI3MzQzNzUgOTYwLjM2OTYyODkwNjI1IDc1NC45Mjk2ODc1Qzk2MC4zNjk2Mjg5MDYyNSA3NDUuMjcyNDYwOTM3NSA5NjUuMjY5MDQyOTY4NzUgNzQwLjAwNDg4MjgxMjUgOTcyLjE3OTE5OTIxODc1IDc0MC4wMDQ4ODI4MTI1Qzk3OS4wMzI3MTQ4NDM3NSA3NDAuMDA0ODgyODEyNSA5ODMuOTAzODA4NTkzNzUgNzQ1LjI0NDE0MDYyNSA5ODMuOTAzODA4NTkzNzUgNzU0LjkyOTY4NzVDOTgzLjkwMzgwODU5Mzc1IDc2NC41NTg1OTM3NSA5NzkuMDMyNzE0ODQzNzUgNzY5Ljc5Nzg1MTU2MjUgOTcyLjE3OTE5OTIxODc1IDc2OS43OTc4NTE1NjI1Wk0xMDI2LjQ1ODk4NDM3NSA3NzYuMEgxMDUyLjY1NTI3MzQzNzVWNzY5LjYyNzkyOTY4NzVIMTAzNC4wMjA1MDc4MTI1VjczMy44MDI3MzQzNzVIMTAyNi40NTg5ODQzNzVaTTExMDQuMTMxMzQ3NjU2MjUgNzc2LjYyMzA0Njg3NUMxMTE0LjQxMTYyMTA5Mzc1IDc3Ni42MjMwNDY4NzUgMTEyMS4yMzY4MTY0MDYyNSA3NzAuMzkyNTc4MTI1IDExMjEuMjM2ODE2NDA2MjUgNzYxLjM1ODM5ODQzNzVWNzMzLjgwMjczNDM3NUgxMTEzLjY3NTI5Mjk2ODc1Vjc2MC43MzUzNTE1NjI1QzExMTMuNjc1MjkyOTY4NzUgNzY2LjAzMTI1IDExMDkuOTY1MzMyMDMxMjUgNzY5Ljg1NDQ5MjE4NzUgMTEwNC4xMzEzNDc2NTYyNSA3NjkuODU0NDkyMTg3NUMxMDk4LjI5NzM2MzI4MTI1IDc2OS44NTQ0OTIxODc1IDEwOTQuNTg3NDAyMzQzNzUgNzY2LjAzMTI1IDEwOTQuNTg3NDAyMzQzNzUgNzYwLjczNTM1MTU2MjVWNzMzLjgwMjczNDM3NUgxMDg3LjAyNTg3ODkwNjI1Vjc2MS4zNTgzOTg0Mzc1QzEwODcuMDI1ODc4OTA2MjUgNzcwLjM5MjU3ODEyNSAxMDkzLjc5NDQzMzU5Mzc1IDc3Ni42MjMwNDY4NzUgMTEwNC4xMzEzNDc2NTYyNSA3NzYuNjIzMDQ2ODc1Wk0xMTU1LjU3OTEwMTU2MjUgNzQwLjE3NDgwNDY4NzVIMTE2OC42MDY0NDUzMTI1Vjc3Ni4wSDExNzYuMTY3OTY4NzVWNzQwLjE3NDgwNDY4NzVIMTE4OS4xNjY5OTIxODc1VjczMy44MDI3MzQzNzVIMTE1NS41NzkxMDE1NjI1Wk0xMjMxLjA5OTEyMTA5Mzc1IDczMy44MDI3MzQzNzVIMTIyMy41Mzc1OTc2NTYyNVY3NzYuMEgxMjMxLjA5OTEyMTA5Mzc1Wk0xMjg1LjQzNTU0Njg3NSA3NzYuNTY2NDA2MjVDMTI5Ni40ODA0Njg3NSA3NzYuNTY2NDA2MjUgMTMwNC43NzgzMjAzMTI1IDc2OC41NTE3NTc4MTI1IDEzMDQuNzc4MzIwMzEyNSA3NTQuOTI5Njg3NUMxMzA0Ljc3ODMyMDMxMjUgNzQxLjI3OTI5Njg3NSAxMjk2LjQ4MDQ2ODc1IDczMy4yMzYzMjgxMjUgMTI4NS40MzU1NDY4NzUgNzMzLjIzNjMyODEyNUMxMjc0LjM2MjMwNDY4NzUgNzMzLjIzNjMyODEyNSAxMjY2LjAzNjEzMjgxMjUgNzQxLjI3OTI5Njg3NSAxMjY2LjAzNjEzMjgxMjUgNzU0LjkyOTY4NzVDMTI2Ni4wMzYxMzI4MTI1IDc2OC41MjM0Mzc1IDEyNzQuMzYyMzA0Njg3NSA3NzYuNTY2NDA2MjUgMTI4NS40MzU1NDY4NzUgNzc2LjU2NjQwNjI1Wk0xMjg1LjQzNTU0Njg3NSA3NjkuNzk3ODUxNTYyNUMxMjc4LjUyNTM5MDYyNSA3NjkuNzk3ODUxNTYyNSAxMjczLjYyNTk3NjU2MjUgNzY0LjUzMDI3MzQzNzUgMTI3My42MjU5NzY1NjI1IDc1NC45Mjk2ODc1QzEyNzMuNjI1OTc2NTYyNSA3NDUuMjcyNDYwOTM3NSAxMjc4LjUyNTM5MDYyNSA3NDAuMDA0ODgyODEyNSAxMjg1LjQzNTU0Njg3NSA3NDAuMDA0ODgyODEyNUMxMjkyLjI4OTA2MjUgNzQwLjAwNDg4MjgxMjUgMTI5Ny4xNjAxNTYyNSA3NDUuMjQ0MTQwNjI1IDEyOTcuMTYwMTU2MjUgNzU0LjkyOTY4NzVDMTI5Ny4xNjAxNTYyNSA3NjQuNTU4NTkzNzUgMTI5Mi4yODkwNjI1IDc2OS43OTc4NTE1NjI1IDEyODUuNDM1NTQ2ODc1IDc2OS43OTc4NTE1NjI1Wk0xMzM5LjcxNTMzMjAzMTI1IDc3Ni4wSDEzNDcuNDE4NDU3MDMxMjVWNzU1LjA0Mjk2ODc1QzEzNDcuNDE4NDU3MDMxMjUgNzUyLjY5MjM4MjgxMjUgMTM0Ny4xNjM1NzQyMTg3NSA3NDguMjQ2MDkzNzUgMTM0Ni44ODAzNzEwOTM3NSA3NDMuMDM1MTU2MjVDMTM0OS43MTI0MDIzNDM3NSA3NDguNTI5Mjk2ODc1IDEzNTEuMjk4MzM5ODQzNzUgNzUxLjUzMTI1IDEzNTMuNTA3MzI0MjE4NzUgNzU1LjA3MTI4OTA2MjVMMTM2Ni42NzYyNjk1MzEyNSA3NzYuMEgxMzc1LjI1NzMyNDIxODc1VjczMy44MDI3MzQzNzVIMTM2Ny41ODI1MTk1MzEyNVY3NTUuOTQ5MjE4NzVDMTM2Ny41ODI1MTk1MzEyNSA3NTguNTI2MzY3MTg3NSAxMzY3Ljc1MjQ0MTQwNjI1IDc2Mi44MDI3MzQzNzUgMTM2OC4wMzU2NDQ1MzEyNSA3NjYuODgwODU5Mzc1QzEzNjYuMTk0ODI0MjE4NzUgNzYyLjY2MTEzMjgxMjUgMTM2NC4zNTQwMDM5MDYyNSA3NTkuNDYwOTM3NSAxMzYyLjg1MzAyNzM0Mzc1IDc1Ny4wNTM3MTA5Mzc1TDEzNDguMjY4MDY2NDA2MjUgNzMzLjgwMjczNDM3NUgxMzM5LjcxNTMzMjAzMTI1Wk0xNDI2LjMzNjkxNDA2MjUgNzc2LjY1MTM2NzE4NzVDMTQzNi40MTg5NDUzMTI1IDc3Ni42NTEzNjcxODc1IDE0NDIuMzA5NTcwMzEyNSA3NzEuNTgyMDMxMjUgMTQ0Mi4zMDk1NzAzMTI1IDc2NC4xNjIxMDkzNzVDMTQ0Mi4zMDk1NzAzMTI1IDc1Ni43OTg4MjgxMjUgMTQzNi4xNjQwNjI1IDc1My41NDE5OTIxODc1IDE0MjkuOTA1MjczNDM3NSA3NTIuMDQxMDE1NjI1TDE0MjUuOTY4NzUgNzUxLjAyMTQ4NDM3NUMxNDIyLjU0MTk5MjE4NzUgNzUwLjE3MTg3NSAxNDE4Ljc3NTM5MDYyNSA3NDguNzU1ODU5Mzc1IDE0MTguNzc1MzkwNjI1IDc0NS4yMTU4MjAzMTI1QzE0MTguNzc1MzkwNjI1IDc0Mi4wMTU2MjUgMTQyMS42NjQwNjI1IDczOS42NjUwMzkwNjI1IDE0MjYuNDIxODc1IDczOS42NjUwMzkwNjI1QzE0MzAuOTgxNDQ1MzEyNSA3MzkuNjY1MDM5MDYyNSAxNDM0LjA0MDAzOTA2MjUgNzQxLjc2MDc0MjE4NzUgMTQzNC40MDgyMDMxMjUgNzQ1LjM1NzQyMTg3NUgxNDQxLjc0MzE2NDA2MjVDMTQ0MS41NDQ5MjE4NzUgNzM4LjMwNTY2NDA2MjUgMTQzNS41NDEwMTU2MjUgNzMzLjIzNjMyODEyNSAxNDI2LjUzNTE1NjI1IDczMy4yMzYzMjgxMjVDMTQxNy42OTkyMTg3NSA3MzMuMjM2MzI4MTI1IDE0MTEuMTI4OTA2MjUgNzM4LjIyMDcwMzEyNSAxNDExLjEyODkwNjI1IDc0NS42Njg5NDUzMTI1QzE0MTEuMTI4OTA2MjUgNzUxLjYxNjIxMDkzNzUgMTQxNS4yOTE5OTIxODc1IDc1NS4xODQ1NzAzMTI1IDE0MjIuMzQzNzUgNzU2Ljk5NzA3MDMxMjVMMTQyNy4xMjk4ODI4MTI1IDc1OC4yNDMxNjQwNjI1QzE0MzEuNjg5NDUzMTI1IDc1OS40MzI2MTcxODc1IDE0MzQuNzQ4MDQ2ODc1IDc2MC44MjAzMTI1IDE0MzQuNzQ4MDQ2ODc1IDc2NC4xMDU0Njg3NUMxNDM0Ljc0ODA0Njg3NSA3NjcuNzMwNDY4NzUgMTQzMS4yNjQ2NDg0Mzc1IDc3MC4xOTQzMzU5Mzc1IDE0MjYuMjgwMjczNDM3NSA3NzAuMTk0MzM1OTM3NUMxNDIxLjUyMjQ2MDkzNzUgNzcwLjE5NDMzNTkzNzUgMTQxNy43NTU4NTkzNzUgNzY4LjA0MTk5MjE4NzUgMTQxNy40MTYwMTU2MjUgNzYzLjU5NTcwMzEyNUgxNDA5Ljk2Nzc3MzQzNzVDMTQxMC4zMDc2MTcxODc1IDc3MS45MjE4NzUgMTQxNi41MDk3NjU2MjUgNzc2LjY1MTM2NzE4NzUgMTQyNi4zMzY5MTQwNjI1IDc3Ni42NTEzNjcxODc1WicgZmlsbD0nI2U1ZTdlYicvPjwvc3ZnPg==" alt="Syntech Recruitment Solutions">
+      <button class="coswitch" id="coBtn"></button>
+    </div>
+    <div class="comenu hidden" id="coMenu"></div>
+    <nav id="nav"></nav>
+    <div class="me">
+      <div class="meRow"><div class="av" style="background:var(--red)" id="meAv"></div><div><b id="meName"></b><span id="meTitle"></span></div></div>
+      <button class="so" id="signOut">⇥ Sign out</button>
+    </div>
+  </aside>
+  <main>
+    <div class="top">
+      <button class="burger" id="burger">☰</button>
+      <div style="flex:1;min-width:0"><h2 id="vTitle">Overview</h2><div class="crumb" id="vCrumb"></div></div>
+      <div class="topR"><button class="topSearch noprint" onclick="openCmdk()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search candidates…</span><kbd>Ctrl K</kbd></button><span class="chip"><span class="dot"></span>Live search</span><div class="clock" id="clock"></div></div>
+    </div>
+    <div class="wrap" id="view"></div>
+  </main>
+</div>
+
+<div id="layer"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const SB_URL='https://kdorepgtvgwumdggjzqm.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtkb3JlcGd0dmd3dW1kZ2dqenFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3OTI4MTksImV4cCI6MjA4NzM2ODgxOX0.bv0NLZujyaGPfvOinVq_zeuED0RcReVLupoQlP-3voI';
+const DEFAULT_CO='all';
+const sb=supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,storageKey:'omc-ats-auth'}});
+
+const STAGES=[
+ ['submitted','Submitted','#64748b'],['reviewing','Reviewing','#0ea5e9'],['interview_requested','Interview requested','#6366f1'],
+ ['interview_scheduled','Interview scheduled','#8b5cf6'],['feedback','Feedback','#f59e0b'],['offer','Offer','#14b8a6'],
+ ['placed','Placed','#16a34a'],['rejected','Rejected','#ef4444']];
+const STAGE=Object.fromEntries(STAGES.map(s=>[s[0],{label:s[1],color:s[2]}]));
+const REJECT_REASONS=['Not enough relevant experience','Salary expectations too high','Location / travel','Notice period too long','Technical fit','Already known to us','Other'];
+const AVC=['#0d9488','#2563eb','#ea580c','#db2777','#7c3aed','#0891b2','#65a30d','#dc2626'];
+
+/* ================= STATE ================= */
+const S={me:null,companies:[],co:DEFAULT_CO,view:'overview',roles:[],cands:[],acts:[],chat:[],users:[],chans:[]};
+
+/* ================= UTILS ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ini=n=>String(n||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const avc=n=>{let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))>>>0;return AVC[h%AVC.length]};
+const fdt=d=>d?new Date(d).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
+const fd=d=>d?new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—';
+const ago=d=>{if(!d)return'';const s=(Date.now()-new Date(d))/1000;if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'};
+const isSyn=()=>S.me?.org==='syntech';
+const isAdmin=()=>isSyn()&&S.me?.is_admin;
+const coById=id=>S.companies.find(c=>c.id===id);
+const coName=id=>coById(id)?.short_name||id;
+const role=id=>S.roles.find(r=>r.id===id);
+const inScope=x=>S.co==='all'||x.company_id===S.co;
+function toast(msg,err){document.querySelectorAll('.toast').forEach(x=>x.remove());const t=document.createElement('div');t.className='toast'+(err?' err':'');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),err?4500:2600)}
+function logoHTML(c,cls=''){if(!c)return'';return c.logo_url?`<img class="${cls}" src="${esc(c.logo_url)}" alt="${esc(c.name)}" onerror="this.outerHTML='<span class=cotext>${esc(c.short_name)}</span>'">`:`<span class="cotext" style="color:${esc(c.accent)}">${esc(c.short_name)}</span>`}
+
+/* DB helpers with rollback */
+async function dbUpdate(table,id,patch,{local,label}={}){
+  const before=local?{...local}:null;
+  if(local)Object.assign(local,patch);
+  render();
+  const {error}=await sb.from(table).update(patch).eq('id',id);
+  if(error){if(local)Object.assign(local,before);render();toast((label||'Save')+' failed — '+error.message,true);return false}
+  return true}
+async function dbInsert(table,row){const {data,error}=await sb.from(table).insert(row).select().single();if(error){toast('Save failed — '+error.message,true);return null}return data}
+async function logAct(c,kind,detail){const row={candidate_id:c.id,company_id:c.company_id,kind,detail,actor:S.me.full_name};
+  const d=await dbInsert('omc_activity',row);if(d&&!S.acts.find(a=>a.id===d.id))S.acts.unshift(d)}
+
+/* ================= LOGIN FX ================= */
+let fxRaf=null;
+function startFx(){
+  const cv=$('#fxc');if(!cv||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const ctx=cv.getContext('2d');let W,H,pts=[];const dpr=Math.min(2,devicePixelRatio||1);
+  const size=()=>{W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.round(Math.min(110,W*H/14000));pts=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.6+.6}))};
+  size();addEventListener('resize',size);
+  const col=x=>{const t=x/W;const r=Math.round(232+(184-232)*t),g=Math.round(48+(196-48)*t),b=Math.round(42+(210-42)*t);return`${r},${g},${b}`};
+  let mx=-1e3,my=-1e3;addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  const loop=()=>{ctx.clearRect(0,0,W,H);
+    for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<120){p.x+=dx/d*.8;p.y+=dy/d*.8}}
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<140){ctx.strokeStyle=`rgba(${col((a.x+b.x)/2)},${(1-d/140)*.45})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+    for(const p of pts){ctx.fillStyle=`rgba(${col(p.x)},.95)`;ctx.shadowColor=`rgba(${col(p.x)},1)`;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill()}
+    ctx.shadowBlur=0;fxRaf=requestAnimationFrame(loop)};
+  loop();
+}
+function stopFx(){if(fxRaf)cancelAnimationFrame(fxRaf);fxRaf=null}
+
+/* ================= AUTH ================= */
+async function boot(){
+  startFx();
+  try{const k=localStorage.getItem('omc-co');if(k)S.co=k}catch(e){}
+  const {data:{session}}=await sb.auth.getSession();
+  if(session)await enter(session.user);
+}
+$('#loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();const b=$('#lbtn');b.disabled=true;b.textContent='Signing in…';$('#loginErr').classList.add('hidden');
+  const {data,error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
+  if(error){showLoginErr(error.message==='Invalid login credentials'?'That email and password don\'t match.':error.message);b.disabled=false;b.textContent='Sign in to portal';return}
+  await enter(data.user);b.disabled=false;b.textContent='Sign in to portal';
+});
+function showLoginErr(m){const e=$('#loginErr');e.textContent=m;e.classList.remove('hidden')}
+async function enter(user){
+  const {data:me}=await sb.from('omc_users').select('*').eq('id',user.id).maybeSingle();
+  if(!me){await sb.auth.signOut();showLoginErr('This account doesn\'t have access to this portal. Contact your Syntech administrator.');return}
+  S.me=me;
+  sb.from('omc_users').update({last_seen:new Date().toISOString()}).eq('id',me.id).then(()=>{});
+  const {data:cos}=await sb.from('omc_companies').select('*').order('sort_order');
+  S.companies=cos||[];
+  const visible=visibleCos();
+  if(S.co!=='all'&&!visible.find(c=>c.id===S.co))S.co=visible[0]?.id||DEFAULT_CO;
+  if(S.co==='all'&&visible.length<2)S.co=visible[0]?.id;
+  $('#login').classList.add('hidden');stopFx();$('#app').classList.remove('hidden');
+  $('#meAv').textContent=ini(me.full_name);$('#meName').textContent=me.full_name;$('#meTitle').textContent=me.title||(isSyn()?'Syntech':'Hiring team');
+  $('#view').innerHTML='<div class="skel" style="height:240px"></div><div class="skel" style="height:300px;margin-top:24px"></div>';
+  await loadAll();subscribe();tick();setInterval(tick,30000);
+  const h=location.hash.slice(1);if(h)S.view=h;render();
+}
+$('#signOut').onclick=async()=>{await sb.auth.signOut();location.hash='';location.reload()};
+
+/* companies a user can see in the switcher */
+function visibleCos(){return S.companies.filter(c=>isSyn()||c.is_live)}
+
+/* ================= DATA ================= */
+async function loadAll(){
+  const [r,c,a,m,u]=await Promise.all([
+    sb.from('omc_roles').select('*').order('sort_order'),
+    sb.from('omc_candidates').select('*').order('created_at',{ascending:false}),
+    sb.from('omc_activity').select('*').order('created_at',{ascending:false}).limit(400),
+    sb.from('omc_team_messages').select('*').order('created_at').limit(500),
+    sb.from('omc_users').select('*').order('full_name')]);
+  S.roles=r.data||[];S.cands=c.data||[];S.acts=a.data||[];S.chat=m.data||[];S.users=u.data||[];
+  await autoAdvance();
+}
+/* smart auto-movement: interview date passed -> Feedback */
+async function autoAdvance(){
+  const now=Date.now();
+  for(const c of S.cands.filter(c=>{if(c.stage!=='interview_scheduled'||!c.interview_at)return false;const t=new Date(c.interview_at);if(c.interview_tbc){t.setHours(23,59,0,0);return t.getTime()<now}return t.getTime()+3600e3<now})){
+    const ok=await dbUpdate('omc_candidates',c.id,{stage:'feedback'},{local:c});
+    if(ok)logAct(c,'stage','Interview took place — moved to Feedback')}
+}
+function subscribe(){
+  S.chans.forEach(ch=>sb.removeChannel(ch));S.chans=[];
+  S.chans.push(sb.channel('omc-c').on('postgres_changes',{event:'*',schema:'public',table:'omc_candidates'},p=>{
+    if(p.eventType==='DELETE'){S.cands=S.cands.filter(x=>x.id!==p.old.id)}
+    else{const i=S.cands.findIndex(x=>x.id===p.new.id);if(i>-1)S.cands[i]=p.new;else S.cands.unshift(p.new)}
+    render();
+  }).subscribe());
+  S.chans.push(sb.channel('omc-m').on('postgres_changes',{event:'INSERT',schema:'public',table:'omc_team_messages'},p=>{
+    if(!S.chat.find(x=>x.id===p.new.id)){S.chat.push(p.new);if(S.view==='chat')renderChatMsgs();else{render();if(p.new.sender_id!==S.me.id)toast('💬 '+p.new.sender_name+': '+p.new.body.slice(0,60))}}
+  }).subscribe());
+  S.chans.push(sb.channel('omc-a').on('postgres_changes',{event:'INSERT',schema:'public',table:'omc_activity'},p=>{
+    if(!S.acts.find(x=>x.id===p.new.id)){S.acts.unshift(p.new);if(S.view==='overview')render()}
+  }).subscribe());
+}
+function tick(){const d=new Date();$('#clock').innerHTML=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+'<b>'+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</b>'}
+
+/* scoped getters */
+const C=()=>S.cands.filter(inScope);
+const R=()=>S.roles.filter(inScope);
+const live=()=>C().filter(c=>!c.is_spec);
+const reviewQ=()=>live().filter(c=>['submitted','reviewing'].includes(c.stage));
+const specQ=()=>C().filter(c=>c.is_spec&&(isSyn()?(c.spec_draft||(c.spec_reaction==='interested')):(!c.spec_draft&&!c.spec_reaction)));
+const chatUnread=()=>{let seen=0;try{seen=+localStorage.getItem('omc-chat-seen-'+S.me.id)||0}catch(e){}return S.chat.filter(m=>m.sender_id!==S.me.id&&new Date(m.created_at).getTime()>seen&&(S.co==='all'||!m.company_id||m.company_id===S.co)).length};
+
+/* ================= NAV / SHELL ================= */
+const IC={
+ overview:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+ pipeline:'<path d="M4 6h16M4 12h10M4 18h6"/><circle cx="18" cy="12" r="2"/><circle cx="14" cy="18" r="2"/>',
+ interviews:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ candidates:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 8h5M17 12h5"/>',
+ talent:'<path d="M12 3 2 8l10 5 10-5-10-5zM2 13l10 5 10-5M2 18l10 5 10-5"/>',
+ spec:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 12v6M9 15h6"/>',
+ chat:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6M15 11a4 4 0 1 0 0-8M22 21c0-3-2-5-5-6"/>',
+ vacancies:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+ diary:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M7 13h3M7 17h3M14 13h3"/>',
+ reports:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+ compare:'<rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/>',
+ search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+ settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
+const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
+function renderShell(){
+  const co=S.co==='all'?null:coById(S.co);
+  document.documentElement.style.setProperty('--acc',co?.accent||'#0b5fa5');
+  const vis=visibleCos();
+  $('#coBtn').innerHTML=(co?logoHTML(co):`<span class="cotext">All OMC sites</span>`)+(vis.length>1?'<span class="caret">▼</span>':'');
+  const items=[['h','Command'],['overview','Overview'],['pipeline','Pipeline'],['interviews','Interviews'],['diary','Diary'],['candidates','Candidates'],['compare','Compare'],['talent','Talent Pool'],['spec','Spec CVs',specQ().length],
+    ['h','Insight'],['reports','Reports'],['h','Comms'],['chat','Team Chat',chatUnread()],['h','Programme'],['vacancies','Vacancies']];
+  if(isAdmin())items.push(['settings','Settings']);
+  $('#nav').innerHTML=items.map(([k,l,b])=>k==='h'?`<div class="navh">${l.toUpperCase()}</div>`:
+    `<button class="ni ${S.view===k?'on':''}" data-v="${k}">${svg(k)}${l}${b?`<span class="badge">${b}</span>`:''}</button>`).join('');
+}
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;go(b.dataset.v)});
+function go(v){S.view=v;location.hash=v;$('#side').classList.remove('open');render();window.scrollTo(0,0)}
+$('#burger').onclick=()=>$('#side').classList.toggle('open');
+$('#coBtn').onclick=e=>{e.stopPropagation();const vis=visibleCos();if(vis.length<2)return;const m=$('#coMenu');
+  m.innerHTML=(isSyn()||vis.length>1?`<button data-co="all"><span class="sw" style="background:linear-gradient(135deg,#0b5fa5,#7c3aed,#0d9488)"></span>All OMC sites</button>`:'')+
+  vis.map(c=>`<button data-co="${c.id}"><span class="sw" style="background:${esc(c.accent)}"></span>${esc(c.name)}<span class="tag ${c.is_live?'live':''}">${c.is_live?'Live':'Ready'}</span></button>`).join('');
+  m.classList.toggle('hidden')};
+$('#coMenu').addEventListener('click',e=>{const b=e.target.closest('[data-co]');if(!b)return;S.co=b.dataset.co;try{localStorage.setItem('omc-co',S.co)}catch(e){}$('#coMenu').classList.add('hidden');render()});
+document.addEventListener('click',()=>$('#coMenu').classList.add('hidden'));
+
+/* ================= RENDER ================= */
+const TITLES={overview:'Overview',pipeline:'Pipeline',interviews:'Interviews',diary:'Interview Diary',candidates:'Candidates',compare:'Compare Shortlist',talent:'Talent Pool',spec:'Spec CVs',reports:'Reports',chat:'Team Chat',vacancies:'Vacancies',settings:'Settings'};
+function render(){
+  if(!S.me)return;renderShell();
+  const co=S.co==='all'?null:coById(S.co);
+  $('#vTitle').textContent=TITLES[S.view]||'Overview';
+  $('#vCrumb').textContent=(co?co.name:'OMC Engineered Solutions · Limerick & Thurles')+' · Recruitment '+new Date().getFullYear();
+  document.title=(co?'OMC '+co.short_name:'OMC Engineered Solutions')+' Hiring Portal';
+  const v=$('#view');
+  ({overview:vOverview,pipeline:vPipeline,interviews:vInterviews,diary:vDiary,candidates:vCandidates,compare:vCompare,talent:vTalent,spec:vSpec,reports:vReports,chat:vChat,vacancies:vVacancies,settings:vSettings}[S.view]||vOverview)(v);
+  if(S.lastView!==S.view){v.classList.remove('view-enter');void v.offsetWidth;v.classList.add('view-enter');S.lastView=S.view}
+}
+
+/* ---------- Overview ---------- */
+function vOverview(v){
+  const roles=R().filter(r=>r.is_open);const target=roles.reduce((a,r)=>a+r.target,0)||0;
+  const L=live();const placed=L.filter(c=>c.stage==='placed').length;
+  const inPipe=L.filter(c=>!['placed','rejected'].includes(c.stage)).length;
+  const toSource=Math.max(0,target-placed-inPipe);
+  const tot=Math.max(target,placed+inPipe,1);
+  const pct=target?Math.round(placed/target*100):0;
+  const co=S.co==='all'?null:coById(S.co);
+  const locs=[...new Set(roles.map(r=>(r.location||'').split('·')[0].trim()).filter(Boolean))].join(' · ')||'UK';
+  const q=reviewQ();
+  const ints=L.filter(c=>c.stage==='interview_scheduled'&&c.interview_at).sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at));
+  const decisions=S.acts.filter(a=>(S.co==='all'||a.company_id===S.co)&&['decision','stage','interview','offer','placed','spec'].includes(a.kind)).slice(0,10);
+  const first=S.me.full_name.split(' ')[0];
+  v.innerHTML=`
+  <div class="hero">
+    <div class="eyebrow">RECRUITMENT STATUS</div>
+    <h1>Welcome back, ${esc(first)}</h1>
+    <div class="hs">${esc(locs)} — ${target} ${target===1?'hire':'hires'} required across ${roles.length} ${roles.length===1?'role':'roles'}${co?'':' · '+visibleCos().filter(c=>c.is_live).length+(visibleCos().filter(c=>c.is_live).length===1?' live site':' live sites')}</div>
+    ${S.co!=='all'?`<div class="heroBtn"><button class="btn w" onclick="openAdd()">＋ Add candidate</button></div>`:''}
+    <div class="bar">
+      ${placed?`<div style="flex:${placed};background:linear-gradient(90deg,#15803d,#16a34a)">${placed}</div>`:''}
+      ${inPipe?`<div style="flex:${inPipe};background:linear-gradient(90deg,#0b4f8a,#3b8fd6)">${inPipe}</div>`:''}
+      ${toSource?`<div style="flex:${toSource};background:#334155;color:#cbd5e1">${toSource}</div>`:''}
+      ${!placed&&!inPipe&&!toSource?`<div style="flex:1;color:#94a3b8;font-weight:600">No live roles yet</div>`:''}
+    </div>
+    <div class="legend"><span><i style="background:#16a34a"></i>Placed<b>${placed}</b></span><span><i style="background:#3b8fd6"></i>In pipeline<b>${inPipe}</b></span><span><i style="background:#475569"></i>Still to source<b>${toSource}</b></span><span class="rt">Target <b>${target}</b> · <b>${pct}%</b> filled</span></div>
+  </div>
+
+  <div class="card sec">
+    <div class="secH"><div class="cnt">${q.length}</div><div><h3>Candidates waiting for your review</h3><p>Approve for interview or pass — it only takes a moment</p></div>${q.length?`<button class="btn ml" onclick="openCand('${q[0].id}')">Review all</button>`:''}</div>
+    ${q.length?q.slice(0,8).map(c=>qRow(c)).join('')+'<div style="height:14px"></div>':'<div class="empty">Nothing waiting. New CVs from Syntech will land here.</div>'}
+  </div>
+
+  ${!isSyn()&&specQ().length?`<div class="card sec"><div class="secH"><div class="cnt" style="background:#b45309">${specQ().length}</div><div><h3>New spec CVs from Syntech</h3><p>Strong people who aren't tied to a live role — worth a look</p></div><button class="btn ml" onclick="go('spec')">See them</button></div></div>`:''}
+  <div class="tiles">
+    ${tile('Submitted',L.length,'CVs sent')}
+    ${tile('Interviews',L.filter(c=>['interview_requested','interview_scheduled','feedback'].includes(c.stage)).length,ints.length+' booked')}
+    ${tile('Offers',L.filter(c=>c.stage==='offer').length,'awaiting acceptance')}
+    ${tile('Placed',placed,'of '+target+' target')}
+  </div>
+
+  <div class="grid2 sec">
+    <div class="card"><div class="secH"><div><h3>Upcoming interviews</h3><p>Booked and confirmed</p></div></div>
+      <div class="feed">${ints.length?ints.slice(0,6).map(c=>`<div class="fi" style="cursor:pointer" onclick="openCand('${c.id}')"><div class="ic" style="background:#ede9fe">📅</div><div><b>${esc(c.name)}</b> — ${esc(role(c.role_id)?.title||'')}<small>${fIv(c)}${c.interview_type?' · '+esc(c.interview_type):''}</small></div></div>`).join(''):'<div class="empty">No interviews booked.</div>'}</div></div>
+    <div class="card"><div class="secH"><div><h3>Client decisions &amp; activity</h3><p>Latest movement across the campaign</p></div></div>
+      <div class="feed">${decisions.length?decisions.map(a=>feedItem(a)).join(''):'<div class="empty">Activity will appear here as candidates move.</div>'}</div></div>
+  </div>
+
+  <div class="card sec"><div class="secH"><div><h3>Roles</h3><p>Progress against each vacancy</p></div><button class="btn ghost s ml" onclick="go('vacancies')">Manage</button></div>
+    ${roles.length?roles.map(r=>roleRow(r)).join(''):'<div class="empty">No open roles.</div>'}<div style="height:8px"></div></div>`;
+}
+const tile=(k,v,x)=>`<div class="card tile"><div class="k">${k}</div><div class="v">${v}</div><div class="tx">${x}</div></div>`;
+function qRow(c){const r=role(c.role_id);return`<div class="qrow"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0"><b>${esc(c.name)}</b><span>${esc(r?.title||c.current_title||'—')} · ${esc(c.location||'—')}${S.co==='all'?' · '+esc(coName(c.company_id)):''}</span></div><button class="btn s ml" onclick="openCand('${c.id}')">Review →</button></div>`}
+function feedItem(a){const c=S.cands.find(x=>x.id===a.candidate_id);const m={decision:['#dcfce7','✓'],stage:['#dbeafe','→'],interview:['#ede9fe','📅'],offer:['#ccfbf1','✉'],placed:['#dcfce7','★'],spec:['#fef3c7','✦']}[a.kind]||['#f1f5f9','•'];
+  return`<div class="fi" ${c?`style="cursor:pointer" onclick="openCand('${c.id}')"`:''}><div class="ic" style="background:${m[0]}">${m[1]}</div><div><b>${esc(c?.name||'Candidate')}</b> — ${esc(a.detail||'')}<small>${esc(a.actor||'')} · ${ago(a.created_at)}</small></div></div>`}
+function roleRow(r){const cs=live().filter(c=>c.role_id===r.id);const p=cs.filter(c=>c.stage==='placed').length;const act=cs.filter(c=>!['placed','rejected'].includes(c.stage)).length;
+  return`<div class="roleRow"><div style="flex:1;min-width:0"><b>${esc(r.title)}</b><div style="font-size:13px;color:var(--mut)">${esc(r.location||'')}${S.co==='all'?' · '+esc(coName(r.company_id)):''}</div></div><span class="pill b">${act} active</span><div class="prog"><i style="width:${Math.min(100,p/r.target*100)}%"></i></div><b style="font-size:14px;width:46px;text-align:right">${p}/${r.target}</b></div>`}
+
+/* ---------- Pipeline (Kanban) ---------- */
+function vPipeline(v){
+  const L=live();
+  v.innerHTML=`<div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap"><select id="pRole" class="btn w" style="font-weight:600">${roleOpts(true)}</select><span style="color:var(--mut);font-size:13px">Drag cards between columns. Approving moves to Interview requested; booking a date moves to Interview scheduled; once the date passes it moves to Feedback.</span>${S.co!=='all'?'<button class="btn ml" onclick="openAdd()">＋ Add candidate</button>':''}</div>
+  <div class="kb">${STAGES.map(([k,l,col])=>{const cs=L.filter(c=>c.stage===k&&(!S.pRole||c.role_id===S.pRole));
+    return`<div class="col" data-stage="${k}"><div class="colH"><i style="background:${col}"></i>${l}<span>${cs.length}</span></div>
+    ${cs.map(c=>`<div class="kc" draggable="true" data-id="${c.id}"><b>${esc(c.name)}</b><small>${esc(role(c.role_id)?.title||c.current_title||'')}</small><div class="ft">${esc(c.location||'')}${c.interview_at&&k==='interview_scheduled'?' · '+fIv(c):''}<span class="ml">${ago(c.stage_since)}</span></div></div>`).join('')}</div>`}).join('')}</div>`;
+  const sel=$('#pRole');sel.value=S.pRole||'';sel.onchange=()=>{S.pRole=sel.value;render()};
+  v.querySelectorAll('.kc').forEach(k=>{k.addEventListener('dragstart',e=>e.dataTransfer.setData('id',k.dataset.id));k.addEventListener('click',()=>openCand(k.dataset.id))});
+  v.querySelectorAll('.col').forEach(col=>{col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('over')});col.addEventListener('dragleave',()=>col.classList.remove('over'));
+    col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('over');const c=S.cands.find(x=>x.id===e.dataTransfer.getData('id'));if(c&&c.stage!==col.dataset.stage)moveStage(c,col.dataset.stage)})});
+}
+async function moveStage(c,st){
+  if(st==='rejected')return openReject(c);
+  if(st==='interview_scheduled')return openInterview(c);
+  if(st==='offer')return openOffer(c);
+  if(st==='placed')return openPlaced(c);
+  const ok=await dbUpdate('omc_candidates',c.id,{stage:st},{local:c,label:'Move'});
+  if(ok){logAct(c,'stage','Moved to '+STAGE[st].label);toast(c.name+' → '+STAGE[st].label)}
+}
+function roleOpts(all,sel){return(all?'<option value="">All roles</option>':'')+R().filter(r=>r.is_open||r.id===sel).map(r=>`<option value="${r.id}" ${r.id===sel?'selected':''}>${esc(r.title)}${S.co==='all'?' — '+esc(coName(r.company_id)):''}</option>`).join('')}
+
+/* ---------- Interviews ---------- */
+function vInterviews(v){
+  const L=live();const up=L.filter(c=>c.stage==='interview_scheduled').sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at));
+  const req=L.filter(c=>c.stage==='interview_requested');const fb=L.filter(c=>c.stage==='feedback');
+  const block=(t,p,list,btn)=>`<div class="card sec"><div class="secH"><div class="cnt">${list.length}</div><div><h3>${t}</h3><p>${p}</p></div></div>${list.length?list.map(c=>`<div class="qrow"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0"><b>${esc(c.name)}</b><span>${esc(role(c.role_id)?.title||'')}${c.interview_at?' · '+fIv(c):''}${c.interview_type?' · '+esc(c.interview_type):''}</span></div><button class="btn s ml" onclick="${btn}('${c.id}')">${btn==='iBook'?'Book date':btn==='iOutcome'?'Record outcome':'Open'} →</button></div>`).join('')+'<div style="height:14px"></div>':'<div class="empty">None right now.</div>'}</div>`;
+  v.innerHTML=block('Awaiting a date','Approved for interview — set the date and time',req,'iBook')+block('Booked','Upcoming interviews',up,'openCand')+block('Feedback needed','Interview has happened — record the outcome',fb,'iOutcome');
+  v.firstElementChild.classList.remove('sec');
+}
+window.iBook=id=>openInterview(S.cands.find(c=>c.id===id));
+window.iOutcome=id=>openOutcome(S.cands.find(c=>c.id===id));
+
+/* ---------- Candidates table ---------- */
+function vCandidates(v,opts={}){
+  const pool=opts.pool;
+  let list=pool?C().filter(c=>c.in_talent_pool):live();
+  const f=S.f||{};
+  if(f.q){const q=f.q.toLowerCase();list=list.filter(c=>[c.name,c.current_title,c.current_employer,c.location,(c.skills||[]).join(' ')].join(' ').toLowerCase().includes(q))}
+  if(f.role)list=list.filter(c=>c.role_id===f.role);
+  if(f.stage)list=list.filter(c=>c.stage===f.stage);
+  v.innerHTML=`<div class="card"><div class="tools"><input id="fq" placeholder="Search name, title, employer, skills…" value="${esc(f.q||'')}"><select id="fr">${roleOpts(true)}</select>${pool?'':`<select id="fs"><option value="">All stages</option>${STAGES.map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select>`}${S.co!=='all'&&!pool?'<button class="btn" onclick="openAdd()">＋ Add candidate</button>':''}</div>
+  <div class="tblw"><table><thead><tr><th>Name</th><th>Role</th><th>Current role</th><th>Location</th><th>Notice</th><th>Salary exp.</th><th>Added</th><th>CV</th><th>${pool?'Reason':'Stage'}</th></tr></thead><tbody>
+  ${list.map(c=>`<tr class="cl" onclick="openCand('${c.id}')"><td><div class="nm"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><b>${esc(c.name)}</b></div></td><td>${esc(role(c.role_id)?.title||'—')}${S.co==='all'?`<div style="font-size:12px;color:var(--mut)">${esc(coName(c.company_id))}</div>`:''}</td><td>${esc(c.current_title||'—')}${c.current_employer?`<div style="font-size:12px;color:var(--mut)">${esc(c.current_employer)}</div>`:''}</td><td>${esc(c.location||'—')}</td><td>${esc(c.notice||'—')}</td><td>${esc(c.salary_expectation||'—')}</td><td>${fd(c.created_at)}</td><td>${c.cv_path?`<button class="btn s ghost" onclick="event.stopPropagation();viewCV('${c.id}')">View</button>`:'—'}</td><td>${pool?esc(c.reject_reason||'—'):stagePill(c.stage)}</td></tr>`).join('')}
+  </tbody></table>${list.length?'':`<div class="empty">${pool?'No one in the talent pool yet. Rejected candidates worth keeping land here.':'No candidates yet.'}</div>`}</div></div>`;
+  const q=$('#fq');q.oninput=()=>{S.f={...S.f,q:q.value};const pos=q.selectionStart;render();const n=$('#fq');n.focus();n.setSelectionRange(pos,pos)};
+  $('#fr').value=f.role||'';$('#fr').onchange=e=>{S.f={...S.f,role:e.target.value};render()};
+  if($('#fs')){$('#fs').value=f.stage||'';$('#fs').onchange=e=>{S.f={...S.f,stage:e.target.value};render()}}
+}
+const stagePill=s=>{const m={placed:'g',rejected:'r',offer:'p',feedback:'a',interview_scheduled:'b',interview_requested:'b'}[s]||'';return`<span class="pill ${m}">${STAGE[s]?.label||s}</span>`};
+function vTalent(v){vCandidates(v,{pool:true})}
+
+/* ---------- Spec CVs: see v2 block ---------- */
+window.specReact=async(id,r)=>{const c=S.cands.find(x=>x.id===id);const ok=await dbUpdate('omc_candidates',id,{spec_reaction:r,spec_reacted_by:S.me.full_name,spec_reacted_at:new Date().toISOString()},{local:c});if(ok){logAct(c,'spec',r==='interested'?'Spec CV — client interested':'Spec CV — not now');toast(r==='interested'?'Syntech has been notified':'Noted')}};
+window.openPromote=id=>{const c=S.cands.find(x=>x.id===id);const S2=S.co;modal(`<h3>Move ${esc(c.name)} into a role</h3><p class="s">They'll join the pipeline at Submitted.</p><div class="f"><label>Role</label><select id="pr">${S.roles.filter(r=>r.company_id===c.company_id&&r.is_open).map(r=>`<option value="${r.id}">${esc(r.title)}</option>`).join('')}</select></div><div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Move</button></div>`);
+  $('#go').onclick=async()=>{const rid=$('#pr').value;if(!rid)return;const ok=await dbUpdate('omc_candidates',id,{is_spec:false,role_id:rid,stage:'submitted'},{local:c});if(ok){logAct(c,'stage','Moved from spec CVs into '+role(rid).title);closeModal()}}};
+
+/* ---------- Team chat ---------- */
+function vChat(v){
+  try{localStorage.setItem('omc-chat-seen-'+S.me.id,Date.now())}catch(e){}
+  v.innerHTML=`<div class="card chat"><div class="secH" style="border-bottom:1px solid var(--line)"><div><h3>Team Chat</h3><p>${S.co==='all'?'Showing both site threads':'Syntech ↔ '+esc(coName(S.co))+' hiring team · anyone not in the chat gets an email'}</p></div></div><div class="msgs" id="msgs"></div>
+  <div class="cin"><textarea id="cmsg" placeholder="${S.co==='all'?'Pick Limerick or Thurles in the switcher to post':'Message the team…'}" ${S.co==='all'?'disabled':''}></textarea><button class="btn" id="csend" ${S.co==='all'?'disabled':''}>Send</button></div></div>`;
+  renderChatMsgs();renderShell();chatBeat();
+  const send=async()=>{const t=$('#cmsg');const body=t.value.trim();if(!body)return;t.value='';
+    const d=await dbInsert('omc_team_messages',{company_id:S.co,sender_id:S.me.id,sender_name:S.me.full_name,body});if(d&&!S.chat.find(x=>x.id===d.id)){S.chat.push(d);renderChatMsgs()}
+    if(d)fnCall('omc-chat-alert',{message_id:d.id}).then(r=>{if(r&&r.sent)toast('Emailed '+r.sent+' '+(r.sent===1?'person':'people')+' who aren\'t in the chat')}).catch(()=>{})};
+  $('#csend').onclick=send;$('#cmsg').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
+}
+function chatBeat(){if(S.view==='chat'&&document.visibilityState==='visible'&&S.me)sb.from('omc_users').update({chat_seen:new Date().toISOString()}).eq('id',S.me.id).then(()=>{})}
+setInterval(chatBeat,60000);document.addEventListener('visibilitychange',chatBeat);
+function renderChatMsgs(){const box=$('#msgs');if(!box)return;try{localStorage.setItem('omc-chat-seen-'+S.me.id,Date.now())}catch(e){}
+  const list=S.chat.filter(m=>S.co==='all'||!m.company_id||m.company_id===S.co);
+  box.innerHTML=list.length?list.map(m=>`<div class="m ${m.sender_id===S.me.id?'mine':''}"><small>${esc(m.sender_name)}${S.co==='all'&&m.company_id?' · '+esc(coName(m.company_id)):''} · ${fdt(m.created_at)}</small>${esc(m.body)}</div>`).join(''):'<div class="empty">No messages yet — say hello.</div>';
+  box.scrollTop=box.scrollHeight}
+
+/* ---------- Vacancies ---------- */
+function vVacancies(v){
+  const rs=R();
+  v.innerHTML=`<div class="card"><div class="secH"><div><h3>Vacancies</h3><p>Roles Syntech is working${S.co==='all'?' across both OMC sites':' for '+esc(coName(S.co))}</p></div>${isSyn()&&S.co!=='all'?'<button class="btn ml" onclick="openRole()">＋ Add role</button>':''}</div>
+  <div class="tblw"><table><thead><tr><th>Role</th>${S.co==='all'?'<th>Site</th>':''}<th>Location</th><th>Salary</th><th>Heads</th><th>Pipeline</th><th>Status</th>${isSyn()?'<th></th>':''}</tr></thead><tbody>
+  ${rs.map(r=>{const cs=live().filter(c=>c.role_id===r.id);return`<tr><td><b>${esc(r.title)}</b>${(r.skills||[]).length?`<div style="font-size:12px;color:var(--mut)">${esc(r.skills.join(' · '))}</div>`:''}</td>${S.co==='all'?`<td>${esc(coName(r.company_id))}</td>`:''}<td>${esc(r.location||'—')}</td><td>${esc(r.salary||'—')}</td><td>${cs.filter(c=>c.stage==='placed').length}/${r.target}</td><td>${cs.filter(c=>!['placed','rejected'].includes(c.stage)).length} active</td><td>${r.is_open?'<span class="pill g">Open</span>':'<span class="pill">Closed</span>'}</td>${isSyn()?`<td><button class="btn s ghost" onclick="openRole('${r.id}')">Edit</button></td>`:''}</tr>`}).join('')}
+  </tbody></table>${rs.length?'':'<div class="empty">No roles yet.</div>'}</div></div>`;
+}
+window.openRole=id=>{const r=id?S.roles.find(x=>x.id===id):{title:'',location:'',salary:'',target:1,skills:[],notes:'',is_open:true};
+  modal(`<h3>${id?'Edit role':'Add role'}</h3><p class="s">${esc(coName(id?r.company_id:S.co))}</p>
+  <div class="f"><label>Job title</label><input id="rt" value="${esc(r.title)}"></div>
+  <div class="fr"><div class="f"><label>Location</label><input id="rl" value="${esc(r.location||'')}"></div><div class="f"><label>Salary</label><input id="rs" value="${esc(r.salary||'')}"></div></div>
+  <div class="fr"><div class="f"><label>Heads required</label><input id="rh" type="number" min="1" value="${r.target}"></div><div class="f"><label>Status</label><select id="ro"><option value="1">Open</option><option value="0" ${r.is_open?'':'selected'}>Closed</option></select></div></div>
+  <div class="f"><label>Key skills (comma separated)</label><input id="rk" value="${esc((r.skills||[]).join(', '))}"></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Save</button></div>`);
+  $('#go').onclick=async()=>{const p={title:$('#rt').value.trim(),location:$('#rl').value.trim(),salary:$('#rs').value.trim(),target:Math.max(1,+$('#rh').value||1),is_open:$('#ro').value==='1',skills:$('#rk').value.split(',').map(s=>s.trim()).filter(Boolean)};
+    if(!p.title)return toast('Add a job title',true);
+    if(id){if(await dbUpdate('omc_roles',id,p,{local:r}))closeModal()}else{const d=await dbInsert('omc_roles',{...p,company_id:S.co,sort_order:S.roles.length+1});if(d){S.roles.push(d);closeModal();render()}}}};
+
+/* ---------- Settings (Syntech admin) ---------- */
+function vSettings(v){
+  if(!isAdmin()){v.innerHTML='<div class="empty">Admins only.</div>';return}
+  v.innerHTML=`<div class="card"><div class="secH"><div><h3>OMC sites</h3><p>Switch a site on when Syntech starts recruiting for it. It then appears for client users and in the switcher.</p></div></div>
+  ${S.companies.map(c=>`<div class="coCard"><div class="coLogo">${logoHTML(c)}</div><div style="flex:1;min-width:0"><b>${esc(c.name)}</b> ${c.is_live?'<span class="pill g">Live</span>':'<span class="pill">Off</span>'}<div style="font-size:13px;color:var(--mut)">${esc(c.location||'Location not set')} · ${S.roles.filter(r=>r.company_id===c.id).length} roles · ${S.cands.filter(x=>x.company_id===c.id).length} candidates · ${S.users.filter(u=>u.org==='client'&&(u.company_access||[]).includes(c.id)).length} client users</div></div>
+    <button class="btn s" onclick="openCompany('${c.id}')">Open →</button><button class="btn s ghost" onclick="openCo('${c.id}')">Edit</button><button class="sw2 ${c.is_live?'on':''}" title="${c.is_live?'Live — click to switch off':'Off — click to switch on'}" onclick="toggleCo('${c.id}')"></button></div>`).join('')}<div style="height:8px"></div></div>
+  <div class="card sec"><div class="secH"><div><h3>Users</h3><p>Who can sign in, and which sites they see</p></div><button class="btn ml" onclick="openInvite()">＋ Add user</button></div>
+  <div class="tblw"><table><thead><tr><th>Name</th><th>Email</th><th>Side</th><th>Access</th><th>Last seen</th><th></th></tr></thead><tbody>
+  ${S.users.map(u=>`<tr><td><b>${esc(u.full_name)}</b><div style="font-size:12px;color:var(--mut)">${esc(u.title||'')}</div></td><td>${esc(u.email)}</td><td>${u.org==='syntech'?'<span class="pill r">Syntech</span>':'<span class="pill b">Client</span>'}</td><td>${u.org==='syntech'?'Both sites':(u.company_access||[]).map(coName).join(', ')||'—'}</td><td>${u.last_seen?ago(u.last_seen):'Never'}</td>
+  <td style="white-space:nowrap">${u.id!==S.me.id?`<button class="btn s ghost" onclick="resetPw('${u.id}')">Reset password</button> <button class="btn s ghost" onclick="removeUser('${u.id}')">Remove</button>`:''}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+window.toggleCo=async id=>{const c=coById(id);const ok=await dbUpdate('omc_companies',id,{is_live:!c.is_live},{local:c});if(!ok)return;
+  if(c.is_live)toast(c.name+' is live — add its roles under Vacancies and give its hiring team access under Users');else toast(c.name+' switched off — its client users can no longer see it')};
+window.openCompany=id=>{S.co=id;try{localStorage.setItem('omc-co',id)}catch(e){}go(coById(id).is_live&&!S.roles.some(r=>r.company_id===id)?'vacancies':'overview')};
+window.openCo=id=>{const c=coById(id);modal(`<h3>${esc(c.name)}</h3><p class="s">Branding used on the login page and portal.</p>
+  <div class="f"><label>Full name</label><input id="cn" value="${esc(c.name)}"></div><div class="fr"><div class="f"><label>Short name</label><input id="cs" value="${esc(c.short_name)}"></div><div class="f"><label>Brand colour</label><input id="ca" type="color" value="${esc(c.accent)}" style="height:42px;padding:4px"></div></div>
+  <div class="f"><label>Location</label><input id="cl" value="${esc(c.location||'')}"></div><div class="f"><label>Logo URL (PNG/SVG)</label><input id="cg" value="${esc(c.logo_url||'')}"></div><div class="f"><label>Website</label><input id="cw" value="${esc(c.website||'')}"></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Save</button></div>`);
+  $('#go').onclick=async()=>{if(await dbUpdate('omc_companies',id,{name:$('#cn').value.trim(),short_name:$('#cs').value.trim(),accent:$('#ca').value,location:$('#cl').value.trim()||null,logo_url:$('#cg').value.trim()||null,website:$('#cw').value.trim()||null},{local:c}))closeModal()}};
+async function fnCall(fn,body){const {data:{session}}=await sb.auth.getSession();const r=await fetch(SB_URL+'/functions/v1/'+fn,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.access_token,apikey:SB_KEY},body:JSON.stringify(body)});return r.json()}
+async function adminCall(body){const {data:{session}}=await sb.auth.getSession();const r=await fetch(SB_URL+'/functions/v1/omc-admin',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.access_token,apikey:SB_KEY},body:JSON.stringify(body)});return r.json()}
+window.openInvite=()=>{modal(`<h3>Add user</h3><p class="s">Creates their login with a temporary password you can send them.</p>
+  <div class="fr"><div class="f"><label>Full name</label><input id="un"></div><div class="f"><label>Job title</label><input id="ut"></div></div>
+  <div class="f"><label>Email</label><input id="ue" type="email"></div>
+  <div class="f"><label>Side</label><select id="uo"><option value="client">Client (hiring team)</option><option value="syntech">Syntech</option></select></div>
+  <div class="f" id="uaW"><label>Site access</label>${S.companies.map(c=>`<label style="display:flex;gap:8px;font-weight:500;margin:6px 0"><input type="checkbox" value="${c.id}" class="uac" style="width:auto" ${c.id===S.co||(S.co==='all'&&c.id===DEFAULT_CO)?'checked':''}> ${esc(c.name)}${c.is_live?'':' <span class="pill">not live yet</span>'}</label>`).join('')}</div>
+  <div id="uRes"></div><div class="mF"><button class="btn ghost" onclick="closeModal()">Close</button><button class="btn" id="go">Create login</button></div>`);
+  $('#uo').onchange=()=>$('#uaW').classList.toggle('hidden',$('#uo').value==='syntech');
+  $('#go').onclick=async()=>{const b=$('#go');b.disabled=true;const res=await adminCall({action:'invite',full_name:$('#un').value.trim(),title:$('#ut').value.trim(),email:$('#ue').value.trim(),org:$('#uo').value,company_access:[...document.querySelectorAll('.uac:checked')].map(x=>x.value)});b.disabled=false;
+    if(res.error)return toast(res.error,true);
+    $('#uRes').innerHTML=res.password?`<div class="warn"><b>Login created.</b><br>Portal password: <code style="font-size:15px;user-select:all">${esc(res.password)}</code><br>Copy this now — it won't be shown again.</div>`:`<div class="warn">That email already had an account on this platform, so they keep their existing password. Access granted.</div>`;
+    b.classList.add('hidden');const {data}=await sb.from('omc_users').select('*').order('full_name');S.users=data||[];}};
+window.resetPw=async id=>{const u=S.users.find(x=>x.id===id);modal(`<h3>Reset password for ${esc(u.full_name)}?</h3><p class="s">A new temporary password is generated. ${u.org==='syntech'?'<b>Note:</b> this login is shared with other Syntech tools on the same platform — their password changes there too.':''}</p><div id="uRes"></div><div class="mF"><button class="btn ghost" onclick="closeModal()">Close</button><button class="btn r" id="go">Reset</button></div>`);
+  $('#go').onclick=async()=>{const res=await adminCall({action:'reset',user_id:id});if(res.error)return toast(res.error,true);$('#go').classList.add('hidden');$('#uRes').innerHTML=`<div class="warn">New password: <code style="font-size:15px;user-select:all">${esc(res.password)}</code></div>`}};
+window.removeUser=async id=>{const u=S.users.find(x=>x.id===id);modal(`<h3>Remove ${esc(u.full_name)}?</h3><p class="s">They lose access to this portal. Their history stays.</p><div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn r" id="go">Remove</button></div>`);
+  $('#go').onclick=async()=>{const res=await adminCall({action:'remove',user_id:id});if(res.error)return toast(res.error,true);S.users=S.users.filter(x=>x.id!==id);closeModal();render()}};
+
+/* ================= MODALS ================= */
+function modal(html){$('#layer').innerHTML=`<div class="modalW" id="mw"><div class="modal">${html}</div></div>`;$('#mw').addEventListener('mousedown',e=>{if(e.target.id==='mw')closeModal()})}
+window.closeModal=()=>{const m=$('#mw');if(m)m.remove();if(S.openId&&$('#dr'))return;if(S.openId)openCand(S.openId)}
+
+/* ---------- Candidate drawer ---------- */
+window.openCand=id=>{
+  const c=S.cands.find(x=>x.id===id);if(!c)return;if(S.openId!==id)S.dTab='overview';S.openId=id;const r=role(c.role_id);const tab=S.dTab||'overview';
+  const acts=S.acts.filter(a=>a.candidate_id===id);
+  const isOpenStage=!['placed','rejected'].includes(c.stage);
+  let actions='';
+  if(c.is_spec&&c.spec_draft)actions=isSyn()?`<button class="btn g" onclick="shareSpec('${c.id}');closeDrawer()">Share with client →</button><button class="btn ghost" onclick="delCand('${c.id}')">Delete</button>`:'';
+  else if(c.is_spec)actions=isSyn()?(c.spec_reaction==='interested'?`<button class="btn" onclick="openPromote('${c.id}')">Move to a role</button>`:''):`<button class="btn g" onclick="specReact('${c.id}','interested');closeDrawer()">Interested</button><button class="btn ghost" onclick="specReact('${c.id}','not_now');closeDrawer()">Not now</button>`;
+  if(isSyn()&&!c.is_spec&&['submitted','reviewing'].includes(c.stage))actions+=`<span style="font-size:12.5px;color:var(--mut);align-self:center">Client decides here — you can act on their behalf if they ask.</span>`;
+  else if(['submitted','reviewing'].includes(c.stage))actions=`<button class="btn g" onclick="approve('${c.id}')">✓ Approve for interview</button><button class="btn r" onclick="openReject(S.cands.find(x=>x.id==='${c.id}'))">Pass</button>`;
+  else if(c.stage==='interview_requested')actions=`<button class="btn" onclick="openInterview(S.cands.find(x=>x.id==='${c.id}'))">📅 Set interview date</button><button class="btn ghost" onclick="openReject(S.cands.find(x=>x.id==='${c.id}'))">Withdraw / reject</button>`;
+  else if(c.stage==='interview_scheduled')actions=`<button class="btn" onclick="openInterview(S.cands.find(x=>x.id==='${c.id}'))">Change date</button><button class="btn ghost" onclick="openOutcome(S.cands.find(x=>x.id==='${c.id}'))">Record outcome</button>`;
+  else if(c.stage==='feedback')actions=`<button class="btn" onclick="openOutcome(S.cands.find(x=>x.id==='${c.id}'))">Record interview outcome</button>`;
+  else if(c.stage==='offer')actions=`<button class="btn g" onclick="openPlaced(S.cands.find(x=>x.id==='${c.id}'))">★ Offer accepted — placed</button><button class="btn ghost" onclick="openReject(S.cands.find(x=>x.id==='${c.id}'),'Offer declined')">Offer declined</button>`;
+  else if(c.stage==='rejected')actions=`<button class="btn ghost" onclick="reopen('${c.id}')">Reconsider</button>${c.in_talent_pool?'':`<button class="btn ghost" onclick="toPool('${c.id}')">Add to talent pool</button>`}`;
+  $('#layer').innerHTML=`<div class="scrim" id="dr"><div class="drawer">
+   <div class="dH"><div class="av" style="background:${avc(c.name)};width:54px;height:54px;font-size:18px;border-radius:14px">${ini(c.name)}</div><div style="min-width:0"><h3>${esc(c.name)}</h3><p>${esc(r?.title||c.current_title||'')} · ${esc(coName(c.company_id))}</p><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${c.is_spec?'<span class="pill a">Spec CV</span>':stagePill(c.stage)}${c.in_talent_pool?'<span class="pill p">Talent pool</span>':''}${c.spec_draft?'<span class="pill">Draft — not shared</span>':''}</div></div><button class="x" onclick="closeDrawer()">✕</button></div>
+   <div class="tabs">${[['overview','Overview'],['cv','CV'+(c.cv_path?'':' (none)')],['timeline','Timeline · '+(acts.length+1)]].map(([k,l])=>`<button class="${tab===k?'on':''}" onclick="drawerTab('${c.id}','${k}')">${l}</button>`).join('')}</div>
+   <div class="dB">${tab==='cv'?`<div id="cvInline"><div class="skel" style="height:60vh"></div></div>`+(isSyn()?`<div class="dropmini" id="cvDrop" style="margin-top:12px">${c.cv_path?'Drop a new CV here to replace it':'Drop a CV here'} — or click to choose</div>`:''):tab==='timeline'?`<div class="tl">${acts.map(a=>`<div>${esc(a.detail||a.kind)}<br><small>${esc(a.actor||'')} · ${fdt(a.created_at)}</small></div>`).join('')}<div>Added${c.added_by?' by '+esc(c.added_by):''}<br><small>${fdt(c.created_at)}</small></div></div>`:`
+    ${actions?`<div class="box" style="background:#f8fafc"><h4>Your decision</h4><div class="acts">${actions}</div></div>`:''}
+    <div class="kv">
+     <div><small>Current role</small>${esc(c.current_title||'—')}</div><div><small>Current employer</small>${esc(c.current_employer||'—')}</div>
+     <div><small>Location</small>${esc(c.location||'—')}</div><div><small>Right to work (UK)</small>${esc(c.right_to_work||'—')}</div>
+     <div><small>Notice</small>${esc(c.notice||'—')}</div><div><small>Salary expectation</small>${esc(c.salary_expectation||'—')}</div>
+     ${c.interview_at?`<div><small>Interview</small>${fIv(c)}${c.interview_type?' · '+esc(c.interview_type):''}</div>`:''}
+     ${c.interview_outcome?`<div><small>Interview outcome</small>${esc(c.interview_outcome)}</div>`:''}
+     ${c.offer_salary?`<div><small>Offer</small>${esc(c.offer_salary)}</div>`:''}${c.start_date?`<div><small>Start date</small>${fd(c.start_date)}</div>`:''}
+     ${c.reject_reason?`<div><small>Reason</small>${esc(c.reject_reason)}${c.reject_note?' — '+esc(c.reject_note):''}</div>`:''}
+     ${isSyn()&&(c.email||c.phone)?`<div><small>Contact (Syntech only)</small>${esc(c.email||'')} ${esc(c.phone||'')}</div>`:''}
+    </div>
+    ${(c.skills||[]).length?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px">${c.skills.map(s=>`<span class="pill b">${esc(s)}</span>`).join('')}</div>`:''}
+    ${c.summary?`<div class="box"><h4>Syntech summary</h4><div style="font-size:14px;line-height:1.55;white-space:pre-wrap">${esc(c.summary)}</div></div>`:''}
+    ${c.interview_notes?`<div class="box"><h4>Interview notes</h4><div style="font-size:14px;white-space:pre-wrap">${esc(c.interview_notes)}</div></div>`:''}
+    <div class="box"><h4>CV</h4>${c.cv_path?`<div class="acts"><button class="btn" onclick="drawerTab('${c.id}','cv')">Read CV</button><button class="btn ghost" onclick="viewCV('${c.id}')">Full screen</button><span style="font-size:13px;color:var(--mut);align-self:center">${esc(c.cv_name||'')}</span></div>`:'<span style="font-size:14px;color:var(--mut)">No CV uploaded.</span>'}
+      ${isSyn()?`<div class="dropmini" id="cvDrop" style="margin-top:10px">${c.cv_path?'Drop a new CV to replace':'Drop a CV here'} — or click to choose</div>`:''}</div>
+    ${isSyn()?`<div class="acts" style="margin-bottom:18px"><button class="btn s ghost" onclick="openEdit('${c.id}')">Edit details</button>${isOpenStage&&!c.is_spec?`<select class="btn s ghost" onchange="if(this.value)moveStage(S.cands.find(x=>x.id==='${c.id}'),this.value)"><option value="">Move stage…</option>${STAGES.filter(s=>s[0]!==c.stage).map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('')}</select>`:''}</div>`:''}
+    <button class="btn ghost s" onclick="drawerTab('${c.id}','timeline')">View timeline →</button>`}
+   </div></div></div>`;
+  $('#dr').addEventListener('mousedown',e=>{if(e.target.id==='dr')closeDrawer()});
+  dropify($('#cvDrop'),fs=>uploadCV(c.id,fs[0]),{multiple:false});
+  if(tab==='cv')fillInlineCV(c);
+};
+window.closeDrawer=()=>{S.openId=null;$('#layer').innerHTML=''};
+window.approve=async id=>{const c=S.cands.find(x=>x.id===id);const ok=await dbUpdate('omc_candidates',id,{stage:'interview_requested',client_decision:'approved'},{local:c});
+  if(ok){logAct(c,'decision','Approved for interview');toast('Approved — Syntech will arrange the interview');nextInQueue(id)}};
+function nextInQueue(id){const q=reviewQ().filter(c=>c.id!==id);if(q.length)openCand(q[0].id);else{closeDrawer();toast('Review queue clear ✓')}}
+window.reopen=async id=>{const c=S.cands.find(x=>x.id===id);if(await dbUpdate('omc_candidates',id,{stage:'reviewing',client_decision:null,reject_reason:null,reject_note:null},{local:c})){logAct(c,'decision','Reconsidered — back to Reviewing');openCand(id)}};
+window.toPool=async id=>{const c=S.cands.find(x=>x.id===id);if(await dbUpdate('omc_candidates',id,{in_talent_pool:true},{local:c})){logAct(c,'stage','Added to talent pool');openCand(id)}};
+
+window.openReject=(c,preset)=>{modal(`<h3>Pass on ${esc(c.name)}</h3><p class="s">A reason helps Syntech sharpen the next shortlist.</p>
+  <div class="f"><label>Reason</label><select id="rr">${(preset?[preset,...REJECT_REASONS]:REJECT_REASONS).map(r=>`<option>${r}</option>`).join('')}</select></div>
+  <div class="f"><label>Note (optional)</label><textarea id="rn"></textarea></div>
+  <label style="display:flex;gap:8px;font-size:14px;margin-bottom:6px"><input type="checkbox" id="rp" checked style="width:auto"> Keep in the talent pool for future roles</label>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn r" id="go">Confirm</button></div>`);
+  $('#go').onclick=async()=>{const p={stage:'rejected',client_decision:'rejected',reject_reason:$('#rr').value,reject_note:$('#rn').value.trim()||null,rejected_at:new Date().toISOString(),in_talent_pool:$('#rp').checked};
+    const ok=await dbUpdate('omc_candidates',c.id,p,{local:c});$('#mw')?.remove();if(ok){logAct(c,'decision','Passed — '+p.reject_reason);toast('Noted');S.openId?nextInQueue(c.id):render()}}};
+
+window.openInterview=c=>{const loc=c.interview_at?new Date(new Date(c.interview_at).getTime()-new Date().getTimezoneOffset()*6e4).toISOString():'';
+  modal(`<h3>Interview — ${esc(c.name)}</h3><p class="s">Setting a date moves them to Interview scheduled. Once it has passed they move to Feedback.</p>
+  <div class="fr"><div class="f"><label>Date</label><input id="id" type="date" value="${loc.slice(0,10)}"></div><div class="f"><label>Time</label><input id="itm" type="time" value="${c.interview_tbc?'':loc.slice(11,16)}" ${c.interview_tbc?'disabled':''}></div></div>
+  <label style="display:flex;gap:8px;font-size:14px;margin:-4px 0 14px"><input type="checkbox" id="itbc" style="width:auto" ${c.interview_tbc?'checked':''}> Time to be confirmed</label>
+  <div class="f"><label>Format</label><select id="iy">${['Teams / video','On site — '+(coById(c.company_id)?.location||'client site'),'On site — other','Phone'].map(o=>`<option ${o===c.interview_type?'selected':''}>${o}</option>`).join('')}</select></div>
+  <div class="f"><label>Notes for the candidate / interviewers</label><textarea id="in">${esc(c.interview_notes||'')}</textarea></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Save interview</button></div>`);
+  $('#itbc').onchange=e=>{$('#itm').disabled=e.target.checked;if(e.target.checked)$('#itm').value=''};
+  $('#go').onclick=async()=>{const d=$('#id').value,tbc=$('#itbc').checked,t=$('#itm').value;if(!d)return toast('Pick a date',true);if(!tbc&&!t)return toast('Add a time, or tick “Time to be confirmed”',true);
+    const iso=new Date(d+'T'+(tbc?'12:00':t)).toISOString();
+    const ok=await dbUpdate('omc_candidates',c.id,{stage:'interview_scheduled',interview_at:iso,interview_tbc:tbc,interview_type:$('#iy').value,interview_notes:$('#in').value.trim()||null},{local:c});$('#mw')?.remove();
+    if(ok){logAct(c,'interview','Interview booked for '+fIv(c));toast('Interview booked');S.openId?openCand(c.id):render()}}};
+
+window.openOutcome=c=>{modal(`<h3>How did ${esc(c.name)} do?</h3><p class="s">Interview ${fIv(c)}</p>
+  <div class="f"><label>Outcome</label><select id="oo"><option value="offer">Make an offer</option><option value="second">Second interview</option><option value="reject">Not progressing</option></select></div>
+  <div class="f"><label>Feedback</label><textarea id="of" placeholder="What stood out, any concerns…"></textarea></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Save</button></div>`);
+  $('#go').onclick=async()=>{const o=$('#oo').value,fb=$('#of').value.trim();const notes=[c.interview_notes,fb?('Feedback '+fd(new Date())+': '+fb):''].filter(Boolean).join('\n\n');
+    $('#mw')?.remove();
+    if(o==='offer'){await dbUpdate('omc_candidates',c.id,{interview_outcome:'Offer',interview_notes:notes||null},{local:c});logAct(c,'decision','Interview outcome — offer');openOffer(c)}
+    else if(o==='second'){await dbUpdate('omc_candidates',c.id,{interview_outcome:'Second interview',interview_notes:notes||null,stage:'interview_requested'},{local:c});logAct(c,'decision','Interview outcome — second interview');toast('Second interview requested');openCand(c.id)}
+    else{await dbUpdate('omc_candidates',c.id,{interview_outcome:'Not progressing',interview_notes:notes||null},{local:c});openReject(c,'Interview — not progressing')}}};
+
+window.openOffer=c=>{modal(`<h3>Offer — ${esc(c.name)}</h3><p class="s">Syntech will put this to the candidate.</p>
+  <div class="fr"><div class="f"><label>Salary / package</label><input id="os" value="${esc(c.offer_salary||'')}" placeholder="e.g. £55,000 + car + bonus"></div><div class="f"><label>Proposed start</label><input id="od" type="date" value="${c.start_date||''}"></div></div>
+  <div class="f"><label>Notes</label><textarea id="on">${esc(c.offer_notes||'')}</textarea></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">Record offer</button></div>`);
+  $('#go').onclick=async()=>{const ok=await dbUpdate('omc_candidates',c.id,{stage:'offer',offer_salary:$('#os').value.trim()||null,start_date:$('#od').value||null,offer_notes:$('#on').value.trim()||null,offer_made_at:new Date().toISOString()},{local:c});$('#mw')?.remove();
+    if(ok){logAct(c,'offer','Offer made'+(c.offer_salary?' — '+c.offer_salary:''));toast('Offer recorded');S.openId?openCand(c.id):render()}}};
+
+window.openPlaced=c=>{modal(`<h3>${esc(c.name)} accepted 🎉</h3><p class="s">Confirm the start date.</p>
+  <div class="f"><label>Start date</label><input id="pd" type="date" value="${c.start_date||''}"></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn g" id="go">Mark as placed</button></div>`);
+  $('#go').onclick=async()=>{const ok=await dbUpdate('omc_candidates',c.id,{stage:'placed',start_date:$('#pd').value||null,placed_at:new Date().toISOString()},{local:c});$('#mw')?.remove();
+    if(ok){logAct(c,'placed','Placed'+(c.start_date?' — starts '+fd(c.start_date):''));toast('Placed ★');S.openId?openCand(c.id):render()}}};
+
+/* ---------- Add / edit candidate ---------- */
+window.openAdd=(spec=false)=>{if(S.co==='all')return toast('Pick a site first (Limerick or Thurles)',true);candForm({is_spec:spec,company_id:S.co,right_to_work:'yes'})};
+window.openEdit=id=>candForm(S.cands.find(x=>x.id===id));
+function candForm(c){const edit=!!c.id;
+  modal(`<h3>${edit?'Edit candidate':c.is_spec?'Add spec CV':'Add candidate'}</h3><p class="s">${esc(coName(c.company_id))}${c.is_spec?' · not tied to a live role':''}</p>
+  ${edit?'':`<div class="f"><label>CV (PDF or Word)</label><div class="dropmini" id="cvz">Drop the CV here — or click to choose. We'll read it and fill in what we can.</div><div id="cvwarn"></div></div>`}
+  <div id="dup"></div>
+  <div class="fr"><div class="f"><label>Full name</label><input id="cn" value="${esc(c.name||'')}"></div>${c.is_spec?'<div></div>':`<div class="f"><label>Role</label><select id="cr">${roleOpts(false,c.role_id)}</select></div>`}</div>
+  <div class="fr"><div class="f"><label>Current job title</label><input id="ct" value="${esc(c.current_title||'')}"></div><div class="f"><label>Current employer</label><input id="ce" value="${esc(c.current_employer||'')}"></div></div>
+  <div class="fr"><div class="f"><label>Location</label><input id="cl" value="${esc(c.location||'')}"></div><div class="f"><label>Right to work (UK)</label><select id="cw">${['yes','sponsorship needed','tbc'].map(o=>`<option ${o===c.right_to_work?'selected':''}>${o}</option>`).join('')}</select></div></div>
+  <div class="fr"><div class="f"><label>Notice period</label><input id="cno" value="${esc(c.notice||'')}"></div><div class="f"><label>Salary expectation</label><input id="cs" value="${esc(c.salary_expectation||'')}"></div></div>
+  <div class="f"><label>Key skills (comma separated)</label><input id="ck" value="${esc((c.skills||[]).join(', '))}" placeholder="e.g. TIG, 6G, stainless, drawings"></div>
+  <div class="f"><label>Syntech summary (client sees this)</label><textarea id="cu">${esc(c.summary||'')}</textarea></div>
+  <div class="fr"><div class="f"><label>Email (Syntech only)</label><input id="cem" value="${esc(c.email||'')}"></div><div class="f"><label>Phone (Syntech only)</label><input id="cph" value="${esc(c.phone||'')}"></div></div>
+  <div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" id="go">${edit?'Save':'Add to portal'}</button></div>`);
+  const dupCheck=()=>{const n=$('#cn').value.trim().toLowerCase(),e=$('#cem').value.trim().toLowerCase();
+    const d=S.cands.find(x=>x.id!==c.id&&x.company_id===c.company_id&&((n&&x.name.toLowerCase()===n)||(e&&x.email&&x.email.toLowerCase()===e)));
+    $('#dup').innerHTML=d?`<div class="warn">Possible duplicate: <b>${esc(d.name)}</b> is already in the portal (${STAGE[d.stage].label}, added ${fd(d.created_at)}).</div>`:''};
+  $('#cn').oninput=dupCheck;$('#cem').oninput=dupCheck;
+  let cvFile=null;
+  dropify($('#cvz'),async fs=>{cvFile=fs[0];$('#cvz').innerHTML=`<b style="color:var(--ink)">📄 ${esc(cvFile.name)}</b> · reading…`;
+    const x=parseCV(await cvText(cvFile),cvFile.name);const fill=(id,v)=>{if(v&&!$(id).value)$(id).value=v};
+    fill('#cn',x.name);fill('#ct',x.title);fill('#cl',x.location);fill('#cno',x.notice);fill('#cs',x.salary);
+    $('#cvz').innerHTML=`<b style="color:var(--ink)">📄 ${esc(cvFile.name)}</b> · details filled in, please check`;
+    $('#cvwarn').innerHTML=x.contact?'<div style="margin-top:8px"><span class="flag">⚠ This CV appears to include personal contact details — the client will see them.</span></div>':'';dupCheck()},{multiple:false});
+  $('#go').onclick=async()=>{const p={name:$('#cn').value.trim(),current_title:$('#ct').value.trim()||null,current_employer:$('#ce').value.trim()||null,location:$('#cl').value.trim()||null,right_to_work:$('#cw').value,notice:$('#cno').value.trim()||null,salary_expectation:$('#cs').value.trim()||null,
+      skills:$('#ck').value.split(',').map(s=>s.trim()).filter(Boolean),summary:$('#cu').value.trim()||null,email:$('#cem').value.trim()||null,phone:$('#cph').value.trim()||null};
+    if(!c.is_spec)p.role_id=$('#cr').value||null;
+    if(!p.name)return toast('Add a name',true);
+    const b=$('#go');b.disabled=true;
+    if(edit){const ok=await dbUpdate('omc_candidates',c.id,p,{local:c});if(ok){logAct(c,'edit','Details updated');$('#mw').remove();openCand(c.id)}else b.disabled=false;return}
+    const d=await dbInsert('omc_candidates',{...p,company_id:c.company_id,is_spec:!!c.is_spec,spec_draft:!!c.is_spec,stage:'submitted',added_by:S.me.full_name});
+    if(!d){b.disabled=false;return}
+    if(!S.cands.find(x=>x.id===d.id))S.cands.unshift(d);
+    logAct(d,c.is_spec?'spec':'stage',c.is_spec?'Spec CV drafted':'CV submitted by Syntech');
+    if(cvFile)await uploadCV(d.id,cvFile,true);
+    $('#mw').remove();toast(d.name+' added');render()}}
+window.uploadCV=async(id,f,quiet)=>{if(!f)return;const c=S.cands.find(x=>x.id===id);const ext=(f.name.split('.').pop()||'pdf').toLowerCase();const path=`${c.company_id}/${id}/${Date.now()}.${ext}`;
+  const {error}=await sb.storage.from('omc-cvs').upload(path,f,{upsert:true,contentType:f.type||undefined});
+  if(error)return toast('CV upload failed — '+error.message,true);
+  await dbUpdate('omc_candidates',id,{cv_path:path,cv_name:f.name},{local:c});if(!quiet){logAct(c,'edit','CV uploaded');toast('CV uploaded');if(S.openId===id)openCand(id)}};
+window.viewCV=async id=>{const c=S.cands.find(x=>x.id===id);const {data,error}=await sb.storage.from('omc-cvs').createSignedUrl(c.cv_path,600);if(error)return toast('Could not open CV',true);
+  if(/\.pdf$/i.test(c.cv_path)){modal(`<div style="display:flex;align-items:center;margin-bottom:12px"><h3 style="margin:0">${esc(c.name)} — CV</h3><a class="btn s ghost ml" href="${data.signedUrl}" target="_blank" rel="noopener">Open in new tab</a><button class="x" style="margin-left:8px" onclick="closeModal()">✕</button></div><iframe class="cvframe" src="${data.signedUrl}"></iframe>`);$('.modal').style.width='min(1000px,100%)'}
+  else window.open(data.signedUrl,'_blank')};
+
+/* =====================================================================
+   v2: interview time-tbc, reports, diary, compare, drag-and-drop CVs,
+   CV text reading, command palette
+   ===================================================================== */
+const DAY=864e5;
+const fIv=c=>!c.interview_at?'Date to confirm':c.interview_tbc?new Date(c.interview_at).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+' · time tbc':fdt(c.interview_at);
+const daysIn=c=>Math.floor((Date.now()-new Date(c.stage_since||c.created_at))/DAY);
+const shared=c=>c.is_spec&&!c.spec_draft;
+
+/* ---------- lazy libraries for reading CVs ---------- */
+const libs={};
+function loadScript(src){return libs[src]||(libs[src]=new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)}))}
+async function cvText(file){
+  try{
+    if(/\.pdf$/i.test(file.name)||file.type==='application/pdf'){
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+      pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;let out='';
+      for(let p=1;p<=Math.min(pdf.numPages,3);p++){const pg=await pdf.getPage(p);const tc=await pg.getTextContent();
+        let last=null;for(const it of tc.items){if(last!==null&&Math.abs(it.transform[5]-last)>2)out+='\n';else if(last!==null)out+=' ';out+=it.str;last=it.transform[5]}out+='\n'}
+      return out}
+    if(/\.docx$/i.test(file.name)){await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
+      const r=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});return r.value}
+  }catch(e){console.warn('cv read',e)}
+  return ''}
+function parseCV(text,fileName){
+  const lines=text.split('\n').map(l=>l.replace(/\s+/g,' ').trim()).filter(Boolean).filter(l=>!/syntechrecruitment|01276 405 870/i.test(l));
+  const tc=s=>s.toLowerCase().replace(/\b[a-z]/g,m=>m.toUpperCase());
+  const looksName=l=>/^[A-Za-zÀ-ÿ'’\-]+( [A-Za-zÀ-ÿ'’\-]+){1,3}$/.test(l)&&l.length<40&&!/curriculum|resume|profile|cv\b/i.test(l);
+  let name='',i=lines.findIndex(looksName);
+  if(i>-1&&i<6)name=lines[i]===lines[i].toUpperCase()?tc(lines[i]):lines[i];
+  if(!name){const g=fileName.replace(/\.(pdf|docx?)$/i,'').replace(/^[0-9a-f]{8}-/,'').replace(/[_\-.]+/g,' ').replace(/\b(cv|resume|curriculum vitae|updated|final|syntech|recruitment|\d{1,4})\b/gi,'').replace(/\s+/g,' ').trim();if(g&&g.split(' ').length<=4)name=tc(g)}
+  let title='';const after=i>-1?lines.slice(i+1,i+4):lines.slice(0,3);
+  for(const l of after){if(l.length<110&&!/@|\d{5,}|location|address|notice|right to work|british|citizen|visa/i.test(l)){title=l.split('|')[0].trim();break}}
+  const grab=re=>{const m=text.match(re);return m?m[1].split('|')[0].replace(/\s+/g,' ').trim().slice(0,80):''};
+  const location=grab(/(?:Location|Address|Based)\s*:?\s*([^\n]+)/i);
+  const notice=grab(/Notice(?: period)?\s*:?\s*([^\n]+)/i);
+  const salary=grab(/(?:Salary(?: expectation)?|Target salary|Current salary)\s*:?\s*([^\n]+)/i);
+  const contact=/[\w.+-]+@[\w-]+\.[\w.]+/.test(text.replace(/\S*syntechrecruitment\S*/gi,''))||/(\+44\s?7\d{3}|\b07\d{3})\s?\d{3}\s?\d{3}/.test(text.replace(/01276 405 870/g,''))||/linkedin\.com\/in\//i.test(text);
+  return{name,title,location,notice,salary,contact}}
+
+/* ---------- drop zones ---------- */
+function dropify(el,onFiles,{multiple=true}={}){
+  if(!el)return;const inp=document.createElement('input');inp.type='file';inp.accept='.pdf,.doc,.docx';inp.multiple=multiple;inp.className='hidden';el.appendChild(inp);
+  el.addEventListener('click',e=>{if(e.target!==inp)inp.click()});inp.onchange=()=>{if(inp.files.length)onFiles([...inp.files]);inp.value=''};
+  ['dragenter','dragover'].forEach(t=>el.addEventListener(t,e=>{e.preventDefault();e.stopPropagation();el.classList.add('on')}));
+  ['dragleave','drop'].forEach(t=>el.addEventListener(t,e=>{e.preventDefault();e.stopPropagation();el.classList.remove('on')}));
+  el.addEventListener('drop',e=>{const fs=[...e.dataTransfer.files].filter(f=>/\.(pdf|docx?)$/i.test(f.name));if(!fs.length)return toast('Drop PDF or Word files',true);onFiles(multiple?fs:[fs[0]])})}
+// stop the browser opening files dropped outside a zone
+['dragover','drop'].forEach(t=>window.addEventListener(t,e=>{if(!e.target.closest?.('.drop,.dropmini'))e.preventDefault()}));
+
+/* ---------- Spec CVs (v2) ---------- */
+S.proc=[];
+function vSpec(v){
+  const all=C().filter(c=>c.is_spec);
+  const drafts=all.filter(c=>c.spec_draft);
+  const open=all.filter(c=>shared(c)&&!c.spec_reaction);
+  const done=all.filter(c=>shared(c)&&c.spec_reaction);
+  const head=c=>esc(c.current_title||c.name);
+  v.innerHTML=`
+  ${isSyn()&&S.co!=='all'?`<div class="drop noprint" id="specDrop"><div class="ico">${svg('spec')}</div><b>Drop CVs here to create spec CVs</b><span>PDF or Word, as many as you like. Each one is read automatically and saved as a draft. OMC only sees it once you share it.</span></div>
+   ${S.proc.length?`<div class="card" style="margin-top:12px;padding:6px 18px">${S.proc.map(p=>`<div class="proc">${p.done?(p.err?'⚠️':'✓'):'<span class="spin"></span>'}<b>${esc(p.name)}</b><span style="color:var(--mut)">${esc(p.msg||'Reading CV…')}</span></div>`).join('')}</div>`:''}`:''}
+  ${isSyn()&&drafts.length?`<div class="card sec"><div class="secH"><div class="cnt" style="background:#b45309">${drafts.length}</div><div><h3>Drafts — only Syntech can see these</h3><p>Check the headline and summary, then share. The headline is what the client sees first.</p></div></div>
+    ${drafts.map(c=>`<div class="draft" data-id="${c.id}">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="flex:1;min-width:180px"><b>${esc(c.name)}</b><div style="font-size:12.5px;color:var(--mut)">${esc(c.cv_name||'No CV')} · added ${ago(c.created_at)}</div></div>
+        ${c.cv_path?`<button class="btn s ghost" onclick="viewCV('${c.id}')">View CV</button>`:''}<button class="btn s ghost" onclick="openEdit('${c.id}')">All details</button><button class="btn s ghost" onclick="delCand('${c.id}')">Delete</button><button class="btn s g" onclick="shareSpec('${c.id}')">Share with client →</button></div>
+      ${c.interview_notes&&/contact details/i.test(c.interview_notes)?`<div style="margin-top:10px"><span class="flag">⚠ The CV appears to include personal contact details. Check it before sharing.</span></div>`:''}
+      <div class="fr"><div class="f"><label>Headline the client sees</label><input data-k="current_title" value="${esc(c.current_title||'')}" placeholder="e.g. Coded TIG welder, stainless pipe, 10 yrs"></div><div class="f"><label>Location</label><input data-k="location" value="${esc(c.location||'')}"></div></div>
+      <div class="fr"><div class="f"><label>Notice</label><input data-k="notice" value="${esc(c.notice||'')}"></div><div class="f"><label>Salary expectation</label><input data-k="salary_expectation" value="${esc(c.salary_expectation||'')}"></div></div>
+      <div class="f" style="margin:0"><label>Syntech summary</label><textarea data-k="summary" placeholder="Why this person is worth a look">${esc(c.summary||'')}</textarea></div>
+    </div>`).join('')}<div style="height:8px"></div></div>`:''}
+  <div class="card sec"><div class="secH"><div class="cnt">${open.length}</div><div><h3>${isSyn()?'Shared — awaiting a response':'Speculative CVs from Syntech'}</h3><p>${isSyn()?'The client sees these and can mark Interested or Not now.':'Strong people we\'ve found who aren\'t tied to a live role. Interested? We\'ll take it from there.'}</p></div>${isSyn()&&S.co!=='all'?'<button class="btn ghost s ml" onclick="openAdd(true)">＋ Add manually</button>':''}</div>
+  ${open.map(c=>`<div class="qrow"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0;flex:1;cursor:pointer" onclick="openCand('${c.id}')"><b>${head(c)}</b><span>${esc(c.location||'')}${c.summary?' · '+esc(c.summary.slice(0,150))+(c.summary.length>150?'…':''):''}</span></div>
+    ${c.cv_path?`<button class="btn s ghost" onclick="viewCV('${c.id}')">CV</button>`:''}${isSyn()?`<span class="pill">Shared ${ago(c.spec_shared_at||c.created_at)}</span>`:`<button class="btn s g" onclick="specReact('${c.id}','interested')">Interested</button><button class="btn s ghost" onclick="specReact('${c.id}','not_now')">Not now</button>`}</div>`).join('')||`<div class="empty">${isSyn()?'Nothing shared and waiting.':'No spec CVs waiting.'}</div>`}
+  ${done.length?`<div class="secH" style="padding-top:8px"><div><h3 style="font-size:15px">Responded</h3></div></div>${done.map(c=>`<div class="qrow" style="opacity:.85"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0;flex:1"><b>${head(c)}</b><span>${esc(c.spec_reacted_by||'')} · ${ago(c.spec_reacted_at)}</span></div><span class="pill ${c.spec_reaction==='interested'?'g':''}">${c.spec_reaction==='interested'?'Interested':'Not now'}</span>${isSyn()&&c.spec_reaction==='interested'?`<button class="btn s" onclick="openPromote('${c.id}')">Move to a role</button>`:''}</div>`).join('')}`:''}<div style="height:14px"></div></div>`;
+  dropify($('#specDrop'),files=>specImport(files));
+  v.querySelectorAll('.draft [data-k]').forEach(inp=>inp.addEventListener('change',async()=>{const id=inp.closest('.draft').dataset.id;const c=S.cands.find(x=>x.id===id);
+    const ok=await dbUpdate('omc_candidates',id,{[inp.dataset.k]:inp.value.trim()||null},{local:c});if(ok)toast('Saved')}));
+}
+async function specImport(files){
+  for(const f of files){const p={name:f.name,msg:'Reading CV…'};S.proc.push(p);render();
+    try{
+      const parsed=parseCV(await cvText(f),f.name);
+      const d=await dbInsert('omc_candidates',{company_id:S.co,is_spec:true,spec_draft:true,stage:'submitted',name:parsed.name||'New candidate',current_title:parsed.title||null,location:parsed.location||null,notice:parsed.notice||null,salary_expectation:parsed.salary||null,
+        interview_notes:parsed.contact?'Imported CV appears to include personal contact details':null,added_by:S.me.full_name});
+      if(!d)throw new Error('save failed');
+      if(!S.cands.find(x=>x.id===d.id))S.cands.unshift(d);
+      p.msg='Uploading…';render();await uploadCV(d.id,f,true);
+      p.done=true;p.name=d.name;p.msg=parsed.contact?'Draft ready — CV includes contact details, check before sharing':'Draft ready';
+    }catch(e){p.done=true;p.err=true;p.msg='Could not import — '+e.message}
+    render()}
+  setTimeout(()=>{S.proc=S.proc.filter(p=>!p.done);if(S.view==='spec')render()},6000)}
+window.shareSpec=async id=>{const c=S.cands.find(x=>x.id===id);
+  if(!c.current_title&&!c.summary)return toast('Add a headline or summary first',true);
+  const ok=await dbUpdate('omc_candidates',id,{spec_draft:false,spec_shared_at:new Date().toISOString(),interview_notes:null},{local:c});
+  if(ok){logAct(c,'spec','Spec CV shared with client');toast('Shared with '+coName(c.company_id))}};
+window.delCand=id=>{const c=S.cands.find(x=>x.id===id);modal(`<h3>Delete ${esc(c.name)}?</h3><p class="s">Removes the record and its CV from the portal. This can't be undone.</p><div class="mF"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn r" id="go">Delete</button></div>`);
+  $('#go').onclick=async()=>{if(c.cv_path)await sb.storage.from('omc-cvs').remove([c.cv_path]);const {error}=await sb.from('omc_candidates').delete().eq('id',id);
+    if(error)return toast('Delete failed — '+error.message,true);S.cands=S.cands.filter(x=>x.id!==id);S.openId=null;$('#mw')?.remove();toast('Deleted');render()}};
+
+/* ---------- Reports ---------- */
+S.rp={period:'all',role:''};
+function vReports(v){
+  const rp=S.rp;const since=rp.period==='all'?0:Date.now()-(+rp.period)*DAY;
+  const roles=R().filter(r=>!rp.role||r.id===rp.role);
+  const pool=live().filter(c=>(!rp.role||c.role_id===rp.role)&&new Date(c.created_at).getTime()>=since);
+  const withdrew=c=>/withdr/i.test(c.reject_reason||'');
+  const reviewed=pool.filter(c=>!['submitted','reviewing'].includes(c.stage)&&!withdrew(c));
+  const approved=pool.filter(c=>c.client_decision==='approved'||['interview_requested','interview_scheduled','feedback','offer','placed'].includes(c.stage)||(c.stage==='rejected'&&c.interview_outcome));
+  const interviewed=pool.filter(c=>['feedback','offer','placed'].includes(c.stage)||c.interview_outcome);
+  const offers=pool.filter(c=>['offer','placed'].includes(c.stage)||c.offer_made_at);
+  const placed=pool.filter(c=>c.stage==='placed');
+  const target=roles.filter(r=>r.is_open).reduce((a,r)=>a+r.target,0);
+  // time to client decision: first decision activity after creation
+  const decTimes=pool.map(c=>{const a=S.acts.filter(x=>x.candidate_id===c.id&&x.kind==='decision').sort((p,q)=>new Date(p.created_at)-new Date(q.created_at))[0];return a?(new Date(a.created_at)-new Date(c.created_at))/DAY:null}).filter(x=>x!==null&&x>=0);
+  const avgDec=decTimes.length?(decTimes.reduce((a,b)=>a+b,0)/decTimes.length):null;
+  const pct=(a,b)=>b?Math.round(a/b*100)+'%':'—';const conv=(a,b,of)=>b?Math.round(a/b*100)+'% of '+of:'none yet';
+  const funnel=[['CVs submitted','to OMC',pool.length],['Approved for interview',conv(approved.length,pool.length,'submitted'),approved.length],['Interviewed',conv(interviewed.length,approved.length,'approved'),interviewed.length],['Offer made',conv(offers.length,interviewed.length,'interviewed'),offers.length],['Placed',conv(placed.length,offers.length,'offers'),placed.length]];
+  const fmax=Math.max(1,...funnel.map(f=>f[2]));
+  const reasons={};pool.filter(c=>c.stage==='rejected').forEach(c=>{const k=c.reject_reason||'No reason given';reasons[k]=(reasons[k]||0)+1});
+  const rlist=Object.entries(reasons).sort((a,b)=>b[1]-a[1]);const rmax=Math.max(1,...rlist.map(r=>r[1]));
+  // weekly CVs submitted, last 8 weeks (Mon-start)
+  const wk=d=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x.getTime()};
+  const now0=wk(Date.now());const weeks=[...Array(8)].map((_,i)=>now0-(7-i)*7*DAY);
+  const wsub=weeks.map(w=>live().filter(c=>(!rp.role||c.role_id===rp.role)&&wk(c.created_at)===w).length);
+  const wdec=weeks.map(w=>S.acts.filter(a=>a.kind==='decision'&&inScope(a)&&(!rp.role||S.cands.find(c=>c.id===a.candidate_id)?.role_id===rp.role)&&wk(a.created_at)===w).length);
+  const stalled=live().filter(c=>!rp.role||c.role_id===rp.role).map(c=>{const d=daysIn(c);
+     if(['submitted','reviewing'].includes(c.stage)&&d>=3)return[c,d,'Waiting for client review'];
+     if(c.stage==='interview_requested'&&d>=4)return[c,d,'Approved — no interview date yet'];
+     if(c.stage==='feedback'&&d>=4)return[c,d,c.interview_outcome?'Interviewed — awaiting a decision':'Interview done — outcome not recorded'];
+     if(c.stage==='offer'&&d>=5)return[c,d,'Offer out — no answer yet'];return null}).filter(Boolean).sort((a,b)=>b[1]-a[1]);
+  const byRole=roles.map(r=>{const cs=pool.filter(c=>c.role_id===r.id);const n=s=>cs.filter(c=>s.includes(c.stage)).length;
+    return{r,sub:cs.length,rev:n(['submitted','reviewing']),int:n(['interview_requested','interview_scheduled']),fb:n(['feedback']),off:n(['offer']),pl:n(['placed']),out:n(['rejected'])}});
+  v.innerHTML=`<div class="bar2 noprint">
+     <div class="seg" id="rpP">${[['all','All time'],['90','90 days'],['30','30 days'],['7','7 days']].map(([k,l])=>`<button data-p="${k}" class="${rp.period===k?'on':''}">${l}</button>`).join('')}</div>
+     <select id="rpR">${roleOpts(true)}</select>
+     <button class="btn ghost s ml" onclick="exportCSV()">⬇ Export CSV</button><button class="btn s" onclick="window.print()">Print / save PDF</button></div>
+   <div class="rgrid">
+     ${kpi('CVs submitted',pool.length,rp.period==='all'?'all time':'last '+rp.period+' days')}
+     ${kpi('Client reviewed',reviewed.length,avgDec!==null?'avg '+(avgDec<1?'under a day':avgDec.toFixed(1)+' days')+' to decide':'no decisions yet')}
+     ${kpi('Interview rate',pct(approved.length,reviewed.length||0),approved.length+' approved')}
+     ${kpi('Interviewed',interviewed.length,pool.filter(c=>c.stage==='interview_scheduled').length+' booked now')}
+     ${kpi('Offers',offers.length,pct(offers.length,interviewed.length)+' of interviews')}
+     ${kpi('Placed',placed.length,'of '+target+' heads')}
+   </div>
+   <div class="grid2 sec">
+     <div class="card"><div class="secH"><div><h3>Hiring funnel</h3><p>How CVs convert, stage to stage</p></div></div>
+       <div class="fun">${funnel.map(f=>`<div class="funr"><div class="lab">${f[0]}<small>${f[1]}</small></div><div class="track"><i style="width:${f[2]/fmax*100}%" data-tip="${esc(f[0])}: ${f[2]}"></i></div><div class="num">${f[2]}</div></div>`).join('')}</div></div>
+     <div class="card"><div class="secH"><div><h3>CVs submitted per week</h3><p>Last 8 weeks · hover for numbers</p></div></div>${colChart(weeks,wsub,'CVs submitted')}
+       <div class="secH" style="padding-top:0"><div><h3 style="font-size:15px">Client decisions per week</h3></div></div>${colChart(weeks,wdec,'Client decisions')}</div>
+   </div>
+   <div class="card sec"><div class="secH"><div><h3>By role</h3><p>Where every vacancy stands</p></div></div>
+     <div class="tblw"><table class="rtbl"><thead><tr><th>Role</th><th>Heads</th><th>Submitted</th><th>Awaiting review</th><th>Interviewing</th><th>Feedback</th><th>Offer</th><th>Placed</th><th>Passed / withdrawn</th><th>Filled</th></tr></thead><tbody>
+     ${byRole.map(x=>`<tr><td><b>${esc(x.r.title)}</b>${S.co==='all'?`<div style="font-size:12px;color:var(--mut)">${esc(coName(x.r.company_id))}</div>`:''}</td><td>${x.r.target}</td><td>${x.sub}</td><td>${x.rev}</td><td>${x.int}</td><td>${x.fb}</td><td>${x.off}</td><td>${x.pl}</td><td>${x.out}</td><td><b>${pct(x.pl,x.r.target)}</b></td></tr>`).join('')}
+     <tr style="background:#f8fafc"><td><b>Total</b></td>${['r.target','sub','rev','int','fb','off','pl','out'].map(k=>`<td><b>${byRole.reduce((a,x)=>a+(k==='r.target'?x.r.target:x[k]),0)}</b></td>`).join('')}<td><b>${pct(byRole.reduce((a,x)=>a+x.pl,0),byRole.reduce((a,x)=>a+x.r.target,0))}</b></td></tr>
+     </tbody></table></div></div>
+   <div class="grid2 sec">
+     <div class="card"><div class="secH"><div><h3>Needs attention</h3><p>Candidates sitting still for too long</p></div></div>
+       ${stalled.length?stalled.slice(0,12).map(([c,d,why])=>`<div class="att" onclick="openCand('${c.id}')"><div class="av" style="background:${avc(c.name)};width:32px;height:32px;font-size:12px;border-radius:9px">${ini(c.name)}</div><div style="min-width:0"><b>${esc(c.name)}</b><div style="font-size:12.5px;color:var(--mut)">${why} · ${esc(role(c.role_id)?.title||'')}</div></div><span class="days">${d} days</span></div>`).join(''):'<div class="empty">Nothing stuck. Every candidate has moved recently.</div>'}<div style="height:8px"></div></div>
+     <div class="card"><div class="secH"><div><h3>Why candidates didn't progress</h3><p>Pass and withdrawal reasons</p></div></div>
+       ${rlist.length?rlist.map(([k,n])=>`<div class="hbar"><span>${esc(k)}</span><div class="track"><i style="width:${n/rmax*100}%" data-tip="${esc(k)}: ${n}"></i></div><b>${n}</b></div>`).join('')+'<div style="height:14px"></div>':'<div class="empty">No passes or withdrawals yet.</div>'}</div>
+   </div>`;
+  v.querySelectorAll('#rpP button').forEach(b=>b.onclick=()=>{S.rp.period=b.dataset.p;render()});
+  const rs=$('#rpR');rs.value=rp.role;rs.onchange=()=>{S.rp.role=rs.value;render()};
+  bindTips(v);
+}
+const kpi=(k,v,x)=>`<div class="card kpi"><div class="k">${k}</div><div class="v">${v}</div><div class="tx">${x}</div></div>`;
+function colChart(weeks,vals,label){
+  const W=560,H=170,pad=26,max=Math.max(4,...vals),bw=(W-pad)/vals.length;const nice=Math.ceil(max/2)*2;
+  const y=v=>H-(v/nice)*(H-20);
+  const grid=[0,nice/2,nice].map(t=>`<line class="gl" x1="${pad}" x2="${W}" y1="${y(t)}" y2="${y(t)}"/><text x="${pad-6}" y="${y(t)+4}" text-anchor="end">${t}</text>`).join('');
+  const bars=vals.map((v,i)=>{const x=pad+i*bw+bw*.28,w=bw*.44,h=Math.max(v?3:0,H-y(v));const wl=new Date(weeks[i]).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    return`<rect class="bx" x="${x}" y="${H-h}" width="${w}" height="${h}" rx="4" data-tip="${label}, week of ${wl}: ${v}"/><rect x="${pad+i*bw}" y="0" width="${bw}" height="${H}" fill="transparent" data-tip="${label}, week of ${wl}: ${v}"/><text x="${x+w/2}" y="${H+16}" text-anchor="middle">${wl}</text>`}).join('');
+  return`<div class="colchart"><svg viewBox="0 0 ${W} ${H+22}" role="img" aria-label="${label} per week">${grid}${bars}</svg></div>`}
+function bindTips(root){let t=null;
+  root.querySelectorAll('[data-tip]').forEach(el=>{el.addEventListener('mousemove',e=>{if(!t){t=document.createElement('div');t.className='tip';document.body.appendChild(t)}t.textContent=el.dataset.tip;t.style.left=(e.clientX+12)+'px';t.style.top=(e.clientY-34)+'px'});
+    el.addEventListener('mouseleave',()=>{t?.remove();t=null})})}
+window.exportCSV=()=>{const rows=[['Name','Site','Role','Stage','Current title','Current employer','Location','Notice','Salary expectation','Right to work','Client decision','Interview','Interview outcome','Pass / withdrawal reason','Added','Days in stage']];
+  live().filter(c=>!S.rp.role||c.role_id===S.rp.role).forEach(c=>rows.push([c.name,coName(c.company_id),role(c.role_id)?.title||'',STAGE[c.stage]?.label||c.stage,c.current_title||'',c.current_employer||'',c.location||'',c.notice||'',c.salary_expectation||'',c.right_to_work||'',c.client_decision||'',c.interview_at?fIv(c):'',c.interview_outcome||'',c.reject_reason||'',fd(c.created_at),daysIn(c)]));
+  const csv=rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'}));a.download=(S.co==='all'?'omc-all-sites':S.co)+'-candidates-'+new Date().toISOString().slice(0,10)+'.csv';a.click()};
+
+/* ---------- Diary ---------- */
+S.cal=null;
+function vDiary(v){
+  const today=new Date();const base=S.cal?new Date(S.cal):new Date(today.getFullYear(),today.getMonth(),1);
+  const y=base.getFullYear(),m=base.getMonth();const first=new Date(y,m,1);const start=new Date(y,m,1-((first.getDay()+6)%7));
+  const ints=live().filter(c=>c.interview_at&&['interview_scheduled','feedback','offer','placed'].includes(c.stage)||c.stage==='interview_scheduled'&&c.interview_at);
+  const key=d=>d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
+  const byDay={};ints.forEach(c=>{const k=key(new Date(c.interview_at));(byDay[k]=byDay[k]||[]).push(c)});
+  const cells=[...Array(42)].map((_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);const evs=(byDay[key(d)]||[]).sort((a,b)=>new Date(a.interview_at)-new Date(b.interview_at));
+    return`<div class="dd ${d.getMonth()!==m?'out':''} ${key(d)===key(today)?'today':''}"><div class="n">${d.getDate()}</div>${evs.map(c=>`<button class="ev" onclick="openCand('${c.id}')">${esc(c.name)}<small>${c.interview_tbc?'Time tbc':new Date(c.interview_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · ${esc((role(c.role_id)?.title||'').split('–')[0].trim())}</small></button>`).join('')}</div>`}).join('');
+  const awaiting=live().filter(c=>c.stage==='interview_requested'||(c.stage==='interview_scheduled'&&!c.interview_at));
+  const fb=live().filter(c=>c.stage==='feedback');
+  const side=(t,p,list,btn,lab)=>`<div class="card" style="margin-bottom:16px"><div class="secH" style="padding:16px 18px"><div><h3 style="font-size:15px">${t}</h3><p style="font-size:12.5px">${p}</p></div><span class="cnt ml" style="width:30px;height:30px;font-size:13px;border-radius:8px">${list.length}</span></div>
+    ${list.length?list.map(c=>`<div class="att" style="padding:9px 18px" onclick="${btn}('${c.id}')"><div style="min-width:0"><b style="font-size:13.5px">${esc(c.name)}</b><div style="font-size:12px;color:var(--mut)">${esc(role(c.role_id)?.title||'')}</div></div><span class="pill b ml">${lab}</span></div>`).join(''):'<div class="empty" style="padding:14px">All clear</div>'}<div style="height:6px"></div></div>`;
+  v.innerHTML=`<div class="diary"><div class="card"><div class="secH"><div><h3>${base.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</h3><p>All interviews at a glance · click one to open the candidate</p></div>
+      <div class="ml" style="display:flex;gap:6px"><button class="btn ghost s" id="cP">‹</button><button class="btn ghost s" id="cT">Today</button><button class="btn ghost s" id="cN">›</button></div></div>
+      <div class="cal">${['MON','TUE','WED','THU','FRI','SAT','SUN'].map(d=>`<div class="dh">${d}</div>`).join('')}${cells}</div></div>
+    <div>${side('Awaiting a date','Approved for interview, not yet booked',awaiting,'iBook','Book')}${side('Feedback needed','Interview done, outcome to record',fb,'iOutcome','Record')}</div></div>`;
+  $('#cP').onclick=()=>{S.cal=new Date(y,m-1,1);render()};$('#cN').onclick=()=>{S.cal=new Date(y,m+1,1);render()};$('#cT').onclick=()=>{S.cal=null;render()};
+}
+
+/* ---------- Compare shortlist ---------- */
+function vCompare(v){
+  const eligible=R().filter(r=>live().some(c=>c.role_id===r.id&&!['rejected','placed'].includes(c.stage)));
+  if(!S.cmpRole||!eligible.find(r=>r.id===S.cmpRole))S.cmpRole=(eligible.find(r=>live().filter(c=>c.role_id===r.id&&c.stage==='feedback').length>=2)||eligible[0])?.id;
+  const stagesIn=S.cmpAll?['submitted','reviewing','interview_requested','interview_scheduled','feedback','offer']:['interview_requested','interview_scheduled','feedback','offer'];
+  const list=live().filter(c=>c.role_id===S.cmpRole&&stagesIn.includes(c.stage)).sort((a,b)=>STAGES.findIndex(s=>s[0]===b.stage)-STAGES.findIndex(s=>s[0]===a.stage));
+  const r=role(S.cmpRole);
+  v.innerHTML=`<div class="bar2 noprint"><select id="cmR">${eligible.map(x=>`<option value="${x.id}">${esc(x.title)}${S.co==='all'?' — '+esc(coName(x.company_id)):''}</option>`).join('')}</select>
+    <label style="display:flex;gap:8px;align-items:center;font-size:13.5px;font-weight:600"><input type="checkbox" id="cmA" ${S.cmpAll?'checked':''}> Include candidates still at review</label>
+    <span style="color:var(--mut);font-size:13px" class="ml">${list.length} side by side${r?' · '+esc(r.location||''):''}</span><button class="btn s" onclick="window.print()">Print</button></div>
+  ${list.length?`<div class="cmp">${list.map(c=>`<div class="cc">
+     <div style="display:flex;gap:12px;align-items:center"><div class="av" style="background:${avc(c.name)}">${ini(c.name)}</div><div style="min-width:0"><h4>${esc(c.name)}</h4><div class="sub">${esc(c.current_title||'')}</div></div></div>
+     <div>${stagePill(c.stage)}</div>
+     ${c.interview_outcome?`<div class="note">${esc(c.interview_outcome)}</div>`:''}
+     <dl><dt>Employer</dt><dd>${esc(c.current_employer||'—')}</dd><dt>Location</dt><dd>${esc(c.location||'—')}</dd><dt>Notice</dt><dd>${esc(c.notice||'—')}</dd><dt>Salary</dt><dd>${esc(c.salary_expectation||'—')}</dd><dt>Right to work</dt><dd>${esc(c.right_to_work||'—')}</dd>${c.interview_at?`<dt>Interview</dt><dd>${fIv(c)}</dd>`:''}</dl>
+     ${(c.skills||[]).length?`<div style="display:flex;gap:5px;flex-wrap:wrap">${c.skills.map(s=>`<span class="pill b">${esc(s)}</span>`).join('')}</div>`:''}
+     ${c.summary?`<div class="sum">${esc(c.summary)}</div>`:''}
+     <div class="acts noprint" style="margin-top:auto">${c.cv_path?`<button class="btn s ghost" onclick="viewCV('${c.id}')">CV</button>`:''}<button class="btn s" onclick="openCand('${c.id}')">Open →</button></div>
+   </div>`).join('')}</div>`:`<div class="card"><div class="empty">No candidates at interview stage for this role yet${S.cmpAll?'':' — tick “Include candidates still at review” to see everyone'}.</div></div>`}`;
+  const s=$('#cmR');if(s){s.value=S.cmpRole||'';s.onchange=()=>{S.cmpRole=s.value;render()}}
+  $('#cmA').onchange=e=>{S.cmpAll=e.target.checked;render()};
+}
+
+/* ---------- Command palette ---------- */
+function openCmdk(){if($('#cmdk'))return;const w=document.createElement('div');w.className='cmdk';w.id='cmdk';
+  w.innerHTML=`<div class="box2"><input id="ckq" placeholder="Search candidates, roles or pages…" autocomplete="off"><div class="res" id="ckr"></div></div>`;document.body.appendChild(w);
+  w.addEventListener('mousedown',e=>{if(e.target===w)w.remove()});let sel=0,items=[];
+  const pages=Object.entries(TITLES).filter(([k])=>k!=='settings'||isAdmin());
+  const draw=()=>{const q=$('#ckq').value.trim().toLowerCase();
+    const cs=C().filter(c=>isSyn()||!c.spec_draft).filter(c=>!q||[c.name,c.current_title,c.current_employer,role(c.role_id)?.title,c.location].join(' ').toLowerCase().includes(q)).slice(0,8);
+    const rs=R().filter(r=>!q||r.title.toLowerCase().includes(q)).slice(0,4);const ps=pages.filter(([k,l])=>!q||l.toLowerCase().includes(q)).slice(0,5);
+    items=[...cs.map(c=>({g:'Candidates',h:`<div class="av" style="background:${avc(c.name)};width:30px;height:30px;font-size:11px;border-radius:8px">${ini(c.name)}</div><div><b>${esc(c.name)}</b><small>${esc(role(c.role_id)?.title||(c.is_spec?'Spec CV':''))} · ${c.is_spec?'Spec CV':STAGE[c.stage]?.label}</small></div>`,run:()=>openCand(c.id)})),
+      ...rs.map(r=>({g:'Roles',h:`<div class="av" style="background:#334155;width:30px;height:30px;border-radius:8px">${svg('vacancies')}</div><div><b>${esc(r.title)}</b><small>${esc(r.location||'')} · ${live().filter(c=>c.role_id===r.id&&!['rejected'].includes(c.stage)).length} active</small></div>`,run:()=>{S.f={role:r.id};go('candidates')}})),
+      ...ps.map(([k,l])=>({g:'Go to',h:`<div class="av" style="background:#e2e8f0;color:#334155;width:30px;height:30px;border-radius:8px">${svg(IC[k]?k:'overview')}</div><div><b>${l}</b></div>`,run:()=>go(k)}))];
+    sel=Math.min(sel,Math.max(0,items.length-1));let g='';
+    $('#ckr').innerHTML=items.map((it,i)=>(it.g!==g?`<div class="grp">${(g=it.g).toUpperCase()}</div>`:'')+`<div class="it ${i===sel?'sel':''}" data-i="${i}">${it.h}</div>`).join('')||'<div class="empty">No matches</div>'};
+  const inp=$('#ckq');inp.focus();inp.oninput=()=>{sel=0;draw()};draw();
+  inp.onkeydown=e=>{if(e.key==='ArrowDown'){sel=Math.min(items.length-1,sel+1);draw();e.preventDefault()}else if(e.key==='ArrowUp'){sel=Math.max(0,sel-1);draw();e.preventDefault()}else if(e.key==='Enter'&&items[sel]){w.remove();items[sel].run()}else if(e.key==='Escape')w.remove()};
+  $('#ckr').onclick=e=>{const it=e.target.closest('[data-i]');if(it){w.remove();items[+it.dataset.i].run()}}}
+window.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'&&S.me){e.preventDefault();openCmdk()}});
+
+/* ---------- Drawer CV tab ---------- */
+window.drawerTab=async(id,tab)=>{S.dTab=tab;openCand(id)};
+async function fillInlineCV(c){const box=$('#cvInline');if(!box)return;
+  if(!c.cv_path){box.innerHTML=`<div class="empty">No CV uploaded.</div>`;return}
+  const {data,error}=await sb.storage.from('omc-cvs').createSignedUrl(c.cv_path,900);if(error){box.innerHTML='<div class="empty">Could not load the CV.</div>';return}
+  box.innerHTML=/\.pdf$/i.test(c.cv_path)?`<iframe class="cvinline" src="${data.signedUrl}#view=FitH"></iframe><div style="margin-top:10px"><a class="btn s ghost" href="${data.signedUrl}" target="_blank" rel="noopener">Open in new tab</a></div>`:`<div class="empty">This CV is a Word document. <a href="${data.signedUrl}" target="_blank" rel="noopener">Download it</a>.</div>`}
+
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#cmdk'))$('#cmdk').remove();else if($('#mw'))closeModal();else if($('#dr'))closeDrawer()}});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&h!==S.view&&S.me){S.view=h;render()}});
+boot();
+</script>
+</body>
+</html>
